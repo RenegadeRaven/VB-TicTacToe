@@ -1,0 +1,61 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+TicTacToe
+</name>
+</assembly>
+<members>
+<member name="T:TicTacToe.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.Cheat_Code">
+<summary>
+  Looks up a localized string similar to B5CS2017.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.DL">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.O">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.TicTacToe_Code">
+<summary>
+  Looks up a localized string similar to Public Class Form1
+    Dim TurnC As Integer &apos;La count des tours
+    Dim Turn As Integer &apos;A qui la tour
+    Dim P1 As Integer &apos;La valeur du top-left carree
+    Dim P2 As Integer &apos;La valeur du top-mid carree
+    Dim P3 As Integer &apos;La valeur du top-right carree
+    Dim P4 As Integer &apos;La valeur du gauche-centre carree
+    Dim P5 As Integer &apos;La valeur du centre carree
+    Dim P6 As Integer &apos;La valeur du droite-centre carree
+    Dim P7 As Integer &apos;La valeur du bottom-left carree
+    Dim P8 As Integer &apos;L [rest of string was truncated]&quot;;.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.X">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+</members>
+</doc>

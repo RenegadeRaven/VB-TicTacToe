@@ -1,0 +1,10 @@
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.vbprojResolveAssemblyReference.cache
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.Form1.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.Resources.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.Form1.fr-CA.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.vbproj.GenerateResource.Cache
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.vbproj.CoreCompileInputs.cache
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\fr-CA\TicTacToe.resources.dll
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.exe
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.xml
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\Kochen_TicTacToe - Version 12\TicTacToe\obj\Release\TicTacToe.pdb
