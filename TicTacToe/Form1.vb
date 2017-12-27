@@ -17,6 +17,7 @@
     Dim ORD As Integer 'un switch pour si l'ordinateur joue
     Dim ordCho As Integer 'un switch pour ORD
     Dim ordPlay As Integer 'la variable de la choix de l'ordinateur
+    Dim ordToPlay As Integer = 0 'la variable de la choix prochain de l'ordinateur
     Dim ordTurn As Integer = 1 'un switch pour Si c'est la tour de l'ordinateur
     Dim Pick As Integer
     Dim Player As Integer
@@ -596,7 +597,11 @@
             GoTo 2
 
         Else
-            If ((P1 = Computer) And (P1 = P3) And (P9 = 0)) Then
+            If (ordToPlay <> 0) Then
+                ordPlay = ordToPlay
+                ordToPlay = 0
+                GoTo 2
+            ElseIf ((P1 = Computer) And (P1 = P3) And (P9 = 0)) Then
                 ordPlay = 9
                 GoTo 2
             ElseIf ((P1 = Computer) And (P1 = P3) And (P7 = 0)) Then
@@ -644,11 +649,51 @@
             ElseIf (P9 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P7 = P8 = P1) Then
                 ordPlay = 5
                 GoTo 2
+            ElseIf (P2 = Player) And (P3 = 0) Then
+                ordPlay = 3
+                ordToPlay = 5
+                GoTo 2
+            ElseIf (P6 = Player) And (P9 = 0) Then
+                ordPlay = 9
+                ordToPlay = 5
+                GoTo 2
+            ElseIf (P8 = Player) And (P7 = 0) Then
+                ordPlay = 7
+                ordToPlay = 5
+                GoTo 2
+            ElseIf (P4 = Player) And (P1 = 0) Then
+                ordPlay = 1
+                ordToPlay = 5
+                GoTo 2
             ElseIf ((P1 = Player) And (P1 = P9) And (P5 = Computer)) Then
                 ordPlay = 8
                 GoTo 2
             ElseIf ((P3 = Player) And (P3 = P7) And (P5 = Computer)) Then
                 ordPlay = 2
+                GoTo 2
+            ElseIf (P2 = Player) And (P2 = P4) And (P1 = 0) Then
+                ordPlay = 1
+                GoTo 2
+            ElseIf (P2 = Player) And (P2 = P6) And (P3 = 0) Then
+                ordPlay = 3
+                GoTo 2
+            ElseIf (P4 = Player) And (P4 = P8) And (P7 = 0) Then
+                ordPlay = 7
+                GoTo 2
+            ElseIf (P6 = Player) And (P6 = P8) And (P9 = 0) Then
+                ordPlay = 9
+                GoTo 2
+            ElseIf (P2 = Player) And (P2 = P4) And (P5 = 0) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P2 = Player) And (P2 = P6) And (P5 = 0) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P4 = Player) And (P4 = P8) And (P5 = 0) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P6 = Player) And (P6 = P8) And (P5 = 0) Then
+                ordPlay = 5
                 GoTo 2
             Else
 3:
