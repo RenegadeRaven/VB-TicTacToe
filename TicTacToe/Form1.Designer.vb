@@ -51,13 +51,6 @@ Partial Class Form1
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.TA = New System.Windows.Forms.PictureBox()
-        Me.MA = New System.Windows.Forms.PictureBox()
-        Me.BA = New System.Windows.Forms.PictureBox()
-        Me.LD = New System.Windows.Forms.PictureBox()
-        Me.MD = New System.Windows.Forms.PictureBox()
-        Me.RD = New System.Windows.Forms.PictureBox()
-        Me.DL = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,13 +66,6 @@ Partial Class Form1
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.TA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.LD, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MD, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RD, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DL, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PictureBox13
@@ -265,67 +251,10 @@ Partial Class Form1
         Me.RadioButton4.TabStop = True
         Me.RadioButton4.UseVisualStyleBackColor = True
         '
-        'TA
-        '
-        Me.TA.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.TA, "TA")
-        Me.TA.Name = "TA"
-        Me.TA.TabStop = False
-        '
-        'MA
-        '
-        Me.MA.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.MA, "MA")
-        Me.MA.Name = "MA"
-        Me.MA.TabStop = False
-        '
-        'BA
-        '
-        Me.BA.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.BA, "BA")
-        Me.BA.Name = "BA"
-        Me.BA.TabStop = False
-        '
-        'LD
-        '
-        Me.LD.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.LD, "LD")
-        Me.LD.Name = "LD"
-        Me.LD.TabStop = False
-        '
-        'MD
-        '
-        Me.MD.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.MD, "MD")
-        Me.MD.Name = "MD"
-        Me.MD.TabStop = False
-        '
-        'RD
-        '
-        Me.RD.BackColor = System.Drawing.Color.Green
-        resources.ApplyResources(Me.RD, "RD")
-        Me.RD.Name = "RD"
-        Me.RD.TabStop = False
-        '
-        'DL
-        '
-        Me.DL.BackColor = System.Drawing.Color.Transparent
-        Me.DL.BackgroundImage = Global.TicTacToe.My.Resources.Resources.DL
-        resources.ApplyResources(Me.DL, "DL")
-        Me.DL.Name = "DL"
-        Me.DL.TabStop = False
-        '
         'Form1
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.DL)
-        Me.Controls.Add(Me.RD)
-        Me.Controls.Add(Me.MD)
-        Me.Controls.Add(Me.LD)
-        Me.Controls.Add(Me.BA)
-        Me.Controls.Add(Me.MA)
-        Me.Controls.Add(Me.TA)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label6)
@@ -369,13 +298,6 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.TA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.LD, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MD, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RD, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DL, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -409,11 +331,4 @@ Partial Class Form1
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
-    Friend WithEvents TA As PictureBox
-    Friend WithEvents MA As PictureBox
-    Friend WithEvents BA As PictureBox
-    Friend WithEvents LD As PictureBox
-    Friend WithEvents MD As PictureBox
-    Friend WithEvents RD As PictureBox
-    Friend WithEvents DL As PictureBox
 End Class

@@ -43,13 +43,6 @@
         GroupBox1.Hide()
         RadioButton4.PerformClick()
         GroupBox2.Hide()
-        TA.Hide()
-        MA.Hide()
-        BA.Hide()
-        LD.Hide()
-        MD.Hide()
-        RD.Hide()
-        DL.Hide()
         Button1.Text = "Nouveau Jeu: " & games
         'Button2.Hide()
     End Sub 'La Selection de soit X ou O
@@ -639,6 +632,18 @@
             ElseIf ((P3 = Computer) And (P3 = P7) And (P9 = 0)) Then
                 ordPlay = 9
                 GoTo 2
+            ElseIf (P1 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P3 = Player) And (P2 = 0) And (P2 = P1 = P4 = P5 = P6 = P7 = P8 = P9) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P7 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P1 = P8 = P9) Then
+                ordPlay = 5
+                GoTo 2
+            ElseIf (P9 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P7 = P8 = P1) Then
+                ordPlay = 5
+                GoTo 2
             ElseIf ((P1 = Player) And (P1 = P9) And (P5 = Computer)) Then
                 ordPlay = 8
                 GoTo 2
@@ -1024,7 +1029,7 @@
         XwP = Math.Round(XwP, 2, MidpointRounding.AwayFromZero)
         OwP = Math.Round(OwP, 2, MidpointRounding.AwayFromZero)
         DrawP = Math.Round(DrawP, 2, MidpointRounding.AwayFromZero)
-    End Sub
+    End Sub 'calcul la pourcentage des victoires
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If gb2S = False Then
             GroupBox2.Show()
@@ -1033,7 +1038,7 @@
             GroupBox2.Hide()
             gb2S = False
         End If
-    End Sub
+    End Sub 'la button d'option
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
         Pointage = False
         percentWin()
@@ -1047,7 +1052,7 @@
             Label6.Text = Draw
         End If
         'GroupBox2.Hide()
-    End Sub
+    End Sub 'pointage
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
         Pointage = True
         percentWin()
@@ -1061,5 +1066,5 @@
             Label6.Text = Draw
         End If
         'GroupBox2.Hide()
-    End Sub
+    End Sub 'pourcentage
 End Class
