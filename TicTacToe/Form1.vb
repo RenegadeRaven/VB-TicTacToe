@@ -19,17 +19,18 @@
     Dim ordPlay As Integer 'la variable de la choix de l'ordinateur
     Dim ordToPlay As Integer = 0 'la variable de la choix prochain de l'ordinateur
     Dim ordTurn As Integer = 1 'un switch pour Si c'est la tour de l'ordinateur
-    Dim Pick As Integer
-    Dim Player As Integer
-    Dim Computer As Integer
-    Dim Draw As Integer = 0
-    Dim games As Integer = 0
-    Dim gamesC As Integer = 0
+    Dim Pick As Integer 'le chois d'ordis au hazard
+    Dim Player As Integer 'la pièce de joueur
+    Dim Computer As Integer 'la pièce de l'ordis
+    Dim Draw As Integer = 0 'la montant de match nuls
+    Dim games As Integer = 0 'la montant de jeu commencé
+    Dim gamesC As Integer = 0 'la montant de jeu fini
     Dim XwP As Double 'La valeur des gagnes de X en %
     Dim OwP As Double 'La valeur des gagnes de O en %
-    Dim DrawP As Double
-    Dim Pointage As Boolean
-    Dim gb2S As Boolean
+    Dim DrawP As Double 'La valeur des match nuls en %
+    Dim Pointage As Boolean 'Un switch pour quelle pointage est affiché
+    Dim gb2S As Boolean 'Un switch pour si le groupbox2 est affiché
+    Dim ErrorCount As Integer 'un counteur des errors
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("fr-CA")
@@ -284,8 +285,16 @@
     End Sub 'Choisir un nombre au hazard pour l'ordinateur
     Private Sub comp()
 1:
+        ErrorCount = ErrorCount + 1
+        If ErrorCount > 3 Then
+            GoTo 3
+        End If
         'horizontal
         'Top
+        'If (P4 = Player) And (P6 = Computer) And (P4 = P3 = P9) And (P6 = P5) And (P1 = 0) And (P1 = P2 = P7 = P8) Then
+        'ordPlay = 2
+        'GoTo 2
+        'Else
         If ((P1 = Computer) And P1 = P2 And P3 = 0) Then
             ordPlay = 3
             GoTo 2
@@ -651,19 +660,35 @@
                 GoTo 2
             ElseIf (P2 = Player) And (P3 = 0) Then
                 ordPlay = 3
-                ordToPlay = 5
+                If (P5 = 0) Then
+                    ordToPlay = 5
+                Else
+                    ordToPlay = 0
+                End If
                 GoTo 2
             ElseIf (P6 = Player) And (P9 = 0) Then
                 ordPlay = 9
-                ordToPlay = 5
+                If (P5 = 0) Then
+                    ordToPlay = 5
+                Else
+                    ordToPlay = 0
+                End If
                 GoTo 2
             ElseIf (P8 = Player) And (P7 = 0) Then
                 ordPlay = 7
-                ordToPlay = 5
+                If (P5 = 0) Then
+                    ordToPlay = 5
+                Else
+                    ordToPlay = 0
+                End If
                 GoTo 2
             ElseIf (P4 = Player) And (P1 = 0) Then
                 ordPlay = 1
-                ordToPlay = 5
+                If (P5 = 0) Then
+                    ordToPlay = 5
+                Else
+                    ordToPlay = 0
+                End If
                 GoTo 2
             ElseIf ((P1 = Player) And (P1 = P9) And (P5 = Computer)) Then
                 ordPlay = 8
@@ -722,8 +747,9 @@
             End If
         End If
 2:
+        'Debug.Print(ordPlay)
         Me.Refresh()
-        Threading.Thread.Sleep(750)
+        Threading.Thread.Sleep(675)
         If ordPlay = 1 Then
             If P1 = 0 Then
                 checkTurn()
@@ -889,6 +915,7 @@
         Else
             GoTo 1
         End If
+        ErrorCount = 0
         checkWin()
     End Sub 'Comment l'ordinateur choisir où jouer
 
