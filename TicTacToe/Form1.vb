@@ -31,6 +31,7 @@
     Dim Pointage As Boolean 'Un switch pour quelle pointage est affiché
     Dim gb2S As Boolean 'Un switch pour si le groupbox2 est affiché
     Dim ErrorCount As Integer 'un counteur des errors
+    Dim invcol As Boolean
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("fr-CA")
@@ -44,8 +45,10 @@
         End If
         GroupBox1.Hide()
         RadioButton4.PerformClick()
-        GroupBox2.Hide()
+        TabControl1.Hide()
         Button1.Text = "Nouveau Jeu: " & games
+        Me.AxWindowsMediaPlayer1.URL = My.Resources.bgmusic
+        'My.Computer.Audio.Play(My.Resources.bgmusic, AudioPlayMode.BackgroundLoop)
         'Button2.Hide()
     End Sub 'La Selection de soit X ou O
 
@@ -184,14 +187,17 @@
         If (LB = 1) Then
         ElseIf (LB = 0) Then
             If (Label1.Text = "X Gagne") Then
+                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 Xw = Xw + 1
                 LB = 1
                 gamesC = gamesC + 1
             ElseIf (Label1.Text = "O Gagne") Then
+                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 Ow = Ow + 1
                 LB = 1
                 gamesC = gamesC + 1
             ElseIf (Label1.Text = "Match Nul") Then
+                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 Draw = Draw + 1
                 LB = 1
                 gamesC = gamesC + 1
@@ -264,15 +270,16 @@
         PictureBox11.BackgroundImage = Nothing
         PictureBox12.BackgroundImage = Nothing
         PictureBox13.BackgroundImage = Nothing
-        PictureBox5.BackColor = SystemColors.Control
-        PictureBox6.BackColor = SystemColors.Control
-        PictureBox7.BackColor = SystemColors.Control
-        PictureBox8.BackColor = SystemColors.Control
-        PictureBox9.BackColor = SystemColors.Control
-        PictureBox10.BackColor = SystemColors.Control
-        PictureBox11.BackColor = SystemColors.Control
-        PictureBox12.BackColor = SystemColors.Control
-        PictureBox13.BackColor = SystemColors.Control
+        'PictureBox5.BackColor = SystemColors.Control
+        'PictureBox6.BackColor = SystemColors.Control
+        'PictureBox7.BackColor = SystemColors.Control
+        'PictureBox8.BackColor = SystemColors.Control
+        'PictureBox9.BackColor = SystemColors.Control
+        'PictureBox10.BackColor = SystemColors.Control
+        'PictureBox11.BackColor = SystemColors.Control
+        'PictureBox12.BackColor = SystemColors.Control
+        'PictureBox13.BackColor = SystemColors.Control
+        invertColor()
         Button1.Text = "Nouveau Jeu: " & games
         checkTurn()
         selPlayer()
@@ -750,6 +757,7 @@
         'Debug.Print(ordPlay)
         Me.Refresh()
         Threading.Thread.Sleep(675)
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If ordPlay = 1 Then
             If P1 = 0 Then
                 checkTurn()
@@ -920,6 +928,7 @@
     End Sub 'Comment l'ordinateur choisir où jouer
 
     Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P1 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -940,6 +949,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox5
     Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P2 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -957,6 +967,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox6
     Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P3 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -974,6 +985,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox7
     Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P4 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -992,6 +1004,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox8
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P5 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1009,6 +1022,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox9
     Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P6 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1026,6 +1040,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox10
     Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P7 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1043,6 +1058,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox11
     Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P8 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1060,6 +1076,7 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox12
     Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
+        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
         If P9 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1104,10 +1121,10 @@
     End Sub 'calcul la pourcentage des victoires
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If gb2S = False Then
-            GroupBox2.Show()
+            TabControl1.Show()
             gb2S = True
         ElseIf gb2S = True Then
-            GroupBox2.Hide()
+            TabControl1.Hide()
             gb2S = False
         End If
     End Sub 'la button d'option
@@ -1139,4 +1156,89 @@
         End If
         'GroupBox2.Hide()
     End Sub 'pourcentage
+
+    Private Sub invertColor()
+        If invcol = True Then
+            Me.BackColor = SystemColors.ControlText
+            PictureBox1.BackColor = SystemColors.Control
+            PictureBox2.BackColor = SystemColors.Control
+            PictureBox3.BackColor = SystemColors.Control
+            PictureBox4.BackColor = SystemColors.Control
+            Label1.ForeColor = SystemColors.Control
+            Label2.ForeColor = SystemColors.Control
+            Label3.ForeColor = SystemColors.Control
+            Label4.ForeColor = SystemColors.Control
+            Label5.ForeColor = SystemColors.Control
+            Label6.ForeColor = SystemColors.Control
+            Label7.ForeColor = SystemColors.Control
+            PictureBox5.BackColor = SystemColors.ControlText
+            PictureBox6.BackColor = SystemColors.ControlText
+            PictureBox7.BackColor = SystemColors.ControlText
+            PictureBox8.BackColor = SystemColors.ControlText
+            PictureBox9.BackColor = SystemColors.ControlText
+            PictureBox10.BackColor = SystemColors.ControlText
+            PictureBox11.BackColor = SystemColors.ControlText
+            PictureBox12.BackColor = SystemColors.ControlText
+            PictureBox13.BackColor = SystemColors.ControlText
+            Button1.BackColor = SystemColors.ControlText
+            Button1.ForeColor = SystemColors.Control
+            Button2.BackColor = SystemColors.ControlText
+            Button2.ForeColor = SystemColors.Control
+            TabPage1.BackColor = SystemColors.ControlText
+            TabPage2.BackColor = SystemColors.ControlText
+            RadioButton3.ForeColor = SystemColors.Control
+            RadioButton4.ForeColor = SystemColors.Control
+            CheckBox1.ForeColor = SystemColors.Control
+            CheckBox2.ForeColor = SystemColors.Control
+        ElseIf invcol = False Then
+            Me.BackColor = SystemColors.Control
+            PictureBox1.BackColor = SystemColors.ControlText
+            PictureBox2.BackColor = SystemColors.ControlText
+            PictureBox3.BackColor = SystemColors.ControlText
+            PictureBox4.BackColor = SystemColors.ControlText
+            Label1.ForeColor = SystemColors.ControlText
+            Label2.ForeColor = SystemColors.ControlText
+            Label3.ForeColor = SystemColors.ControlText
+            Label4.ForeColor = SystemColors.ControlText
+            Label5.ForeColor = SystemColors.ControlText
+            Label6.ForeColor = SystemColors.ControlText
+            Label7.ForeColor = SystemColors.ControlText
+            PictureBox5.BackColor = SystemColors.Control
+            PictureBox6.BackColor = SystemColors.Control
+            PictureBox7.BackColor = SystemColors.Control
+            PictureBox8.BackColor = SystemColors.Control
+            PictureBox9.BackColor = SystemColors.Control
+            PictureBox10.BackColor = SystemColors.Control
+            PictureBox11.BackColor = SystemColors.Control
+            PictureBox12.BackColor = SystemColors.Control
+            PictureBox13.BackColor = SystemColors.Control
+            Button1.BackColor = SystemColors.Control
+            Button1.ForeColor = SystemColors.ControlText
+            Button2.BackColor = SystemColors.Control
+            Button2.ForeColor = SystemColors.ControlText
+            TabPage1.BackColor = SystemColors.Control
+            TabPage2.BackColor = SystemColors.Control
+            RadioButton3.ForeColor = SystemColors.ControlText
+            RadioButton4.ForeColor = SystemColors.ControlText
+            CheckBox1.ForeColor = SystemColors.ControlText
+            CheckBox2.ForeColor = SystemColors.ControlText
+        End If
+    End Sub
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked Then
+            invcol = True
+            invertColor()
+        Else
+            invcol = False
+            invertColor()
+        End If
+    End Sub
+
+    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+        If CheckBox2.Checked Then
+            'My.Computer.Audio.Stop()
+        Else
+            'My.Computer.Audio.Play(My.Resources.bgmusic, AudioPlayMode.BackgroundLoop)
+        End If
+    End Sub
 End Class

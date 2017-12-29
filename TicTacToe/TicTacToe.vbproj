@@ -152,6 +152,9 @@
     <Content Include="download_mKL_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
+    <None Include="Resources\point.wav" />
+    <None Include="Resources\click.wav" />
+    <None Include="Resources\bgmusic.wav" />
     <None Include="Resources\DL.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

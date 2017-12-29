@@ -48,9 +48,13 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,59 +69,70 @@ Partial Class Form1
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'PictureBox13
         '
+        Me.PictureBox13.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox13, "PictureBox13")
         Me.PictureBox13.Name = "PictureBox13"
         Me.PictureBox13.TabStop = False
         '
         'PictureBox12
         '
+        Me.PictureBox12.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox12, "PictureBox12")
         Me.PictureBox12.Name = "PictureBox12"
         Me.PictureBox12.TabStop = False
         '
         'PictureBox11
         '
+        Me.PictureBox11.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox11, "PictureBox11")
         Me.PictureBox11.Name = "PictureBox11"
         Me.PictureBox11.TabStop = False
         '
         'PictureBox10
         '
+        Me.PictureBox10.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox10, "PictureBox10")
         Me.PictureBox10.Name = "PictureBox10"
         Me.PictureBox10.TabStop = False
         '
         'PictureBox9
         '
+        Me.PictureBox9.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox9, "PictureBox9")
         Me.PictureBox9.Name = "PictureBox9"
         Me.PictureBox9.TabStop = False
         '
         'PictureBox8
         '
+        Me.PictureBox8.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox8, "PictureBox8")
         Me.PictureBox8.Name = "PictureBox8"
         Me.PictureBox8.TabStop = False
         '
         'PictureBox7
         '
+        Me.PictureBox7.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox7, "PictureBox7")
         Me.PictureBox7.Name = "PictureBox7"
         Me.PictureBox7.TabStop = False
         '
         'PictureBox6
         '
+        Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox6, "PictureBox6")
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.TabStop = False
         '
         'PictureBox5
         '
+        Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
         resources.ApplyResources(Me.PictureBox5, "PictureBox5")
         Me.PictureBox5.Name = "PictureBox5"
         Me.PictureBox5.TabStop = False
@@ -158,9 +173,10 @@ Partial Class Form1
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.SystemColors.Control
         resources.ApplyResources(Me.Button1, "Button1")
         Me.Button1.Name = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.UseVisualStyleBackColor = False
         '
         'Label2
         '
@@ -229,14 +245,6 @@ Partial Class Form1
         Me.Button2.Name = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'GroupBox2
-        '
-        resources.ApplyResources(Me.GroupBox2, "GroupBox2")
-        Me.GroupBox2.Controls.Add(Me.RadioButton3)
-        Me.GroupBox2.Controls.Add(Me.RadioButton4)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.TabStop = False
-        '
         'RadioButton3
         '
         resources.ApplyResources(Me.RadioButton3, "RadioButton3")
@@ -251,11 +259,48 @@ Partial Class Form1
         Me.RadioButton4.TabStop = True
         Me.RadioButton4.UseVisualStyleBackColor = True
         '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        resources.ApplyResources(Me.TabControl1, "TabControl1")
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.RadioButton3)
+        Me.TabPage1.Controls.Add(Me.RadioButton4)
+        resources.ApplyResources(Me.TabPage1, "TabPage1")
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.CheckBox2)
+        Me.TabPage2.Controls.Add(Me.CheckBox1)
+        resources.ApplyResources(Me.TabPage2, "TabPage2")
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        resources.ApplyResources(Me.CheckBox1, "CheckBox1")
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        resources.ApplyResources(Me.CheckBox2, "CheckBox2")
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label7)
@@ -296,8 +341,11 @@ Partial Class Form1
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -328,7 +376,11 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Button2 As Button
-    Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents CheckBox2 As CheckBox
 End Class
