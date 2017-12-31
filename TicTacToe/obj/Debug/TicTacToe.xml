@@ -22,11 +22,6 @@ TicTacToe
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
-<member name="P:TicTacToe.My.Resources.Resources.bgmusic">
-<summary>
-  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-</summary>
-</member>
 <member name="P:TicTacToe.My.Resources.Resources.Cheat_Code">
 <summary>
   Looks up a localized string similar to B5CS2017.

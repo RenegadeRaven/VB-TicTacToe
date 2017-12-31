@@ -61,15 +61,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        '''</summary>
-        Friend ReadOnly Property bgmusic() As System.IO.UnmanagedMemoryStream
-            Get
-                Return ResourceManager.GetStream("bgmusic", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to B5CS2017.
         '''</summary>
         Friend ReadOnly Property Cheat_Code() As String

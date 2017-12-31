@@ -27,6 +27,11 @@ TicTacToe
   Looks up a localized string similar to B5CS2017.
 </summary>
 </member>
+<member name="P:TicTacToe.My.Resources.Resources.click">
+<summary>
+  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+</summary>
+</member>
 <member name="P:TicTacToe.My.Resources.Resources.DL">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -35,6 +40,11 @@ TicTacToe
 <member name="P:TicTacToe.My.Resources.Resources.O">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:TicTacToe.My.Resources.Resources.point">
+<summary>
+  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
 </summary>
 </member>
 <member name="P:TicTacToe.My.Resources.Resources.TicTacToe_Code">

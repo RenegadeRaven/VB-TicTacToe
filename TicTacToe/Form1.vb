@@ -1,15 +1,15 @@
 ﻿Public Class Form1
     Dim TurnC As Integer 'La count des tours
     Dim Turn As Integer 'A qui la tour
-    Dim P1 As Integer 'La valeur du top-left carree
-    Dim P2 As Integer 'La valeur du top-mid carree
-    Dim P3 As Integer 'La valeur du top-right carree
+    Dim P1 As Integer 'La valeur du haut-gauche carree
+    Dim P2 As Integer 'La valeur du haut-centre carree
+    Dim P3 As Integer 'La valeur du haut-droite carree
     Dim P4 As Integer 'La valeur du gauche-centre carree
     Dim P5 As Integer 'La valeur du centre carree
     Dim P6 As Integer 'La valeur du droite-centre carree
-    Dim P7 As Integer 'La valeur du bottom-left carree
-    Dim P8 As Integer 'La valeur du bottom-middle carree
-    Dim P9 As Integer 'La valeur du bottom-right carree
+    Dim P7 As Integer 'La valeur du bas-gauche carree
+    Dim P8 As Integer 'La valeur du bas-centre carree
+    Dim P9 As Integer 'La valeur du bas-droite carree
     Dim Xw As Integer = 0 'La valeur des gagnes de X
     Dim Ow As Integer = 0 'La valeur des gagnes de O
     Dim PlayCho As Integer 'La valeur de quel piece player 1 joue avec
@@ -31,7 +31,9 @@
     Dim Pointage As Boolean 'Un switch pour quelle pointage est affiché
     Dim gb2S As Boolean 'Un switch pour si le groupbox2 est affiché
     Dim ErrorCount As Integer 'un counteur des errors
-    Dim invcol As Boolean
+    Dim invcol As Boolean 'un switch pour si les couleurs sont renverser
+    Dim OptPage As Integer = 0 'index de page d'option
+    Dim sfx As Boolean = True 'un switch pour si les sons sont couper
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("fr-CA")
@@ -45,9 +47,10 @@
         End If
         GroupBox1.Hide()
         RadioButton4.PerformClick()
-        TabControl1.Hide()
+        GroupBox2.Hide()
+        GroupBox3.Hide()
         Button1.Text = "Nouveau Jeu: " & games
-        Me.AxWindowsMediaPlayer1.URL = My.Resources.bgmusic
+        'Me.AxWindowsMediaPlayer1.URL = My.Resources.bgmusic
         'My.Computer.Audio.Play(My.Resources.bgmusic, AudioPlayMode.BackgroundLoop)
         'Button2.Hide()
     End Sub 'La Selection de soit X ou O
@@ -67,99 +70,195 @@
 
     Private Sub checkWin()
         If ((P1 = 1) And P1 = P2 And P1 = P3) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox6.BackColor = Color.PaleGreen
-            PictureBox7.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox6.BackColor = Color.PaleGreen
+                PictureBox7.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P1 = 1) And P1 = P4 And P1 = P7) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox8.BackColor = Color.PaleGreen
-            PictureBox11.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox8.BackColor = Color.PaleGreen
+                PictureBox11.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P1 = 1) And P1 = P5 And P1 = P9) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P2 = 1) And P2 = P5 And P2 = P8) Then
-            PictureBox6.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox12.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox6.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox12.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P3 = 1) And P3 = P6 And P3 = P9) Then
-            PictureBox7.BackColor = Color.PaleGreen
-            PictureBox10.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox7.BackColor = Color.PaleGreen
+                PictureBox10.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P3 = 1) And P3 = P5 And P3 = P7) Then
-            PictureBox7.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox11.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox7.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox11.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P4 = 1) And P4 = P5 And P4 = P6) Then
-            PictureBox8.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox10.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox8.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox10.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P7 = 1) And P7 = P8 And P7 = P9) Then
-            PictureBox11.BackColor = Color.PaleGreen
-            PictureBox12.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox11.BackColor = Color.PaleGreen
+                PictureBox12.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "X Gagne"
         ElseIf ((P1 = 2) And P1 = P2 And P1 = P3) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox6.BackColor = Color.PaleGreen
-            PictureBox7.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox6.BackColor = Color.PaleGreen
+                PictureBox7.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P1 = 2) And P1 = P4 And P1 = P7) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox8.BackColor = Color.PaleGreen
-            PictureBox11.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox8.BackColor = Color.PaleGreen
+                PictureBox11.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P1 = 2) And P1 = P5 And P1 = P9) Then
-            PictureBox5.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox5.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P2 = 2) And P2 = P5 And P2 = P8) Then
-            PictureBox6.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox12.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox6.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox12.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P3 = 2) And P3 = P6 And P3 = P9) Then
-            PictureBox7.BackColor = Color.PaleGreen
-            PictureBox10.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox7.BackColor = Color.PaleGreen
+                PictureBox10.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P3 = 2) And P3 = P5 And P3 = P7) Then
-            PictureBox7.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox11.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox7.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox11.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P4 = 2) And P4 = P5 And P4 = P6) Then
-            PictureBox8.BackColor = Color.PaleGreen
-            PictureBox9.BackColor = Color.PaleGreen
-            PictureBox10.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox8.BackColor = Color.PaleGreen
+                PictureBox9.BackColor = Color.PaleGreen
+                PictureBox10.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf ((P7 = 2) And P7 = P8 And P7 = P9) Then
-            PictureBox11.BackColor = Color.PaleGreen
-            PictureBox12.BackColor = Color.PaleGreen
-            PictureBox13.BackColor = Color.PaleGreen
+            If invcol = True Then
+                PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
+                PictureBox13.BackColor = Color.FromArgb(64, 64, 64)
+            ElseIf invcol = False Then
+                PictureBox11.BackColor = Color.PaleGreen
+                PictureBox12.BackColor = Color.PaleGreen
+                PictureBox13.BackColor = Color.PaleGreen
+            End If
             freezeGame()
             Label1.Text = "O Gagne"
         ElseIf (P1 <> 0 And P2 <> 0 And P3 <> 0 And P4 <> 0 And P5 <> 0 And P6 <> 0 And P7 <> 0 And P8 <> 0 And P9 <> 0) Then
@@ -187,17 +286,23 @@
         If (LB = 1) Then
         ElseIf (LB = 0) Then
             If (Label1.Text = "X Gagne") Then
-                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                If sfx = True Then
+                    My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                End If
                 Xw = Xw + 1
                 LB = 1
                 gamesC = gamesC + 1
             ElseIf (Label1.Text = "O Gagne") Then
-                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                If sfx = True Then
+                    My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                End If
                 Ow = Ow + 1
                 LB = 1
                 gamesC = gamesC + 1
             ElseIf (Label1.Text = "Match Nul") Then
-                My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                If sfx = True Then
+                    My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
+                End If
                 Draw = Draw + 1
                 LB = 1
                 gamesC = gamesC + 1
@@ -757,7 +862,9 @@
         'Debug.Print(ordPlay)
         Me.Refresh()
         Threading.Thread.Sleep(675)
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If ordPlay = 1 Then
             If P1 = 0 Then
                 checkTurn()
@@ -928,7 +1035,9 @@
     End Sub 'Comment l'ordinateur choisir où jouer
 
     Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P1 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -949,7 +1058,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox5
     Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P2 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -967,7 +1078,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox6
     Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P3 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -985,7 +1098,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox7
     Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P4 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1004,7 +1119,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox8
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P5 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1022,7 +1139,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox9
     Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P6 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1040,7 +1159,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox10
     Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P7 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1058,7 +1179,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox11
     Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P8 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1076,7 +1199,9 @@
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox12
     Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
-        My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        If sfx = True Then
+            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+        End If
         If P9 = 0 Then
             checkTurn()
             If Turn = 1 Then
@@ -1107,7 +1232,7 @@
         newGame()
     End Sub 'Selection de Jouer Contre
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-
+        newGame()
     End Sub 'RadioButton vide
 
     Private Sub percentWin()
@@ -1120,12 +1245,22 @@
         DrawP = Math.Round(DrawP, 2, MidpointRounding.AwayFromZero)
     End Sub 'calcul la pourcentage des victoires
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        If gb2S = False Then
-            TabControl1.Show()
-            gb2S = True
-        ElseIf gb2S = True Then
-            TabControl1.Hide()
-            gb2S = False
+        If OptPage = 0 Then
+            If gb2S = False Then
+                GroupBox2.Show()
+                gb2S = True
+            ElseIf gb2S = True Then
+                GroupBox2.Hide()
+                gb2S = False
+            End If
+        ElseIf OptPage = 1 Then
+            If gb2S = False Then
+                GroupBox3.Show()
+                gb2S = True
+            ElseIf gb2S = True Then
+                GroupBox3.Hide()
+                gb2S = False
+            End If
         End If
     End Sub 'la button d'option
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
@@ -1184,8 +1319,14 @@
             Button1.ForeColor = SystemColors.Control
             Button2.BackColor = SystemColors.ControlText
             Button2.ForeColor = SystemColors.Control
-            TabPage1.BackColor = SystemColors.ControlText
-            TabPage2.BackColor = SystemColors.ControlText
+            Button3.BackColor = SystemColors.ControlText
+            Button3.ForeColor = SystemColors.Control
+            Button4.BackColor = SystemColors.ControlText
+            Button4.ForeColor = SystemColors.Control
+            GroupBox2.ForeColor = SystemColors.Control
+            GroupBox3.ForeColor = SystemColors.Control
+            'TabPage1.BackColor = SystemColors.ControlText
+            'TabPage2.BackColor = SystemColors.ControlText
             RadioButton3.ForeColor = SystemColors.Control
             RadioButton4.ForeColor = SystemColors.Control
             CheckBox1.ForeColor = SystemColors.Control
@@ -1216,14 +1357,20 @@
             Button1.ForeColor = SystemColors.ControlText
             Button2.BackColor = SystemColors.Control
             Button2.ForeColor = SystemColors.ControlText
-            TabPage1.BackColor = SystemColors.Control
-            TabPage2.BackColor = SystemColors.Control
+            Button3.BackColor = SystemColors.Control
+            Button3.ForeColor = SystemColors.ControlText
+            Button4.BackColor = SystemColors.Control
+            Button4.ForeColor = SystemColors.ControlText
+            GroupBox2.ForeColor = SystemColors.ControlText
+            GroupBox3.ForeColor = SystemColors.ControlText
+            'TabPage1.BackColor = SystemColors.Control
+            'TabPage2.BackColor = SystemColors.Control
             RadioButton3.ForeColor = SystemColors.ControlText
             RadioButton4.ForeColor = SystemColors.ControlText
             CheckBox1.ForeColor = SystemColors.ControlText
             CheckBox2.ForeColor = SystemColors.ControlText
         End If
-    End Sub
+    End Sub 'renverser les couleurs
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
         If CheckBox1.Checked Then
             invcol = True
@@ -1232,13 +1379,23 @@
             invcol = False
             invertColor()
         End If
-    End Sub
-
+        checkWin()
+    End Sub 'l'option de renverser les couleurs
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        GroupBox2.Hide()
+        GroupBox3.Show()
+        OptPage = 1
+    End Sub 'à page 2 de les options
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        GroupBox2.Show()
+        GroupBox3.Hide()
+        OptPage = 0
+    End Sub 'à page 1 de les options
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         If CheckBox2.Checked Then
-            'My.Computer.Audio.Stop()
+            sfx = False
         Else
-            'My.Computer.Audio.Play(My.Resources.bgmusic, AudioPlayMode.BackgroundLoop)
+            sfx = True
         End If
-    End Sub
+    End Sub 'couper le son
 End Class
