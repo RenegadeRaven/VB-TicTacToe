@@ -22,3 +22,17 @@ C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTac
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.LangMessageBox.resources
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.en-US.resources
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Debug\en-US\TicTacToe.resources.dll
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbprojResolveAssemblyReference.cache
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.CustomMessageBox.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.LangMessageBox.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Resources.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.en-US.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.fr-CA.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbproj.GenerateResource.Cache
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbproj.CoreCompileInputs.cache
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\en-US\TicTacToe.resources.dll
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\fr-CA\TicTacToe.resources.dll
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.xml
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb

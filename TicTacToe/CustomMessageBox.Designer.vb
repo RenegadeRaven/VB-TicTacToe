@@ -32,6 +32,7 @@ Partial Class CustomMessageBox
         '
         'Button1
         '
+        Me.Button1.AutoSize = True
         Me.Button1.Location = New System.Drawing.Point(37, 80)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
@@ -41,6 +42,7 @@ Partial Class CustomMessageBox
         '
         'Button2
         '
+        Me.Button2.AutoSize = True
         Me.Button2.Location = New System.Drawing.Point(163, 80)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
@@ -84,6 +86,7 @@ Partial Class CustomMessageBox
         Me.Text = " "
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 

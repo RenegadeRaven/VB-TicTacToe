@@ -37,6 +37,8 @@
     'Language stuff
     Dim Yes As String
     Dim No As String
+    Dim head1 As String
+    Dim head2 As String
     Dim PlayPiece As String
     Dim PC As String
     Dim NG As String
@@ -48,9 +50,9 @@
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LangSet()
-        PlayCho = MsgB(PlayPiece, Yes, No)
+        PlayCho = MsgB(PlayPiece, "X", "O", head1)
         selPlayer()
-        ordCho = MsgB(PC, Yes, No)
+        ordCho = MsgB(PC, RadioButton2.Text, RadioButton1.Text, head2)
         If ordCho = 6 Then
             RadioButton2.PerformClick()
         ElseIf ordCho = 7 Then
@@ -63,8 +65,8 @@
         Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
 
-    Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String)
-        Dim msg As New CustomMessageBox(mes, But1, But2)
+    Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
+        Dim msg As New CustomMessageBox(mes, But1, But2, head)
         Dim result = msg.ShowDialog()
         Dim Ans As Integer
         If result = Windows.Forms.DialogResult.Yes Then
@@ -96,8 +98,10 @@
         If LangT = "Français" Then
             Yes = "Oui"
             No = "Non"
-            PlayPiece = "Est-ce que Joueur 1 veut être X?"
-            PC = "Est-ce que tu veux jouer contre l'ordinateur?"
+            head1 = "Sélection du Pièce"
+            head2 = "Jouer Contre?"
+            PlayPiece = "Quel pièce est-ce que Joueur 1 veut être?"
+            PC = "Qui est-ce que tu veux jouer contre?" '"Est-ce que tu veux jouer contre l'ordinateur?"
             NG = "Nouveau Jeu: "
             Xt = "C'est le tour de X"
             Ot = "C'est le tour de O"
@@ -111,15 +115,17 @@ les Couleurs"
             GroupBox1.Text = "Jouer Contre"
             GroupBox2.Text = "Pointage"
             GroupBox3.Text = "Autres"
-            RadioButton1.Text = "Un autre personne"
+            RadioButton1.Text = "Un autre joueur"
             RadioButton2.Text = "L'ordinateur"
             RadioButton3.Text = "En Pourcentage"
             RadioButton4.Text = "En Points"
         ElseIf LangT = "English" Then
             Yes = "Yes"
             No = "No"
-            PlayPiece = "Does Player 1 want to play as X?"
-            PC = "Do you want to play against the computer?"
+            head1 = "Piece Selection"
+            head2 = "Play Against?"
+            PlayPiece = "Which piece does Player 1 want to play as?"
+            PC = "Who do you want to play against?" '"Do you want to play against the computer?"
             NG = "New Game: "
             Xt = "It's X's Turn"
             Ot = "It's O's Turn"
@@ -132,8 +138,8 @@ les Couleurs"
             GroupBox1.Text = "Play Against"
             GroupBox2.Text = "Leaderboard"
             GroupBox3.Text = "Others"
-            RadioButton1.Text = "Two Player"
-            RadioButton2.Text = "Computer"
+            RadioButton1.Text = "Another Player"
+            RadioButton2.Text = "The Computer"
             RadioButton3.Text = "In Percentage"
             RadioButton4.Text = "In Points"
         End If
