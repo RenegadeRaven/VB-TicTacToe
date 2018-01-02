@@ -34,12 +34,23 @@
     Dim invcol As Boolean 'un switch pour si les couleurs sont renverser
     Dim OptPage As Integer = 0 'index de page d'option
     Dim sfx As Boolean = True 'un switch pour si les sons sont couper
+    'Language stuff
+    Dim Yes As String
+    Dim No As String
+    Dim PlayPiece As String
+    Dim PC As String
+    Dim NG As String
+    Dim Xt As String
+    Dim Ot As String
+    Dim winX As String
+    Dim winO As String
+    Dim DrawT As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("fr-CA")
-        PlayCho = MsgBox("Est-ce que Joueur 1 veut être X?", 4, "")
+        LangSet()
+        PlayCho = MsgB(PlayPiece, Yes, No)
         selPlayer()
-        ordCho = MsgBox("Est-ce que tu veux jouer contre l'ordinateur?", 4, "")
+        ordCho = MsgB(PC, Yes, No)
         If ordCho = 6 Then
             RadioButton2.PerformClick()
         ElseIf ordCho = 7 Then
@@ -49,18 +60,92 @@
         RadioButton4.PerformClick()
         GroupBox2.Hide()
         GroupBox3.Hide()
-        Button1.Text = "Nouveau Jeu: " & games
-        'Me.AxWindowsMediaPlayer1.URL = My.Resources.bgmusic
-        'My.Computer.Audio.Play(My.Resources.bgmusic, AudioPlayMode.BackgroundLoop)
-        'Button2.Hide()
+        Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
+
+    Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String)
+        Dim msg As New CustomMessageBox(mes, But1, But2)
+        Dim result = msg.ShowDialog()
+        Dim Ans As Integer
+        If result = Windows.Forms.DialogResult.Yes Then
+            'user clicked "Oui"
+            Ans = 6
+        ElseIf result = Windows.Forms.DialogResult.No Then
+            'user clicked "Non"
+            Ans = 7
+        Else
+            'user closed the window without clicking a button
+            Ans = -1
+            Close()
+        End If
+        Return Ans
+    End Function 'custom MsgBox
+    Public Sub LangSet()
+        Dim msgL As New LangMessageBox("Continue", "Cancel")
+        Dim resultL = msgL.ShowDialog()
+        If resultL = Windows.Forms.DialogResult.Yes Then
+            'user clicked "Oui"
+        ElseIf resultL = Windows.Forms.DialogResult.No Then
+            'user clicked "Non"
+        Else
+            'user closed the window without clicking a button
+            Close()
+        End If
+        Dim LangT As String = Language.Text
+
+        If LangT = "Français" Then
+            Yes = "Oui"
+            No = "Non"
+            PlayPiece = "Est-ce que Joueur 1 veut être X?"
+            PC = "Est-ce que tu veux jouer contre l'ordinateur?"
+            NG = "Nouveau Jeu: "
+            Xt = "C'est le tour de X"
+            Ot = "C'est le tour de O"
+            winX = "X Gagne"
+            winO = "O Gagne"
+            DrawT = "Match Nul"
+            CheckBox1.Text = "Renverser 
+les Couleurs"
+            CheckBox1.Location = New Point(39, 13)
+            CheckBox2.Text = "Couper le son"
+            GroupBox1.Text = "Jouer Contre"
+            GroupBox2.Text = "Pointage"
+            GroupBox3.Text = "Autres"
+            RadioButton1.Text = "Un autre personne"
+            RadioButton2.Text = "L'ordinateur"
+            RadioButton3.Text = "En Pourcentage"
+            RadioButton4.Text = "En Points"
+        ElseIf LangT = "English" Then
+            Yes = "Yes"
+            No = "No"
+            PlayPiece = "Does Player 1 want to play as X?"
+            PC = "Do you want to play against the computer?"
+            NG = "New Game: "
+            Xt = "It's X's Turn"
+            Ot = "It's O's Turn"
+            winX = "X Wins"
+            winO = "O Wins"
+            DrawT = "Draw"
+            CheckBox1.Text = "Invert Colors"
+            CheckBox1.Location = New Point(39, 20)
+            CheckBox2.Text = "Mute"
+            GroupBox1.Text = "Play Against"
+            GroupBox2.Text = "Leaderboard"
+            GroupBox3.Text = "Others"
+            RadioButton1.Text = "Two Player"
+            RadioButton2.Text = "Computer"
+            RadioButton3.Text = "In Percentage"
+            RadioButton4.Text = "In Points"
+        End If
+        Label7.Text = DrawT & "s"
+    End Sub 'selection du language
 
     Private Sub checkTurn()
         Turn = TurnC Mod 2
         If Turn = 1 Then
-            Label1.Text = "C'est le tour de X"
+            Label1.Text = Xt
         ElseIf Turn = 0 Then
-            Label1.Text = "C'est le tour de O"
+            Label1.Text = Ot
         End If
 
     End Sub 'Verifie le tour
@@ -80,7 +165,7 @@
                 PictureBox7.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P1 = 1) And P1 = P4 And P1 = P7) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
@@ -92,7 +177,7 @@
                 PictureBox11.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P1 = 1) And P1 = P5 And P1 = P9) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
@@ -104,7 +189,7 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P2 = 1) And P2 = P5 And P2 = P8) Then
             If invcol = True Then
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
@@ -116,7 +201,7 @@
                 PictureBox12.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P3 = 1) And P3 = P6 And P3 = P9) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
@@ -128,7 +213,7 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P3 = 1) And P3 = P5 And P3 = P7) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
@@ -140,7 +225,7 @@
                 PictureBox11.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P4 = 1) And P4 = P5 And P4 = P6) Then
             If invcol = True Then
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
@@ -152,7 +237,7 @@
                 PictureBox10.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P7 = 1) And P7 = P8 And P7 = P9) Then
             If invcol = True Then
                 PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
@@ -164,7 +249,7 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "X Gagne"
+            Label1.Text = winX
         ElseIf ((P1 = 2) And P1 = P2 And P1 = P3) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
@@ -176,7 +261,7 @@
                 PictureBox7.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P1 = 2) And P1 = P4 And P1 = P7) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
@@ -188,7 +273,7 @@
                 PictureBox11.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P1 = 2) And P1 = P5 And P1 = P9) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
@@ -200,7 +285,7 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P2 = 2) And P2 = P5 And P2 = P8) Then
             If invcol = True Then
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
@@ -212,7 +297,7 @@
                 PictureBox12.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P3 = 2) And P3 = P6 And P3 = P9) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
@@ -224,7 +309,7 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P3 = 2) And P3 = P5 And P3 = P7) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
@@ -236,7 +321,7 @@
                 PictureBox11.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P4 = 2) And P4 = P5 And P4 = P6) Then
             If invcol = True Then
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
@@ -248,7 +333,7 @@
                 PictureBox10.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf ((P7 = 2) And P7 = P8 And P7 = P9) Then
             If invcol = True Then
                 PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
@@ -260,9 +345,9 @@
                 PictureBox13.BackColor = Color.PaleGreen
             End If
             freezeGame()
-            Label1.Text = "O Gagne"
+            Label1.Text = winO
         ElseIf (P1 <> 0 And P2 <> 0 And P3 <> 0 And P4 <> 0 And P5 <> 0 And P6 <> 0 And P7 <> 0 And P8 <> 0 And P9 <> 0) Then
-            Label1.Text = "Match Nul"
+            Label1.Text = DrawT
             ordTurn = 1
         End If
         checkWinner()
@@ -285,21 +370,21 @@
     Private Sub checkWinner()
         If (LB = 1) Then
         ElseIf (LB = 0) Then
-            If (Label1.Text = "X Gagne") Then
+            If (Label1.Text = winX) Then
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
                 Xw = Xw + 1
                 LB = 1
                 gamesC = gamesC + 1
-            ElseIf (Label1.Text = "O Gagne") Then
+            ElseIf (Label1.Text = winO) Then
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
                 Ow = Ow + 1
                 LB = 1
                 gamesC = gamesC + 1
-            ElseIf (Label1.Text = "Match Nul") Then
+            ElseIf (Label1.Text = DrawT) Then
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
@@ -341,13 +426,13 @@
     End Sub 'Arrete le jeu quand quelqu'un gagne
     Private Sub selPlayer()
         If PlayCho = 6 Then
-            Label1.Text = "C'est le tour de X"
+            Label1.Text = Xt
             Player = 1
             Computer = 2
         ElseIf PlayCho = 7 Then
             turnCount()
             checkTurn()
-            Label1.Text = "C'est le tour de O"
+            Label1.Text = Ot
             Player = 2
             Computer = 1
         End If
@@ -385,7 +470,7 @@
         'PictureBox12.BackColor = SystemColors.Control
         'PictureBox13.BackColor = SystemColors.Control
         invertColor()
-        Button1.Text = "Nouveau Jeu: " & games
+        Button1.Text = NG & games
         checkTurn()
         selPlayer()
     End Sub 'Nouveau jeu

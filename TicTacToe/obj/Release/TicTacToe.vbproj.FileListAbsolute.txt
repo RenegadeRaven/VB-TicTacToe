@@ -18,3 +18,7 @@ C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTac
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.xml
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.CustomMessageBox.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.LangMessageBox.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Form1.en-US.resources
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\en-US\TicTacToe.resources.dll

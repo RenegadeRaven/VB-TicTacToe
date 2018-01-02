@@ -54,8 +54,9 @@ Partial Class Form1
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Button4 = New System.Windows.Forms.Button()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Language = New System.Windows.Forms.Label()
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -291,22 +292,28 @@ Partial Class Form1
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.TabStop = False
         '
-        'Button4
-        '
-        resources.ApplyResources(Me.Button4, "Button4")
-        Me.Button4.Name = "Button4"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
         'CheckBox2
         '
         resources.ApplyResources(Me.CheckBox2, "CheckBox2")
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
+        'Button4
+        '
+        resources.ApplyResources(Me.Button4, "Button4")
+        Me.Button4.Name = "Button4"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Language
+        '
+        resources.ApplyResources(Me.Language, "Language")
+        Me.Language.Name = "Language"
+        '
         'Form1
         '
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.Language)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button2)
@@ -391,4 +398,5 @@ Partial Class Form1
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Button4 As Button
     Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents Language As Label
 End Class
