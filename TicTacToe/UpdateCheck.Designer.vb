@@ -40,7 +40,7 @@ Partial Class UpdateCheck
         '
         'Timer1
         '
-        Me.Timer1.Interval = 10000
+        Me.Timer1.Interval = 3000
         '
         'UpdateCheck
         '

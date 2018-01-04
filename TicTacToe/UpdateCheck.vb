@@ -11,6 +11,9 @@
         Dim currentversion As String = Application.ProductVersion
         If newestversion.Contains(currentversion) Then
             'Do nothing
+            If System.IO.File.Exists(prog) Then
+                System.IO.File.Delete(prog)
+            End If
             Close()
         Else
             web.DownloadFileAsync(New Uri("https://github.com/PlasticJustice/VB-TicTacToe/raw/master/TicTacToe/bin/Debug/AutoUpdater.exe"), prog)
