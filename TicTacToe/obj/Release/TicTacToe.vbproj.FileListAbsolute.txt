@@ -33,3 +33,4 @@ C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.C
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.xml
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbprojResolveAssemblyReference.cache
