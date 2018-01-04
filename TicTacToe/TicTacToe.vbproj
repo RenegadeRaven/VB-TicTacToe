@@ -127,17 +127,10 @@
     <None Include="ILMerge.props" />
     <None Include="My Project\app.manifest" />
     <None Include="packages.config" />
-    <None Include="Resources\TicTacToe Code.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.en-US.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.fr-CA.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
@@ -147,9 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateCheck.resx">
       <DependentUpon>UpdateCheck.vb</DependentUpon>
@@ -168,23 +161,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\post-97990-1260678617.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\post-97990-1260678636.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Cheat Code.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="content\ILMergeOrder.txt" />
     <Content Include="download_BWQ_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
+    <None Include="Resources\X.png" />
+    <None Include="Resources\O.png" />
     <None Include="Resources\point.wav" />
     <None Include="Resources\click.wav" />
-    <None Include="Resources\bgmusic.wav" />
-    <None Include="Resources\DL.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

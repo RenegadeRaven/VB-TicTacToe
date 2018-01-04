@@ -22,18 +22,14 @@ C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTac
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.LangMessageBox.resources
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Form1.en-US.resources
 C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\en-US\TicTacToe.resources.dll
-C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbprojResolveAssemblyReference.cache
+C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.UpdateCheck.resources
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.CustomMessageBox.resources
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Form1.resources
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.LangMessageBox.resources
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Resources.resources
-C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Form1.en-US.resources
-C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Form1.fr-CA.resources
+C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.UpdateCheck.resources
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.GenerateResource.Cache
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.CoreCompileInputs.cache
-C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\en-US\TicTacToe.resources.dll
-C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\fr-CA\TicTacToe.resources.dll
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.xml
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb
-C:\Users\Kochen Family\Documents\Visual Studio 2017\Projects\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.UpdateCheck.resources

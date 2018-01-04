@@ -61,30 +61,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to B5CS2017.
-        '''</summary>
-        Friend ReadOnly Property Cheat_Code() As String
-            Get
-                Return ResourceManager.GetString("Cheat_Code", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         '''</summary>
         Friend ReadOnly Property click() As System.IO.UnmanagedMemoryStream
             Get
                 Return ResourceManager.GetStream("click", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property DL() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("DL", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -104,25 +85,6 @@ Namespace My.Resources
         Friend ReadOnly Property point() As System.IO.UnmanagedMemoryStream
             Get
                 Return ResourceManager.GetStream("point", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Public Class Form1
-        '''    Dim TurnC As Integer &apos;La count des tours
-        '''    Dim Turn As Integer &apos;A qui la tour
-        '''    Dim P1 As Integer &apos;La valeur du top-left carree
-        '''    Dim P2 As Integer &apos;La valeur du top-mid carree
-        '''    Dim P3 As Integer &apos;La valeur du top-right carree
-        '''    Dim P4 As Integer &apos;La valeur du gauche-centre carree
-        '''    Dim P5 As Integer &apos;La valeur du centre carree
-        '''    Dim P6 As Integer &apos;La valeur du droite-centre carree
-        '''    Dim P7 As Integer &apos;La valeur du bottom-left carree
-        '''    Dim P8 As Integer &apos;L [rest of string was truncated]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property TicTacToe_Code() As String
-            Get
-                Return ResourceManager.GetString("TicTacToe_Code", resourceCulture)
             End Get
         End Property
         
