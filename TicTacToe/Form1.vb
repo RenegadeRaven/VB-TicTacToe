@@ -72,6 +72,7 @@
         System.IO.File.WriteAllText(path & "\version.txt", ver)
 #End If
         Dim msgU As New UpdateCheck
+        'Dim resultU = msgU.ShowDialog()
     End Sub
     Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
         Dim msg As New CustomMessageBox(mes, But1, But2, head)
