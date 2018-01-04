@@ -49,6 +49,7 @@
     Dim DrawT As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        checkUpdate()
         LangSet()
         PlayCho = MsgB(PlayPiece, "X", "O", head1)
         selPlayer()
@@ -64,7 +65,14 @@
         GroupBox3.Hide()
         Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
-
+    Public Sub checkUpdate()
+        Dim ver As String = My.Application.Info.Version.ToString
+        Dim path As String = My.Application.Info.DirectoryPath
+#If DEBUG Then
+        System.IO.File.WriteAllText(path & "\version.txt", ver)
+#End If
+        Dim msgU As New UpdateCheck
+    End Sub
     Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
         Dim msg As New CustomMessageBox(mes, But1, But2, head)
         Dim result = msg.ShowDialog()
