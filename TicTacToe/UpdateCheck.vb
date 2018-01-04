@@ -1,7 +1,7 @@
 ﻿Public Class UpdateCheck
     Dim dir As String = My.Application.Info.DirectoryPath
     Dim web As New System.Net.WebClient
-    Dim prog As String = dir & "\TicTacToe.exe"
+    Dim prog As String = dir & "\AutoUpdater.exe"
     Private Sub UpdateCheck_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim request As System.Net.HttpWebRequest = System.Net.HttpWebRequest.Create("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/TicTacToe/bin/Debug/version.txt")
         Dim response As System.Net.HttpWebResponse = request.GetResponse()
@@ -18,6 +18,6 @@
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Process.Start(prog)
-        Application.Restart()
+        Application.Exit()
     End Sub
 End Class
