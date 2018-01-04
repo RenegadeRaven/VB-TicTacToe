@@ -63,6 +63,7 @@
         RadioButton4.PerformClick()
         GroupBox2.Hide()
         GroupBox3.Hide()
+        Language.Hide()
         Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
     Public Sub checkUpdate()
@@ -70,10 +71,11 @@
         Dim path As String = My.Application.Info.DirectoryPath
 #If DEBUG Then
         System.IO.File.WriteAllText(path & "\version.txt", ver)
+#Else
+       Dim msgU As New UpdateCheck 
 #End If
-        Dim msgU As New UpdateCheck
-        'Dim resultU = msgU.ShowDialog()
-    End Sub
+
+    End Sub 'automatiquement faire une mise à jour
     Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
         Dim msg As New CustomMessageBox(mes, But1, But2, head)
         Dim result = msg.ShowDialog()
