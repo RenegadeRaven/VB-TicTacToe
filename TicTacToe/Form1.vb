@@ -72,7 +72,9 @@
 #If DEBUG Then
         System.IO.File.WriteAllText(path & "\version.txt", ver)
 #Else
-       Dim msgU As New UpdateCheck 
+        If My.Computer.Network.IsAvailable Then
+            Dim msgU As New UpdateCheck
+        End If
 #End If
 
     End Sub 'automatiquement faire une mise à jour
