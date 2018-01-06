@@ -92,6 +92,7 @@
         RadioButton4.PerformClick()
         GroupBox2.Hide()
         GroupBox3.Hide()
+        GroupBox4.Hide()
         Language.Hide()
         Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
@@ -159,7 +160,7 @@
             DrawT = "Match Nul"
             CheckBox1.Text = "Renverser 
 les Couleurs"
-            CheckBox1.Location = New Point(39, 13)
+            CheckBox1.Location = New Point(36, 13)
             CheckBox2.Text = "Couper le son"
             GroupBox1.Text = "Jouer Contre"
             GroupBox2.Text = "Pointage"
@@ -186,7 +187,7 @@ les Couleurs"
             winO = "O Wins"
             DrawT = "Draw"
             CheckBox1.Text = "Invert Colors"
-            CheckBox1.Location = New Point(39, 20)
+            CheckBox1.Location = New Point(36, 20)
             CheckBox2.Text = "Mute"
             GroupBox1.Text = "Play Against"
             GroupBox2.Text = "Leaderboard"
