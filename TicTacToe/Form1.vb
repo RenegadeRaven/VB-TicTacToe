@@ -34,6 +34,10 @@
     Dim invcol As Boolean 'un switch pour si les couleurs sont renverser
     Dim OptPage As Integer = 0 'index de page d'option
     Dim sfx As Boolean = True 'un switch pour si les sons sont couper
+    Dim restr As Integer
+    Dim path As String = My.Application.Info.DirectoryPath
+    Dim config(2) As String '= {"Lang", "color", "mute"}
+    Dim settings As String
     'Language stuff
     Dim Yes As String
     Dim No As String
@@ -47,10 +51,35 @@
     Dim winX As String
     Dim winO As String
     Dim DrawT As String
+    Dim restrMsg As String
+    Dim restrMsgHead As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         checkUpdate()
+        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+            settings = System.IO.File.ReadAllText(path & "\TicTacToe-config.txt")
+            config = settings.Split("-")
+            Debug.Print(config(0) & config(1) & config(2))
+            If config(1) = "Yes" Then
+                CheckBox1.Checked = True
+            End If
+            If config(2) = "Yes" Then
+                CheckBox2.Checked = True
+            End If
+            Button9.Enabled = False
+            Button10.Text = "Config: " & Yes
+        Else
+            config(2) = "No"
+            config(1) = "No"
+            Button10.Enabled = False
+            Button10.Text = "Config: " & No
+        End If
         LangSet()
+        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+            Button10.Text = "Config: " & Yes
+        Else
+            Button10.Text = "Config: " & No
+        End If
         PlayCho = MsgB(PlayPiece, "X", "O", head1)
         selPlayer()
         ordCho = MsgB(PC, RadioButton2.Text, RadioButton1.Text, head2)
@@ -68,7 +97,6 @@
     End Sub 'La Selection de soit X ou O
     Public Sub checkUpdate()
         Dim ver As String = My.Application.Info.Version.ToString
-        Dim path As String = My.Application.Info.DirectoryPath
 #If DEBUG Then
         System.IO.File.WriteAllText(path & "\version.txt", ver)
 #Else
@@ -76,7 +104,6 @@
             Dim msgU As New UpdateCheck
         End If
 #End If
-
     End Sub 'automatiquement faire une mise à jour
     Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
         Dim msg As New CustomMessageBox(mes, But1, But2, head)
@@ -96,17 +123,26 @@
         Return Ans
     End Function 'custom MsgBox
     Public Sub LangSet()
-        Dim msgL As New LangMessageBox("Continue", "Cancel")
-        Dim resultL = msgL.ShowDialog()
-        If resultL = Windows.Forms.DialogResult.Yes Then
-            'user clicked "Oui"
-        ElseIf resultL = Windows.Forms.DialogResult.No Then
-            'user clicked "Non"
+        Dim LangT As String
+        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+            If config(0) = "English" Then
+                LangT = "English"
+            ElseIf config(0) = "Français" Then
+                LangT = "Français"
+            End If
         Else
-            'user closed the window without clicking a button
-            Close()
+            Dim msgL As New LangMessageBox("Continue", "Cancel")
+            Dim resultL = msgL.ShowDialog()
+            If resultL = Windows.Forms.DialogResult.Yes Then
+                'user clicked "Oui"
+            ElseIf resultL = Windows.Forms.DialogResult.No Then
+                'user clicked "Non"
+            Else
+                'user closed the window without clicking a button
+                Close()
+            End If
+            LangT = Language.Text
         End If
-        Dim LangT As String = Language.Text
 
         If LangT = "Français" Then
             Yes = "Oui"
@@ -132,6 +168,10 @@ les Couleurs"
             RadioButton2.Text = "L'ordinateur"
             RadioButton3.Text = "En Pourcentage"
             RadioButton4.Text = "En Points"
+            Button5.Text = "Redémarrer"
+            restrMsg = "Est-ce que tu est assuré que tu veux redémarrer le jeu? Tu va perdre tous tes points."
+            restrMsgHead = "Est-ce que tu est assuré?"
+            config(0) = LangT
         ElseIf LangT = "English" Then
             Yes = "Yes"
             No = "No"
@@ -155,6 +195,10 @@ les Couleurs"
             RadioButton2.Text = "The Computer"
             RadioButton3.Text = "In Percentage"
             RadioButton4.Text = "In Points"
+            Button5.Text = "Restart"
+            restrMsg = "Are you sure you want to restart the game? You will lose all your points."
+            restrMsgHead = "Are you sure?"
+            config(0) = LangT
         End If
         Label7.Text = DrawT & "s"
     End Sub 'selection du language
@@ -1365,6 +1409,14 @@ les Couleurs"
                 GroupBox3.Hide()
                 gb2S = False
             End If
+        ElseIf OptPage = 2 Then
+            If gb2S = False Then
+                GroupBox4.Show()
+                gb2S = True
+            ElseIf gb2S = True Then
+                GroupBox4.Hide()
+                gb2S = False
+            End If
         End If
     End Sub 'la button d'option
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
@@ -1427,10 +1479,21 @@ les Couleurs"
             Button3.ForeColor = SystemColors.Control
             Button4.BackColor = SystemColors.ControlText
             Button4.ForeColor = SystemColors.Control
+            Button5.BackColor = SystemColors.ControlText
+            Button5.ForeColor = SystemColors.Control
+            Button6.BackColor = SystemColors.ControlText
+            Button6.ForeColor = SystemColors.Control
+            Button7.BackColor = SystemColors.ControlText
+            Button7.ForeColor = SystemColors.Control
+            Button8.BackColor = SystemColors.ControlText
+            Button8.ForeColor = SystemColors.Control
+            Button9.BackColor = SystemColors.ControlText
+            Button9.ForeColor = SystemColors.Control
+            Button10.BackColor = SystemColors.ControlText
+            Button10.ForeColor = SystemColors.Control
             GroupBox2.ForeColor = SystemColors.Control
             GroupBox3.ForeColor = SystemColors.Control
-            'TabPage1.BackColor = SystemColors.ControlText
-            'TabPage2.BackColor = SystemColors.ControlText
+            GroupBox4.ForeColor = SystemColors.Control
             RadioButton3.ForeColor = SystemColors.Control
             RadioButton4.ForeColor = SystemColors.Control
             CheckBox1.ForeColor = SystemColors.Control
@@ -1465,10 +1528,21 @@ les Couleurs"
             Button3.ForeColor = SystemColors.ControlText
             Button4.BackColor = SystemColors.Control
             Button4.ForeColor = SystemColors.ControlText
+            Button5.BackColor = SystemColors.Control
+            Button5.ForeColor = SystemColors.ControlText
+            Button6.BackColor = SystemColors.Control
+            Button6.ForeColor = SystemColors.ControlText
+            Button7.BackColor = SystemColors.Control
+            Button7.ForeColor = SystemColors.ControlText
+            Button8.BackColor = SystemColors.Control
+            Button8.ForeColor = SystemColors.ControlText
+            Button9.BackColor = SystemColors.Control
+            Button9.ForeColor = SystemColors.ControlText
+            Button10.BackColor = SystemColors.Control
+            Button10.ForeColor = SystemColors.ControlText
             GroupBox2.ForeColor = SystemColors.ControlText
             GroupBox3.ForeColor = SystemColors.ControlText
-            'TabPage1.BackColor = SystemColors.Control
-            'TabPage2.BackColor = SystemColors.Control
+            GroupBox4.ForeColor = SystemColors.ControlText
             RadioButton3.ForeColor = SystemColors.ControlText
             RadioButton4.ForeColor = SystemColors.ControlText
             CheckBox1.ForeColor = SystemColors.ControlText
@@ -1479,9 +1553,11 @@ les Couleurs"
         If CheckBox1.Checked Then
             invcol = True
             invertColor()
+            config(1) = "Yes"
         Else
             invcol = False
             invertColor()
+            config(1) = "No"
         End If
         checkWin()
     End Sub 'l'option de renverser les couleurs
@@ -1498,8 +1574,45 @@ les Couleurs"
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         If CheckBox2.Checked Then
             sfx = False
+            config(2) = "Yes"
         Else
             sfx = True
+            config(2) = "No"
         End If
     End Sub 'couper le son
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        restr = MsgB(restrMsg, Yes, No, restrMsgHead)
+        If restr = 6 Then
+            Application.Restart()
+        End If
+    End Sub
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        GroupBox4.Show()
+        GroupBox3.Hide()
+        OptPage = 2
+    End Sub
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        GroupBox3.Show()
+        GroupBox4.Hide()
+        OptPage = 1
+    End Sub
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Dim cons As String = config(0) & "-" & config(1) & "-" & config(2)
+        System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
+        Button9.Enabled = False
+        Button10.Enabled = True
+        Button10.Text = "Config: " & Yes
+    End Sub
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+            System.IO.File.Delete(path & "\TicTacToe-config.txt")
+            Button9.Enabled = True
+            Button10.Enabled = False
+            Button10.Text = "Config: " & No
+        Else
+            Button10.Enabled = False
+            Button10.Text = "Config: " & No
+        End If
+    End Sub
 End Class

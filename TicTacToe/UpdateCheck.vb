@@ -16,7 +16,7 @@
             End If
             Close()
         Else
-            web.DownloadFileAsync(New Uri("https://github.com/PlasticJustice/VB-TicTacToe/raw/master/TicTacToe/bin/Debug/AutoUpdater.exe"), prog)
+            web.DownloadFileAsync(New Uri("https://github.com/PlasticJustice/VB-TicTacToe/raw/master/TicTacToe/AutoUpdater.exe"), prog)
             Timer1.Start()
         End If
         DialogResult = Windows.Forms.DialogResult.Yes

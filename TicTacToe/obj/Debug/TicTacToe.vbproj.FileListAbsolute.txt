@@ -34,3 +34,14 @@ C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.xml
 C:\Users\Nick\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
 C:\Users\Nick\source\repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbprojResolveAssemblyReference.cache
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbprojResolveAssemblyReference.cache
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.CustomMessageBox.resources
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Form1.resources
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.LangMessageBox.resources
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.Resources.resources
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.UpdateCheck.resources
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbproj.GenerateResource.Cache
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.vbproj.CoreCompileInputs.cache
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.xml
+C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb

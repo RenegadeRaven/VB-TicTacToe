@@ -57,6 +57,13 @@ Partial Class Form1
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Language = New System.Windows.Forms.Label()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.Button10 = New System.Windows.Forms.Button()
         CType(Me.PictureBox13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox12, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,6 +80,7 @@ Partial Class Form1
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'PictureBox13
@@ -286,6 +294,7 @@ Partial Class Form1
         '
         resources.ApplyResources(Me.GroupBox3, "GroupBox3")
         Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox3.Controls.Add(Me.Button6)
         Me.GroupBox3.Controls.Add(Me.CheckBox2)
         Me.GroupBox3.Controls.Add(Me.Button4)
         Me.GroupBox3.Controls.Add(Me.CheckBox1)
@@ -309,10 +318,62 @@ Partial Class Form1
         resources.ApplyResources(Me.Language, "Language")
         Me.Language.Name = "Language"
         '
+        'Button5
+        '
+        Me.Button5.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        resources.ApplyResources(Me.Button5, "Button5")
+        Me.Button5.Name = "Button5"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        resources.ApplyResources(Me.Button6, "Button6")
+        Me.Button6.Name = "Button6"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        resources.ApplyResources(Me.GroupBox4, "GroupBox4")
+        Me.GroupBox4.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox4.Controls.Add(Me.Button10)
+        Me.GroupBox4.Controls.Add(Me.Button9)
+        Me.GroupBox4.Controls.Add(Me.Button7)
+        Me.GroupBox4.Controls.Add(Me.Button8)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.TabStop = False
+        '
+        'Button8
+        '
+        resources.ApplyResources(Me.Button8, "Button8")
+        Me.Button8.Name = "Button8"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Button7
+        '
+        resources.ApplyResources(Me.Button7, "Button7")
+        Me.Button7.Name = "Button7"
+        Me.Button7.UseVisualStyleBackColor = True
+        '
+        'Button9
+        '
+        resources.ApplyResources(Me.Button9, "Button9")
+        Me.Button9.Name = "Button9"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'Button10
+        '
+        resources.ApplyResources(Me.Button10, "Button10")
+        Me.Button10.Name = "Button10"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
         'Form1
         '
+        Me.AcceptButton = Me.Button1
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.Button5
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Language)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
@@ -360,6 +421,7 @@ Partial Class Form1
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -399,4 +461,11 @@ Partial Class Form1
     Friend WithEvents Button4 As Button
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents Language As Label
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Button7 As Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents Button10 As Button
+    Friend WithEvents Button9 As Button
 End Class
