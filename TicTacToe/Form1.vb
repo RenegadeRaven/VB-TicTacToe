@@ -35,8 +35,10 @@
     Dim OptPage As Integer = 0 'index de page d'option
     Dim sfx As Boolean = True 'un switch pour si les sons sont couper
     Dim restr As Integer
+    Dim clos As Integer
+    Dim savClose As Integer
     Dim path As String = My.Application.Info.DirectoryPath
-    Dim config(2) As String '= {"Lang", "color", "mute"}
+    Dim config(3) As String '= {"Lang", "color", "mute", "points"}
     Dim settings As String
     'Language stuff
     Dim Yes As String
@@ -53,49 +55,84 @@
     Dim DrawT As String
     Dim restrMsg As String
     Dim restrMsgHead As String
+    Dim closeMsg As String
+    Dim save As String
+    Dim ONs As String
+    Dim OFF As String
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         checkUpdate()
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             settings = System.IO.File.ReadAllText(path & "\TicTacToe-config.txt")
-            config = settings.Split("-")
-            Debug.Print(config(0) & config(1) & config(2))
+            config = settings.Split("
+")
+            config(0) = config(0).Remove(0, 8)
+            config(1) = config(1).Remove(0, 16)
+            config(2) = config(2).Remove(0, 9)
+            config(3) = config(3).Remove(0, 11)
+            Debug.Print(config(0) & config(1) & config(2) & config(3))
             If config(1) = "Yes" Then
                 CheckBox1.Checked = True
             End If
             If config(2) = "Yes" Then
                 CheckBox2.Checked = True
             End If
+            If config(3) = "Point" Then
+                RadioButton4.PerformClick()
+            ElseIf config(3) = "Percent" Then
+                RadioButton3.PerformClick()
+            End If
             Button9.Enabled = False
-            Button10.Text = "Config: " & Yes
+            GroupBox4.Text = "Configuration = " & ONs
         Else
             config(2) = "No"
             config(1) = "No"
             Button10.Enabled = False
-            Button10.Text = "Config: " & No
+            GroupBox4.Text = "Configuration = " & OFF
+            RadioButton4.PerformClick()
         End If
         LangSet()
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-            Button10.Text = "Config: " & Yes
+            GroupBox4.Text = "Configuration = " & ONs
         Else
-            Button10.Text = "Config: " & No
+            GroupBox4.Text = "Configuration = " & OFF
         End If
-        PlayCho = MsgB(PlayPiece, "X", "O", head1)
+        PlayCho = MsgB(PlayPiece, 2, "X", "O", "", head1)
         selPlayer()
-        ordCho = MsgB(PC, RadioButton2.Text, RadioButton1.Text, head2)
+        ordCho = MsgB(PC, 2, RadioButton2.Text, RadioButton1.Text, "", head2)
         If ordCho = 6 Then
             RadioButton2.PerformClick()
         ElseIf ordCho = 7 Then
             RadioButton1.PerformClick()
         End If
         GroupBox1.Hide()
-        RadioButton4.PerformClick()
         GroupBox2.Hide()
         GroupBox3.Hide()
         GroupBox4.Hide()
         Language.Hide()
         Button1.Text = NG & games
     End Sub 'La Selection de soit X ou O
+    Private Sub Form1_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
+        clos = MsgB(closeMsg, 2, Yes, No, "", restrMsgHead)
+        If clos = 6 Then
+            If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+                Dim cons As String = "<Lang:> " & config(0) & "
+" & "<Dark colors:> " & config(1) & "
+" & "<Mute:> " & config(2) & "
+" & "<Points:> " & config(3)
+                System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
+            Else
+                savClose = MsgB(save, 2, Yes, No, "", "")
+                If savClose = 6 Then
+                    Button9.PerformClick()
+                ElseIf savClose = 7 Then
+
+                End If
+            End If
+        ElseIf clos = 7 Then
+            e.Cancel = True
+        End If
+    End Sub 'Form1_Closing
     Public Sub checkUpdate()
         Dim ver As String = My.Application.Info.Version.ToString
 #If DEBUG Then
@@ -106,16 +143,19 @@
         End If
 #End If
     End Sub 'automatiquement faire une mise à jour
-    Private Function MsgB(ByVal mes As String, ByVal But1 As String, ByVal But2 As String, ByVal head As String)
-        Dim msg As New CustomMessageBox(mes, But1, But2, head)
+    Private Function MsgB(ByVal mes As String, ByVal numB As Integer, ByVal But1 As String, ByVal But2 As String, ByVal But3 As String, ByVal head As String)
+        Dim msg As New CustomMessageBox(mes, numB, But1, But2, But3, head)
         Dim result = msg.ShowDialog()
         Dim Ans As Integer
         If result = Windows.Forms.DialogResult.Yes Then
-            'user clicked "Oui"
+            'user clicked "B1"
             Ans = 6
         ElseIf result = Windows.Forms.DialogResult.No Then
-            'user clicked "Non"
+            'user clicked "B2"
             Ans = 7
+        ElseIf result = Windows.Forms.DialogResult.Cancel Then
+            'user clicked "B3"
+            Ans = 8
         Else
             'user closed the window without clicking a button
             Ans = -1
@@ -124,7 +164,7 @@
         Return Ans
     End Function 'custom MsgBox
     Public Sub LangSet()
-        Dim LangT As String
+        Dim LangT As String = "?"
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             If config(0) = "English" Then
                 LangT = "English"
@@ -148,6 +188,8 @@
         If LangT = "Français" Then
             Yes = "Oui"
             No = "Non"
+            ONs = "Allumé"
+            OFF = "Éteint"
             head1 = "Sélection du Pièce"
             head2 = "Jouer Contre?"
             PlayPiece = "Quel pièce est-ce que Joueur 1 veut être?"
@@ -170,12 +212,19 @@ les Couleurs"
             RadioButton3.Text = "En Pourcentage"
             RadioButton4.Text = "En Points"
             Button5.Text = "Redémarrer"
+            Button9.Text = "Enregister"
+            Button10.Text = "Supprimer"
+            Button11.Text = "Fermer"
             restrMsg = "Est-ce que tu est assuré que tu veux redémarrer le jeu? Tu va perdre tous tes points."
+            closeMsg = "Est-ce que tu est assuré que tu veux fermer le jeu? Tu va perdre tous tes points."
             restrMsgHead = "Est-ce que tu est assuré?"
             config(0) = LangT
+            save = "Est-ce que tu veux sauvegarder tes paramètres?"
         ElseIf LangT = "English" Then
             Yes = "Yes"
             No = "No"
+            ONs = "ON"
+            OFF = "OFF"
             head1 = "Piece Selection"
             head2 = "Play Against?"
             PlayPiece = "Which piece does Player 1 want to play as?"
@@ -197,9 +246,14 @@ les Couleurs"
             RadioButton3.Text = "In Percentage"
             RadioButton4.Text = "In Points"
             Button5.Text = "Restart"
+            Button9.Text = "Save"
+            Button10.Text = "Delete"
+            Button11.Text = "Close"
             restrMsg = "Are you sure you want to restart the game? You will lose all your points."
+            closeMsg = "Are you sure you want to close the game? You will lose all your points."
             restrMsgHead = "Are you sure?"
             config(0) = LangT
+            save = "Do you want to save your settings?"
         End If
         Label7.Text = DrawT & "s"
     End Sub 'selection du language
@@ -1385,6 +1439,9 @@ les Couleurs"
     End Sub 'RadioButton vide
 
     Private Sub percentWin()
+        If gamesC = Nothing Then
+            GoTo 1
+        End If
         XwP = (Xw / gamesC) * 100
         OwP = (Ow / gamesC) * 100
         DrawP = (Draw / gamesC) * 100
@@ -1392,6 +1449,7 @@ les Couleurs"
         XwP = Math.Round(XwP, 2, MidpointRounding.AwayFromZero)
         OwP = Math.Round(OwP, 2, MidpointRounding.AwayFromZero)
         DrawP = Math.Round(DrawP, 2, MidpointRounding.AwayFromZero)
+1:
     End Sub 'calcul la pourcentage des victoires
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If OptPage = 0 Then
@@ -1427,10 +1485,12 @@ les Couleurs"
             Label4.Text = XwP & "%"
             Label5.Text = OwP & "%"
             Label6.Text = DrawP & "%"
+            config(3) = "Percent"
         Else
             Label4.Text = Xw
             Label5.Text = Ow
             Label6.Text = Draw
+            config(3) = "Point"
         End If
         'GroupBox2.Hide()
     End Sub 'pointage
@@ -1441,10 +1501,12 @@ les Couleurs"
             Label4.Text = XwP & "%"
             Label5.Text = OwP & "%"
             Label6.Text = DrawP & "%"
+            config(3) = "Percent"
         Else
             Label4.Text = Xw
             Label5.Text = Ow
             Label6.Text = Draw
+            config(3) = "Point"
         End If
         'GroupBox2.Hide()
     End Sub 'pourcentage
@@ -1492,6 +1554,8 @@ les Couleurs"
             Button9.ForeColor = SystemColors.Control
             Button10.BackColor = SystemColors.ControlText
             Button10.ForeColor = SystemColors.Control
+            Button11.BackColor = SystemColors.ControlText
+            Button11.ForeColor = SystemColors.Control
             GroupBox2.ForeColor = SystemColors.Control
             GroupBox3.ForeColor = SystemColors.Control
             GroupBox4.ForeColor = SystemColors.Control
@@ -1541,6 +1605,8 @@ les Couleurs"
             Button9.ForeColor = SystemColors.ControlText
             Button10.BackColor = SystemColors.Control
             Button10.ForeColor = SystemColors.ControlText
+            Button11.BackColor = SystemColors.Control
+            Button11.ForeColor = SystemColors.ControlText
             GroupBox2.ForeColor = SystemColors.ControlText
             GroupBox3.ForeColor = SystemColors.ControlText
             GroupBox4.ForeColor = SystemColors.ControlText
@@ -1583,37 +1649,43 @@ les Couleurs"
     End Sub 'couper le son
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        restr = MsgB(restrMsg, Yes, No, restrMsgHead)
+        restr = MsgB(restrMsg, 2, Yes, No, "", restrMsgHead)
         If restr = 6 Then
             Application.Restart()
         End If
-    End Sub
+    End Sub 'Restart Button
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         GroupBox4.Show()
         GroupBox3.Hide()
         OptPage = 2
-    End Sub
+    End Sub 'à page 3 de les options
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         GroupBox3.Show()
         GroupBox4.Hide()
         OptPage = 1
-    End Sub
+    End Sub 'à page 2 de les options
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        Dim cons As String = config(0) & "-" & config(1) & "-" & config(2)
+        Dim cons As String = "<Lang:> " & config(0) & "
+" & "<Dark colors:> " & config(1) & "
+" & "<Mute:> " & config(2) & "
+" & "<Points:> " & config(3)
         System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
         Button9.Enabled = False
         Button10.Enabled = True
-        Button10.Text = "Config: " & Yes
-    End Sub
+        GroupBox4.Text = "Configuration = " & ONs
+    End Sub 'Saves config
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             System.IO.File.Delete(path & "\TicTacToe-config.txt")
             Button9.Enabled = True
             Button10.Enabled = False
-            Button10.Text = "Config: " & No
+            GroupBox4.Text = "Configuration = " & OFF
         Else
             Button10.Enabled = False
-            Button10.Text = "Config: " & No
+            GroupBox4.Text = "Configuration = " & OFF
         End If
-    End Sub
+    End Sub 'delete config
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        Close()
+    End Sub 'close
 End Class
