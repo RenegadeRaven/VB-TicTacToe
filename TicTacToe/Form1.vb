@@ -140,7 +140,11 @@
             Else
                 savClose = MsgB(save, 2, Yes, No, "", head3)
                 If savClose = 6 Then
-                    Button9.PerformClick()
+                    Dim cons As String = "<Lang:> " & config(0) & "
+" & "<Dark colors:> " & config(1) & "
+" & "<Mute:> " & config(2) & "
+" & "<Points:> " & config(3)
+                    System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
                 ElseIf savClose = 7 Then
 
                 End If
