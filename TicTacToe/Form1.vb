@@ -37,31 +37,38 @@
     Dim restr As Integer
     Dim clos As Integer
     Dim savClose As Integer
-    Dim path As String = My.Application.Info.DirectoryPath
+    Dim pathexe As String = My.Application.Info.DirectoryPath
+    Dim path As String = pathexe & "\TicTacToe"
     Dim config(3) As String '= {"Lang", "color", "mute", "points"}
     Dim settings As String
+    Dim time As String
+    Dim log As String
     'Language stuff
-    Dim Yes As String
-    Dim No As String
-    Dim head1 As String
-    Dim head2 As String
-    Dim PlayPiece As String
-    Dim PC As String
-    Dim NG As String
-    Dim Xt As String
-    Dim Ot As String
-    Dim winX As String
-    Dim winO As String
-    Dim DrawT As String
-    Dim restrMsg As String
-    Dim restrMsgHead As String
-    Dim closeMsg As String
-    Dim save As String
-    Dim ONs As String
-    Dim OFF As String
+    Dim Yes As String = "Oui"
+    Dim No As String = "Non"
+    Dim head1 As String = "Sélection du Pièce"
+    Dim head2 As String = "Jouer Contre?"
+    Dim head3 As String = "Paramètres?"
+    Dim PlayPiece As String = "Quel pièce est-ce que Joueur 1 veut être?"
+    Dim PC As String = "Qui est-ce que tu veux jouer contre?" 
+    Dim NG As String = "Nouveau Jeu: "
+    Dim Xt As String = "C'est le tour de X"
+    Dim Ot As String = "C'est le tour de O"
+    Dim winX As String = "X Gagne"
+    Dim winO As String = "O Gagne"
+    Dim DrawT As String = "Match Nul"
+    Dim restrMsg As String = "Est-ce que tu est assuré que tu veux redémarrer le jeu? Tu va perdre tous tes points."
+    Dim restrMsgHead As String = "Est-ce que tu est assuré?"
+    Dim closeMsg As String = "Est-ce que tu est assuré que tu veux fermer le jeu?"
+    Dim save As String = "Est-ce que tu veux sauvegarder tes paramètres?"
+    Dim ONs As String = "Allumé"
+    Dim OFF As String = "Éteint"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         checkUpdate()
+        My.Computer.FileSystem.CreateDirectory(pathexe & "\TicTacToe")
+        My.Computer.FileSystem.CreateDirectory(path & "\logs")
+        time = System.DateTime.Now.ToString("dd-MM-yyy HH;mm;ss")
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             settings = System.IO.File.ReadAllText(path & "\TicTacToe-config.txt")
             config = settings.Split("
@@ -84,14 +91,17 @@
             End If
             Button9.Enabled = False
             GroupBox4.Text = "Configuration = " & ONs
+            log = log & "Start | From Settings | " & config(0) & ", " & config(1) & ", " & config(2) & ", " & config(3) & " | "
+            LangSet()
         Else
             config(2) = "No"
             config(1) = "No"
             Button10.Enabled = False
             GroupBox4.Text = "Configuration = " & OFF
             RadioButton4.PerformClick()
+            LangSet()
+            log = log & "Start | " & Language.Text & " | "
         End If
-        LangSet()
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             GroupBox4.Text = "Configuration = " & ONs
         Else
@@ -101,8 +111,14 @@
         selPlayer()
         ordCho = MsgB(PC, 2, RadioButton2.Text, RadioButton1.Text, "", head2)
         If ordCho = 6 Then
+            log = log & "Against PC 
+
+"
             RadioButton2.PerformClick()
         ElseIf ordCho = 7 Then
+            log = log & "Against Player 2 
+
+"
             RadioButton1.PerformClick()
         End If
         GroupBox1.Hide()
@@ -122,7 +138,7 @@
 " & "<Points:> " & config(3)
                 System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
             Else
-                savClose = MsgB(save, 2, Yes, No, "", "")
+                savClose = MsgB(save, 2, Yes, No, "", head3)
                 If savClose = 6 Then
                     Button9.PerformClick()
                 ElseIf savClose = 7 Then
@@ -132,11 +148,12 @@
         ElseIf clos = 7 Then
             e.Cancel = True
         End If
+        System.IO.File.WriteAllText(path & "\logs\" & time & ".txt", log)
     End Sub 'Form1_Closing
     Public Sub checkUpdate()
         Dim ver As String = My.Application.Info.Version.ToString
 #If DEBUG Then
-        System.IO.File.WriteAllText(path & "\version.txt", ver)
+        System.IO.File.WriteAllText(pathexe & "\version.txt", ver)
 #Else
         If My.Computer.Network.IsAvailable Then
             Dim msgU As New UpdateCheck
@@ -220,6 +237,7 @@ les Couleurs"
             restrMsgHead = "Est-ce que tu est assuré?"
             config(0) = LangT
             save = "Est-ce que tu veux sauvegarder tes paramètres?"
+            head3 = "Paramètres?"
         ElseIf LangT = "English" Then
             Yes = "Yes"
             No = "No"
@@ -254,6 +272,7 @@ les Couleurs"
             restrMsgHead = "Are you sure?"
             config(0) = LangT
             save = "Do you want to save your settings?"
+            head3 = "Settings?"
         End If
         Label7.Text = DrawT & "s"
     End Sub 'selection du language
@@ -495,6 +514,10 @@ les Couleurs"
                 Xw = Xw + 1
                 LB = 1
                 gamesC = gamesC + 1
+                log = log & "
+
+X wins
+"
             ElseIf (Label1.Text = winO) Then
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
@@ -502,6 +525,10 @@ les Couleurs"
                 Ow = Ow + 1
                 LB = 1
                 gamesC = gamesC + 1
+                log = log & "
+
+O wins
+"
             ElseIf (Label1.Text = DrawT) Then
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
@@ -509,6 +536,10 @@ les Couleurs"
                 Draw = Draw + 1
                 LB = 1
                 gamesC = gamesC + 1
+                log = log & "
+
+Draw
+"
             End If
         End If
     End Sub 'Verifie qui a gagné
@@ -547,12 +578,18 @@ les Couleurs"
             Label1.Text = Xt
             Player = 1
             Computer = 2
+            If games = 0 Then
+                log = log & "Player 1 = X | "
+            End If
         ElseIf PlayCho = 7 Then
-            turnCount()
+                turnCount()
             checkTurn()
             Label1.Text = Ot
             Player = 2
             Computer = 1
+            If games = 0 Then
+                log = log & "Player 1 = O | "
+            End If
         End If
     End Sub 'La Selection de soit X ou O
     Private Sub newGame()
@@ -587,6 +624,12 @@ les Couleurs"
         'PictureBox11.BackColor = SystemColors.Control
         'PictureBox12.BackColor = SystemColors.Control
         'PictureBox13.BackColor = SystemColors.Control
+        log = log & "
+
+
+----New game----
+
+"
         invertColor()
         Button1.Text = NG & games
         checkTurn()
@@ -1234,6 +1277,8 @@ les Couleurs"
             GoTo 1
         End If
         ErrorCount = 0
+        log = log & "Computer - P" & ordPlay & "
+"
         checkWin()
     End Sub 'Comment l'ordinateur choisir où jouer
 
@@ -1254,9 +1299,10 @@ les Couleurs"
                 turnCount()
 
             End If
+            log = log & "Player - P1
+"
             ordTurn = 0
         Else
-
         End If
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox5
@@ -1275,6 +1321,8 @@ les Couleurs"
                 turnCount()
                 P2 = 1
             End If
+            log = log & "Player - P2
+"
             ordTurn = 0
         Else
         End If
@@ -1295,6 +1343,8 @@ les Couleurs"
                 turnCount()
                 P3 = 1
             End If
+            log = log & "Player - P3
+"
             ordTurn = 0
         Else
         End If
@@ -1315,6 +1365,8 @@ les Couleurs"
                 turnCount()
                 P4 = 1
             End If
+            log = log & "Player - P4
+"
             ordTurn = 0
         Else
 
@@ -1336,6 +1388,8 @@ les Couleurs"
                 turnCount()
                 P5 = 1
             End If
+            log = log & "Player - P5
+"
             ordTurn = 0
         Else
         End If
@@ -1356,6 +1410,8 @@ les Couleurs"
                 turnCount()
                 P6 = 1
             End If
+            log = log & "Player - P6
+"
             ordTurn = 0
         Else
         End If
@@ -1376,6 +1432,8 @@ les Couleurs"
                 turnCount()
                 P7 = 1
             End If
+            log = log & "Player - P7
+"
             ordTurn = 0
         Else
         End If
@@ -1396,6 +1454,8 @@ les Couleurs"
                 turnCount()
                 P8 = 1
             End If
+            log = log & "Player - P8
+"
             ordTurn = 0
         Else
         End If
@@ -1416,6 +1476,8 @@ les Couleurs"
                 turnCount()
                 P9 = 1
             End If
+            log = log & "Player - P9
+"
             ordTurn = 0
         Else
         End If
