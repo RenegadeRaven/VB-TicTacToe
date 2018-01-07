@@ -70,6 +70,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        '''</summary>
+        Friend ReadOnly Property drop() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("drop", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property O() As System.Drawing.Bitmap
@@ -85,6 +94,15 @@ Namespace My.Resources
         Friend ReadOnly Property point() As System.IO.UnmanagedMemoryStream
             Get
                 Return ResourceManager.GetStream("point", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        '''</summary>
+        Friend ReadOnly Property snap() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("snap", resourceCulture)
             End Get
         End Property
         

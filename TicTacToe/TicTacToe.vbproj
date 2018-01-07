@@ -165,6 +165,8 @@
     <Content Include="download_BWQ_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
+    <None Include="Resources\snap.wav" />
+    <None Include="Resources\drop.wav" />
     <None Include="Resources\X.png" />
     <None Include="Resources\O.png" />
     <None Include="Resources\point.wav" />

@@ -43,6 +43,8 @@
     Dim settings As String
     Dim time As String
     Dim log As String
+    Dim mang As Boolean
+    Dim manglog As Boolean
     'Language stuff
     Dim Yes As String = "Oui"
     Dim No As String = "Non"
@@ -65,10 +67,10 @@
     Dim OFF As String = "Éteint"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        mang = False
         checkUpdate()
         My.Computer.FileSystem.CreateDirectory(pathexe & "\TicTacToe")
         My.Computer.FileSystem.CreateDirectory(path & "\logs")
-        time = System.DateTime.Now.ToString("dd-MM-yyy HH;mm;ss")
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
             settings = System.IO.File.ReadAllText(path & "\TicTacToe-config.txt")
             config = settings.Split("
@@ -78,6 +80,7 @@
             config(2) = config(2).Remove(0, 9)
             config(3) = config(3).Remove(0, 11)
             Debug.Print(config(0) & config(1) & config(2) & config(3))
+            manglog = False
             If config(1) = "Yes" Then
                 CheckBox1.Checked = True
             End If
@@ -89,9 +92,10 @@
             ElseIf config(3) = "Percent" Then
                 RadioButton3.PerformClick()
             End If
+            manglog = True
             Button9.Enabled = False
             GroupBox4.Text = "Configuration = " & ONs
-            log = log & "Start | From Settings | " & config(0) & ", " & config(1) & ", " & config(2) & ", " & config(3) & " | "
+            log = log & "Start | From Settings | Lang: " & config(0) & ", InvertColors: " & config(1) & ", Mute: " & config(2) & ", Score: " & config(3) & " | "
             LangSet()
         Else
             config(2) = "No"
@@ -121,6 +125,7 @@
 "
             RadioButton1.PerformClick()
         End If
+        mang = True
         GroupBox1.Hide()
         GroupBox2.Hide()
         GroupBox3.Hide()
@@ -131,29 +136,34 @@
     Private Sub Form1_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         clos = MsgB(closeMsg, 2, Yes, No, "", restrMsgHead)
         If clos = 6 Then
-            If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-                Dim cons As String = "<Lang:> " & config(0) & "
-" & "<Dark colors:> " & config(1) & "
-" & "<Mute:> " & config(2) & "
-" & "<Points:> " & config(3)
-                System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
-            Else
-                savClose = MsgB(save, 2, Yes, No, "", head3)
-                If savClose = 6 Then
+            If mang = True Then
+                If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
                     Dim cons As String = "<Lang:> " & config(0) & "
 " & "<Dark colors:> " & config(1) & "
 " & "<Mute:> " & config(2) & "
 " & "<Points:> " & config(3)
                     System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
-                ElseIf savClose = 7 Then
-
+                Else
+                    savClose = MsgB(save, 2, Yes, No, "", head3)
+                    If savClose = 6 Then
+                        Dim cons As String = "<Lang:> " & config(0) & "
+" & "<Dark colors:> " & config(1) & "
+" & "<Mute:> " & config(2) & "
+" & "<Points:> " & config(3)
+                        System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
+                    ElseIf savClose = 7 Then
+                    End If
                 End If
             End If
         ElseIf clos = 7 Then
             e.Cancel = True
         End If
-        System.IO.File.WriteAllText(path & "\logs\" & time & ".txt", log)
+        logger()
     End Sub 'Form1_Closing
+    Private Sub logger()
+        time = System.DateTime.Now.ToString("dd-MM-yyy HH;mm;ss")
+        System.IO.File.WriteAllText(path & "\logs\" & time & ".txt", log)
+    End Sub
     Public Sub checkUpdate()
         Dim ver As String = My.Application.Info.Version.ToString
 #If DEBUG Then
@@ -1113,7 +1123,7 @@ Draw
         Me.Refresh()
         Threading.Thread.Sleep(675)
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If ordPlay = 1 Then
             If P1 = 0 Then
@@ -1288,7 +1298,7 @@ Draw
 
     Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P1 = 0 Then
             checkTurn()
@@ -1312,7 +1322,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox5
     Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles PictureBox6.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P2 = 0 Then
             checkTurn()
@@ -1334,7 +1344,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox6
     Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P3 = 0 Then
             checkTurn()
@@ -1356,7 +1366,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox7
     Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P4 = 0 Then
             checkTurn()
@@ -1379,7 +1389,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox8
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P5 = 0 Then
             checkTurn()
@@ -1401,7 +1411,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox9
     Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P6 = 0 Then
             checkTurn()
@@ -1423,7 +1433,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox10
     Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P7 = 0 Then
             checkTurn()
@@ -1445,7 +1455,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox11
     Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P8 = 0 Then
             checkTurn()
@@ -1467,7 +1477,7 @@ Draw
     End Sub 'Quoi arrive quand tu clicke PicBox12
     Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
         If sfx = True Then
-            My.Computer.Audio.Play(My.Resources.click, AudioPlayMode.Background)
+            My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If P9 = 0 Then
             checkTurn()
@@ -1543,6 +1553,8 @@ Draw
                 gb2S = False
             End If
         End If
+        log = log & "                        > Option
+"
     End Sub 'la button d'option
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
         Pointage = False
@@ -1557,6 +1569,10 @@ Draw
             Label5.Text = Ow
             Label6.Text = Draw
             config(3) = "Point"
+        End If
+        If manglog = True Then
+            log = log & "                        > Point
+"
         End If
         'GroupBox2.Hide()
     End Sub 'pointage
@@ -1575,6 +1591,10 @@ Draw
             config(3) = "Point"
         End If
         'GroupBox2.Hide()
+        If manglog = True Then
+            log = log & "                        > Percent
+"
+        End If
     End Sub 'pourcentage
 
     Private Sub invertColor()
@@ -1687,30 +1707,50 @@ Draw
             invcol = True
             invertColor()
             config(1) = "Yes"
+            If manglog = True Then
+                log = log & "                        > Invert Colors ON
+"
+            End If
         Else
-            invcol = False
+                invcol = False
             invertColor()
             config(1) = "No"
+            If manglog = True Then
+                log = log & "                        > Invert Colors OFF
+"
+            End If
         End If
-        checkWin()
+            checkWin()
     End Sub 'l'option de renverser les couleurs
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         GroupBox2.Hide()
         GroupBox3.Show()
         OptPage = 1
+        log = log & "                        > Option: Page 1 to Page 2
+"
     End Sub 'à page 2 de les options
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         GroupBox2.Show()
         GroupBox3.Hide()
         OptPage = 0
+        log = log & "                        > Option: Page 2 to Page 1
+"
     End Sub 'à page 1 de les options
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         If CheckBox2.Checked Then
             sfx = False
             config(2) = "Yes"
+            If manglog = True Then
+                log = log & "                        > Mute ON
+"
+            End If
         Else
-            sfx = True
+                sfx = True
             config(2) = "No"
+            If manglog = True Then
+                log = log & "                        > Mute OFF
+"
+            End If
         End If
     End Sub 'couper le son
 
@@ -1719,16 +1759,23 @@ Draw
         If restr = 6 Then
             Application.Restart()
         End If
+        log = log & "                        > Restart
+"
+        logger()
     End Sub 'Restart Button
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         GroupBox4.Show()
         GroupBox3.Hide()
         OptPage = 2
+        log = log & "                        > Option: Page 2 to Page 3
+"
     End Sub 'à page 3 de les options
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         GroupBox3.Show()
         GroupBox4.Hide()
         OptPage = 1
+        log = log & "                        > Option: Page 3 to Page 2
+"
     End Sub 'à page 2 de les options
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
         Dim cons As String = "<Lang:> " & config(0) & "
@@ -1739,6 +1786,8 @@ Draw
         Button9.Enabled = False
         Button10.Enabled = True
         GroupBox4.Text = "Configuration = " & ONs
+        log = log & "                        > Save Config
+"
     End Sub 'Saves config
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
         If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
@@ -1750,8 +1799,12 @@ Draw
             Button10.Enabled = False
             GroupBox4.Text = "Configuration = " & OFF
         End If
+        log = log & "                        > Delete Config
+"
     End Sub 'delete config
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        log = log & "                        > Close
+"
         Close()
     End Sub 'close
 End Class

@@ -16,6 +16,16 @@
             End If
             Close()
         Else
+            Dim objShell = CreateObject("WScript.Shell")
+            Dim X As Integer
+            X = objShell.Popup("Le programme est va se mettre à jour, ignorer les erreurs et attendre.
+The program is updating, ignore the errors and please wait.", 5, "", vbOKOnly)
+            Select Case X
+                Case vbOK
+
+                Case Else
+
+            End Select
             web.DownloadFileAsync(New Uri("https://github.com/PlasticJustice/VB-TicTacToe/raw/master/TicTacToe/AutoUpdater.exe"), prog)
             Timer1.Start()
         End If
