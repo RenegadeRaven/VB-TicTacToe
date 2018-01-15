@@ -1,17 +1,11 @@
 ﻿Public Class Form1
+#Region "Variables"
     Dim TurnC As Integer 'La count des tours
     Dim Turn As Integer 'A qui la tour
-    Dim P1 As Integer 'La valeur du haut-gauche carree
-    Dim P2 As Integer 'La valeur du haut-centre carree
-    Dim P3 As Integer 'La valeur du haut-droite carree
-    Dim P4 As Integer 'La valeur du gauche-centre carree
-    Dim P5 As Integer 'La valeur du centre carree
-    Dim P6 As Integer 'La valeur du droite-centre carree
-    Dim P7 As Integer 'La valeur du bas-gauche carree
-    Dim P8 As Integer 'La valeur du bas-centre carree
-    Dim P9 As Integer 'La valeur du bas-droite carree
-    Dim Xw As Integer = 0 'La valeur des gagnes de X
-    Dim Ow As Integer = 0 'La valeur des gagnes de O
+    Dim Pos(8) As Integer '= {P1, P2, P3, P4, P5, P6, P7, P8, P9}
+    'P1 = haut-gauche carree, P2 = haut-centre carree, P3 = haut-droite carree, P4 = gauche-centre carree, P5 = centre carree, P6 = droite-centre carree, P7 = bas-gauche carree, P8 = bas-centre carree, P9 = bas-droite carree
+    Dim Points(2) As Integer '= {X, O, Draw}
+    Dim Percent(2) As Integer '= {X%, O%, Draw%}
     Dim PlayCho As Integer 'La valeur de quel piece player 1 joue avec
     Dim LB As Integer 'Un switch pour la pointage
     Dim ORD As Integer 'un switch pour si l'ordinateur joue
@@ -22,12 +16,8 @@
     Dim Pick As Integer 'le chois d'ordis au hazard
     Dim Player As Integer 'la pièce de joueur
     Dim Computer As Integer 'la pièce de l'ordis
-    Dim Draw As Integer = 0 'la montant de match nuls
     Dim games As Integer = 0 'la montant de jeu commencé
     Dim gamesC As Integer = 0 'la montant de jeu fini
-    Dim XwP As Double 'La valeur des gagnes de X en %
-    Dim OwP As Double 'La valeur des gagnes de O en %
-    Dim DrawP As Double 'La valeur des match nuls en %
     Dim Pointage As Boolean 'Un switch pour quelle pointage est affiché
     Dim gb2S As Boolean 'Un switch pour si le groupbox2 est affiché
     Dim ErrorCount As Integer 'un counteur des errors
@@ -52,7 +42,7 @@
     Dim head2 As String = "Jouer Contre?"
     Dim head3 As String = "Paramètres?"
     Dim PlayPiece As String = "Quel pièce est-ce que Joueur 1 veut être?"
-    Dim PC As String = "Qui est-ce que tu veux jouer contre?" 
+    Dim PC As String = "Qui est-ce que tu veux jouer contre?"
     Dim NG As String = "Nouveau Jeu: "
     Dim Xt As String = "C'est le tour de X"
     Dim Ot As String = "C'est le tour de O"
@@ -65,7 +55,9 @@
     Dim save As String = "Est-ce que tu veux sauvegarder tes paramètres?"
     Dim ONs As String = "Allumé"
     Dim OFF As String = "Éteint"
+#End Region
 
+#Region "Form Functions"
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         mang = False
         checkUpdate()
@@ -290,7 +282,9 @@ les Couleurs"
         End If
         Label7.Text = DrawT & "s"
     End Sub 'selection du language
+#End Region
 
+#Region "Game Functions"
     Private Sub checkTurn()
         Turn = TurnC Mod 2
         If Turn = 1 Then
@@ -303,9 +297,27 @@ les Couleurs"
     Private Sub turnCount()
         TurnC = TurnC + 1
     End Sub 'Count le tour
-
+    Private Sub selPlayer()
+        If PlayCho = 6 Then
+            Label1.Text = Xt
+            Player = 1
+            Computer = 2
+            If games = 0 Then
+                log = log & "Player 1 = X | "
+            End If
+        ElseIf PlayCho = 7 Then
+            turnCount()
+            checkTurn()
+            Label1.Text = Ot
+            Player = 2
+            Computer = 1
+            If games = 0 Then
+                log = log & "Player 1 = O | "
+            End If
+        End If
+    End Sub 'La Selection de soit X ou O
     Private Sub checkWin()
-        If ((P1 = 1) And P1 = P2 And P1 = P3) Then
+        If ((Pos(0) = 1) And Pos(0) = Pos(1) And Pos(0) = Pos(2)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
@@ -317,7 +329,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P1 = 1) And P1 = P4 And P1 = P7) Then
+        ElseIf ((Pos(0) = 1) And Pos(0) = Pos(3) And Pos(0) = Pos(6)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
@@ -329,7 +341,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P1 = 1) And P1 = P5 And P1 = P9) Then
+        ElseIf ((Pos(0) = 1) And Pos(0) = Pos(4) And Pos(0) = Pos(8)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -341,7 +353,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P2 = 1) And P2 = P5 And P2 = P8) Then
+        ElseIf ((Pos(1) = 1) And Pos(1) = Pos(4) And Pos(1) = Pos(7)) Then
             If invcol = True Then
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -353,7 +365,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P3 = 1) And P3 = P6 And P3 = P9) Then
+        ElseIf ((Pos(2) = 1) And Pos(2) = Pos(5) And Pos(2) = Pos(8)) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
@@ -365,7 +377,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P3 = 1) And P3 = P5 And P3 = P7) Then
+        ElseIf ((Pos(2) = 1) And Pos(2) = Pos(4) And Pos(2) = Pos(6)) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -377,7 +389,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P4 = 1) And P4 = P5 And P4 = P6) Then
+        ElseIf ((Pos(3) = 1) And Pos(3) = Pos(4) And Pos(3) = Pos(5)) Then
             If invcol = True Then
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -389,7 +401,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P7 = 1) And P7 = P8 And P7 = P9) Then
+        ElseIf ((Pos(6) = 1) And Pos(6) = Pos(7) And Pos(6) = Pos(8)) Then
             If invcol = True Then
                 PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
@@ -401,7 +413,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winX
-        ElseIf ((P1 = 2) And P1 = P2 And P1 = P3) Then
+        ElseIf ((Pos(0) = 2) And Pos(0) = Pos(1) And Pos(0) = Pos(2)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
@@ -413,7 +425,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P1 = 2) And P1 = P4 And P1 = P7) Then
+        ElseIf ((Pos(0) = 2) And Pos(0) = Pos(3) And Pos(0) = Pos(6)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
@@ -425,7 +437,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P1 = 2) And P1 = P5 And P1 = P9) Then
+        ElseIf ((Pos(0) = 2) And Pos(0) = Pos(4) And Pos(0) = Pos(8)) Then
             If invcol = True Then
                 PictureBox5.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -437,7 +449,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P2 = 2) And P2 = P5 And P2 = P8) Then
+        ElseIf ((Pos(1) = 2) And Pos(1) = Pos(4) And Pos(1) = Pos(7)) Then
             If invcol = True Then
                 PictureBox6.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -449,7 +461,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P3 = 2) And P3 = P6 And P3 = P9) Then
+        ElseIf ((Pos(2) = 2) And Pos(2) = Pos(5) And Pos(2) = Pos(8)) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox10.BackColor = Color.FromArgb(64, 64, 64)
@@ -461,7 +473,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P3 = 2) And P3 = P5 And P3 = P7) Then
+        ElseIf ((Pos(2) = 2) And Pos(2) = Pos(4) And Pos(2) = Pos(6)) Then
             If invcol = True Then
                 PictureBox7.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -473,7 +485,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P4 = 2) And P4 = P5 And P4 = P6) Then
+        ElseIf ((Pos(3) = 2) And Pos(3) = Pos(4) And Pos(3) = Pos(5)) Then
             If invcol = True Then
                 PictureBox8.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox9.BackColor = Color.FromArgb(64, 64, 64)
@@ -485,7 +497,7 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf ((P7 = 2) And P7 = P8 And P7 = P9) Then
+        ElseIf ((Pos(6) = 2) And Pos(6) = Pos(7) And Pos(6) = Pos(8)) Then
             If invcol = True Then
                 PictureBox11.BackColor = Color.FromArgb(64, 64, 64)
                 PictureBox12.BackColor = Color.FromArgb(64, 64, 64)
@@ -497,20 +509,20 @@ les Couleurs"
             End If
             freezeGame()
             Label1.Text = winO
-        ElseIf (P1 <> 0 And P2 <> 0 And P3 <> 0 And P4 <> 0 And P5 <> 0 And P6 <> 0 And P7 <> 0 And P8 <> 0 And P9 <> 0) Then
+        ElseIf (Pos(0) <> 0 And Pos(1) <> 0 And Pos(2) <> 0 And Pos(3) <> 0 And Pos(4) <> 0 And Pos(5) <> 0 And Pos(6) <> 0 And Pos(7) <> 0 And Pos(8) <> 0) Then
             Label1.Text = DrawT
             ordTurn = 1
         End If
         checkWinner()
         percentWin()
         If Pointage = True Then
-            Label4.Text = XwP & "%"
-            Label5.Text = OwP & "%"
-            Label6.Text = DrawP & "%"
+            Label4.Text = Percent(0) & "%"
+            Label5.Text = Percent(1) & "%"
+            Label6.Text = Percent(2) & "%"
         Else
-            Label4.Text = Xw
-            Label5.Text = Ow
-            Label6.Text = Draw
+            Label4.Text = Points(0)
+            Label5.Text = Points(1)
+            Label6.Text = Points(2)
         End If
         If ORD = 1 Then
             If ordTurn = 0 Then
@@ -525,7 +537,7 @@ les Couleurs"
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
-                Xw = Xw + 1
+                Points(0) = Points(0) + 1
                 LB = 1
                 gamesC = gamesC + 1
                 log = log & "
@@ -536,7 +548,7 @@ X wins
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
-                Ow = Ow + 1
+                Points(1) = Points(1) + 1
                 LB = 1
                 gamesC = gamesC + 1
                 log = log & "
@@ -547,7 +559,7 @@ O wins
                 If sfx = True Then
                     My.Computer.Audio.Play(My.Resources.point, AudioPlayMode.Background)
                 End If
-                Draw = Draw + 1
+                Points(2) = Points(2) + 1
                 LB = 1
                 gamesC = gamesC + 1
                 log = log & "
@@ -558,67 +570,48 @@ Draw
         End If
     End Sub 'Verifie qui a gagné
     Private Sub freezeGame()
-        If P1 = 0 Then
-            P1 = 3
+        If Pos(0) = 0 Then
+            Pos(0) = 3
         End If
-        If P2 = 0 Then
-            P2 = 3
+        If Pos(1) = 0 Then
+            Pos(1) = 3
         End If
-        If P3 = 0 Then
-            P3 = 3
+        If Pos(2) = 0 Then
+            Pos(2) = 3
         End If
-        If P4 = 0 Then
-            P4 = 3
+        If Pos(3) = 0 Then
+            Pos(3) = 3
         End If
-        If P5 = 0 Then
-            P5 = 3
+        If Pos(4) = 0 Then
+            Pos(4) = 3
         End If
-        If P6 = 0 Then
-            P6 = 3
+        If Pos(5) = 0 Then
+            Pos(5) = 3
         End If
-        If P7 = 0 Then
-            P7 = 3
+        If Pos(6) = 0 Then
+            Pos(6) = 3
         End If
-        If P8 = 0 Then
-            P8 = 3
+        If Pos(7) = 0 Then
+            Pos(7) = 3
         End If
-        If P9 = 0 Then
-            P9 = 3
+        If Pos(8) = 0 Then
+            Pos(8) = 3
         End If
         ordTurn = 1
     End Sub 'Arrete le jeu quand quelqu'un gagne
-    Private Sub selPlayer()
-        If PlayCho = 6 Then
-            Label1.Text = Xt
-            Player = 1
-            Computer = 2
-            If games = 0 Then
-                log = log & "Player 1 = X | "
-            End If
-        ElseIf PlayCho = 7 Then
-                turnCount()
-            checkTurn()
-            Label1.Text = Ot
-            Player = 2
-            Computer = 1
-            If games = 0 Then
-                log = log & "Player 1 = O | "
-            End If
-        End If
-    End Sub 'La Selection de soit X ou O
     Private Sub newGame()
         games = games + 1
         TurnC = 0
         Turn = 0
-        P1 = 0
-        P2 = 0
-        P3 = 0
-        P4 = 0
-        P5 = 0
-        P6 = 0
-        P7 = 0
-        P8 = 0
-        P9 = 0
+        Pos(0) = 0
+        Pos(1) = 0
+        Pos(2) = 0
+        Pos(3) = 0
+        Pos(4) = 0
+        Pos(5) = 0
+        Pos(6) = 0
+        Pos(7) = 0
+        Pos(8) = 0
         LB = 0
         PictureBox5.BackgroundImage = Nothing
         PictureBox6.BackgroundImage = Nothing
@@ -649,6 +642,13 @@ Draw
         checkTurn()
         selPlayer()
     End Sub 'Nouveau jeu
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        newGame()
+    End Sub 'La button pour commencer un nouveau jeu
+#End Region
+
+#Region "Ordinateur"
     Private Sub rndPick()
         'Random number generator variable 
         Dim gen As New Random
@@ -663,317 +663,317 @@ Draw
         End If
         'horizontal
         'Top
-        'If (P4 = Player) And (P6 = Computer) And (P4 = P3 = P9) And (P6 = P5) And (P1 = 0) And (P1 = P2 = P7 = P8) Then
+        'If ( Pos(3)  = Player) And ( Pos(5)  = Computer) And ( Pos(3)  =  Pos(2)  =  Pos(8) ) And ( Pos(5)  =  Pos(4) ) And ( Pos(0)  = 0) And ( Pos(0)  =  Pos(1)  =  Pos(6)  =  Pos(7) ) Then
         'ordPlay = 2
         'GoTo 2
         'Else
-        If ((P1 = Computer) And P1 = P2 And P3 = 0) Then
+        If ((Pos(0) = Computer) And Pos(0) = Pos(1) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P1 = Computer) And P1 = P3 And P2 = 0) Then
+        ElseIf ((Pos(0) = Computer) And Pos(0) = Pos(2) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P2 = Computer) And P2 = P1 And P3 = 0) Then
+        ElseIf ((Pos(1) = Computer) And Pos(1) = Pos(0) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P2 = Computer) And P2 = P3 And P1 = 0) Then
+        ElseIf ((Pos(1) = Computer) And Pos(1) = Pos(2) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P3 = Computer) And P3 = P1 And P2 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(0) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P3 = Computer) And P3 = P2 And P1 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(1) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
             'Middle	
-        ElseIf ((P4 = Computer) And P4 = P5 And P6 = 0) Then
+        ElseIf ((Pos(3) = Computer) And Pos(3) = Pos(4) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P4 = Computer) And P4 = P6 And P5 = 0) Then
+        ElseIf ((Pos(3) = Computer) And Pos(3) = Pos(5) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P6 And P4 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(5) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P4 And P6 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(3) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P6 = Computer) And P6 = P5 And P4 = 0) Then
+        ElseIf ((Pos(5) = Computer) And Pos(5) = Pos(4) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P6 = Computer) And P6 = P4 And P5 = 0) Then
+        ElseIf ((Pos(5) = Computer) And Pos(5) = Pos(3) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
             'Bottom
-        ElseIf ((P7 = Computer) And P7 = P8 And P9 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(7) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P7 = Computer) And P7 = P9 And P8 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(8) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P8 = Computer) And P8 = P7 And P9 = 0) Then
+        ElseIf ((Pos(7) = Computer) And Pos(7) = Pos(6) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P8 = Computer) And P8 = P9 And P7 = 0) Then
+        ElseIf ((Pos(7) = Computer) And Pos(7) = Pos(8) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P8 And P7 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(7) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P7 And P8 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(6) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
             'Vertical
             'left
-        ElseIf ((P1 = Computer) And P1 = P7 And P4 = 0) Then
+        ElseIf ((Pos(0) = Computer) And Pos(0) = Pos(6) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P1 = Computer) And P1 = P4 And P7 = 0) Then
+        ElseIf ((Pos(0) = Computer) And Pos(0) = Pos(3) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P4 = Computer) And P4 = P7 And P1 = 0) Then
+        ElseIf ((Pos(3) = Computer) And Pos(3) = Pos(6) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P4 = Computer) And P4 = P1 And P7 = 0) Then
+        ElseIf ((Pos(3) = Computer) And Pos(3) = Pos(0) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P7 = Computer) And P7 = P1 And P4 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(0) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P7 = Computer) And P7 = P4 And P1 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(3) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
             'middle
-        ElseIf ((P2 = Computer) And P2 = P8 And P5 = 0) Then
+        ElseIf ((Pos(1) = Computer) And Pos(1) = Pos(7) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P2 = Computer) And P2 = P5 And P8 = 0) Then
+        ElseIf ((Pos(1) = Computer) And Pos(1) = Pos(4) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P8 And P2 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(7) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P2 And P8 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(1) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P8 = Computer) And P8 = P2 And P5 = 0) Then
+        ElseIf ((Pos(7) = Computer) And Pos(7) = Pos(1) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P8 = Computer) And P8 = P5 And P2 = 0) Then
+        ElseIf ((Pos(7) = Computer) And Pos(7) = Pos(4) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
             'right	
-        ElseIf ((P3 = Computer) And P3 = P9 And P6 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(8) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P3 = Computer) And P3 = P6 And P9 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(5) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P6 = Computer) And P6 = P9 And P3 = 0) Then
+        ElseIf ((Pos(5) = Computer) And Pos(5) = Pos(8) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P6 = Computer) And P6 = P3 And P9 = 0) Then
+        ElseIf ((Pos(5) = Computer) And Pos(5) = Pos(2) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P6 And P3 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(5) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P3 And P6 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(2) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
             'diagonal
             'backslash
-        ElseIf ((P1 = Computer) And P1 = P5 And P9 = 0) Then
+        ElseIf ((Pos(0) = Computer) And Pos(0) = Pos(4) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P1 = Computer) And P1 = P9 And P5 = 0) Then
+        ElseIf ((Pos(0) = Computer) And Pos(0) = Pos(8) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P1 And P9 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(0) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P9 And P1 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(8) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P5 And P1 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(4) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P9 = Computer) And P9 = P1 And P5 = 0) Then
+        ElseIf ((Pos(8) = Computer) And Pos(8) = Pos(0) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
             'forwardslash
-        ElseIf ((P3 = Computer) And P3 = P7 And P5 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(6) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P3 = Computer) And P3 = P5 And P7 = 0) Then
+        ElseIf ((Pos(2) = Computer) And Pos(2) = Pos(4) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P7 And P3 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(6) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P5 = Computer) And P5 = P3 And P7 = 0) Then
+        ElseIf ((Pos(4) = Computer) And Pos(4) = Pos(2) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P7 = Computer) And P7 = P3 And P5 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(2) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P7 = Computer) And P7 = P5 And P3 = 0) Then
+        ElseIf ((Pos(6) = Computer) And Pos(6) = Pos(4) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
 
             'horizontal
             'Top
-        ElseIf ((P1 = Player) And P1 = P2 And P3 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(1) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P1 = Player) And P1 = P3 And P2 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(2) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P2 = Player) And P2 = P1 And P3 = 0) Then
+        ElseIf ((Pos(1) = Player) And Pos(1) = Pos(0) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P2 = Player) And P2 = P3 And P1 = 0) Then
+        ElseIf ((Pos(1) = Player) And Pos(1) = Pos(2) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P3 = Player) And P3 = P1 And P2 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(0) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P3 = Player) And P3 = P2 And P1 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(1) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
             'Middle	
-        ElseIf ((P4 = Player) And P4 = P5 And P6 = 0) Then
+        ElseIf ((Pos(3) = Player) And Pos(3) = Pos(4) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P4 = Player) And P4 = P6 And P5 = 0) Then
+        ElseIf ((Pos(3) = Player) And Pos(3) = Pos(5) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P6 And P4 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(5) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P4 And P6 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(3) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P6 = Player) And P6 = P5 And P4 = 0) Then
+        ElseIf ((Pos(5) = Player) And Pos(5) = Pos(4) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P6 = Player) And P6 = P4 And P5 = 0) Then
+        ElseIf ((Pos(5) = Player) And Pos(5) = Pos(3) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
             'Bottom
-        ElseIf ((P7 = Player) And P7 = P8 And P9 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(7) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P7 = Player) And P7 = P9 And P8 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(8) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P8 = Player) And P8 = P7 And P9 = 0) Then
+        ElseIf ((Pos(7) = Player) And Pos(7) = Pos(6) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P8 = Player) And P8 = P9 And P7 = 0) Then
+        ElseIf ((Pos(7) = Player) And Pos(7) = Pos(8) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P8 And P7 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(7) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P7 And P8 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(6) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
             'Vertical
             'left
-        ElseIf ((P1 = Player) And P1 = P7 And P4 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(6) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P1 = Player) And P1 = P4 And P7 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(3) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P4 = Player) And P4 = P7 And P1 = 0) Then
+        ElseIf ((Pos(3) = Player) And Pos(3) = Pos(6) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P4 = Player) And P4 = P1 And P7 = 0) Then
+        ElseIf ((Pos(3) = Player) And Pos(3) = Pos(0) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P7 = Player) And P7 = P1 And P4 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(0) And Pos(3) = 0) Then
             ordPlay = 4
             GoTo 2
-        ElseIf ((P7 = Player) And P7 = P4 And P1 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(3) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
             'middle
-        ElseIf ((P2 = Player) And P2 = P8 And P5 = 0) Then
+        ElseIf ((Pos(1) = Player) And Pos(1) = Pos(7) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P2 = Player) And P2 = P5 And P8 = 0) Then
+        ElseIf ((Pos(1) = Player) And Pos(1) = Pos(4) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P8 And P2 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(7) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P2 And P8 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(1) And Pos(7) = 0) Then
             ordPlay = 8
             GoTo 2
-        ElseIf ((P8 = Player) And P8 = P2 And P5 = 0) Then
+        ElseIf ((Pos(7) = Player) And Pos(7) = Pos(1) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P8 = Player) And P8 = P5 And P2 = 0) Then
+        ElseIf ((Pos(7) = Player) And Pos(7) = Pos(4) And Pos(1) = 0) Then
             ordPlay = 2
             GoTo 2
             'right	
-        ElseIf ((P3 = Player) And P3 = P9 And P6 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(8) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
-        ElseIf ((P3 = Player) And P3 = P6 And P9 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(5) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P6 = Player) And P6 = P9 And P3 = 0) Then
+        ElseIf ((Pos(5) = Player) And Pos(5) = Pos(8) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P6 = Player) And P6 = P3 And P9 = 0) Then
+        ElseIf ((Pos(5) = Player) And Pos(5) = Pos(2) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P6 And P3 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(5) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P3 And P6 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(2) And Pos(5) = 0) Then
             ordPlay = 6
             GoTo 2
             'diagonal
             'backslash
-        ElseIf ((P1 = Player) And P1 = P5 And P9 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(4) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P1 = Player) And P1 = P9 And P5 = 0) Then
+        ElseIf ((Pos(0) = Player) And Pos(0) = Pos(8) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P1 And P9 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(0) And Pos(8) = 0) Then
             ordPlay = 9
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P9 And P1 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(8) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P5 And P1 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(4) And Pos(0) = 0) Then
             ordPlay = 1
             GoTo 2
-        ElseIf ((P9 = Player) And P9 = P1 And P5 = 0) Then
+        ElseIf ((Pos(8) = Player) And Pos(8) = Pos(0) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
             'forwardslash
-        ElseIf ((P3 = Player) And P3 = P7 And P5 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(6) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P3 = Player) And P3 = P5 And P7 = 0) Then
+        ElseIf ((Pos(2) = Player) And Pos(2) = Pos(4) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P7 And P3 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(6) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
-        ElseIf ((P5 = Player) And P5 = P3 And P7 = 0) Then
+        ElseIf ((Pos(4) = Player) And Pos(4) = Pos(2) And Pos(6) = 0) Then
             ordPlay = 7
             GoTo 2
-        ElseIf ((P7 = Player) And P7 = P3 And P5 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(2) And Pos(4) = 0) Then
             ordPlay = 5
             GoTo 2
-        ElseIf ((P7 = Player) And P7 = P5 And P3 = 0) Then
+        ElseIf ((Pos(6) = Player) And Pos(6) = Pos(4) And Pos(2) = 0) Then
             ordPlay = 3
             GoTo 2
 
@@ -982,133 +982,133 @@ Draw
                 ordPlay = ordToPlay
                 ordToPlay = 0
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P3) And (P9 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(2)) And (Pos(8) = 0)) Then
                 ordPlay = 9
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P3) And (P7 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(2)) And (Pos(6) = 0)) Then
                 ordPlay = 7
                 GoTo 2
-            ElseIf ((P3 = Computer) And (P3 = P9) And (P7 = 0)) Then
+            ElseIf ((Pos(2) = Computer) And (Pos(2) = Pos(8)) And (Pos(6) = 0)) Then
                 ordPlay = 7
                 GoTo 2
-            ElseIf ((P3 = Computer) And (P3 = P9) And (P1 = 0)) Then
+            ElseIf ((Pos(2) = Computer) And (Pos(2) = Pos(8)) And (Pos(0) = 0)) Then
                 ordPlay = 1
                 GoTo 2
-            ElseIf ((P9 = Computer) And (P9 = P7) And (P1 = 0)) Then
+            ElseIf ((Pos(8) = Computer) And (Pos(8) = Pos(6)) And (Pos(0) = 0)) Then
                 ordPlay = 1
                 GoTo 2
-            ElseIf ((P9 = Computer) And (P9 = P7) And (P3 = 0)) Then
+            ElseIf ((Pos(8) = Computer) And (Pos(8) = Pos(6)) And (Pos(2) = 0)) Then
                 ordPlay = 3
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P7) And (P3 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(6)) And (Pos(2) = 0)) Then
                 ordPlay = 3
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P7) And (P9 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(6)) And (Pos(8) = 0)) Then
                 ordPlay = 9
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P9) And (P3 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(8)) And (Pos(2) = 0)) Then
                 ordPlay = 3
                 GoTo 2
-            ElseIf ((P1 = Computer) And (P1 = P9) And (P7 = 0)) Then
+            ElseIf ((Pos(0) = Computer) And (Pos(0) = Pos(8)) And (Pos(6) = 0)) Then
                 ordPlay = 7
                 GoTo 2
-            ElseIf ((P3 = Computer) And (P3 = P7) And (P1 = 0)) Then
+            ElseIf ((Pos(2) = Computer) And (Pos(2) = Pos(6)) And (Pos(0) = 0)) Then
                 ordPlay = 1
                 GoTo 2
-            ElseIf ((P3 = Computer) And (P3 = P7) And (P9 = 0)) Then
+            ElseIf ((Pos(2) = Computer) And (Pos(2) = Pos(6)) And (Pos(8) = 0)) Then
                 ordPlay = 9
                 GoTo 2
-            ElseIf (P1 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P7 = P8 = P9) Then
+            ElseIf (Pos(0) = Player) And (Pos(1) = 0) And (Pos(1) = Pos(2) = Pos(3) = Pos(4) = Pos(5) = Pos(6) = Pos(7) = Pos(8)) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P3 = Player) And (P2 = 0) And (P2 = P1 = P4 = P5 = P6 = P7 = P8 = P9) Then
+            ElseIf (Pos(2) = Player) And (Pos(1) = 0) And (Pos(1) = Pos(0) = Pos(3) = Pos(4) = Pos(5) = Pos(6) = Pos(7) = Pos(8)) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P7 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P1 = P8 = P9) Then
+            ElseIf (Pos(6) = Player) And (Pos(1) = 0) And (Pos(1) = Pos(2) = Pos(3) = Pos(4) = Pos(5) = Pos(0) = Pos(7) = Pos(8)) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P9 = Player) And (P2 = 0) And (P2 = P3 = P4 = P5 = P6 = P7 = P8 = P1) Then
+            ElseIf (Pos(8) = Player) And (Pos(1) = 0) And (Pos(1) = Pos(2) = Pos(3) = Pos(4) = Pos(5) = Pos(6) = Pos(7) = Pos(0)) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P2 = Player) And (P3 = 0) Then
+            ElseIf (Pos(1) = Player) And (Pos(2) = 0) Then
                 ordPlay = 3
-                If (P5 = 0) Then
+                If (Pos(4) = 0) Then
                     ordToPlay = 5
                 Else
                     ordToPlay = 0
                 End If
                 GoTo 2
-            ElseIf (P6 = Player) And (P9 = 0) Then
+            ElseIf (Pos(5) = Player) And (Pos(8) = 0) Then
                 ordPlay = 9
-                If (P5 = 0) Then
+                If (Pos(4) = 0) Then
                     ordToPlay = 5
                 Else
                     ordToPlay = 0
                 End If
                 GoTo 2
-            ElseIf (P8 = Player) And (P7 = 0) Then
+            ElseIf (Pos(7) = Player) And (Pos(6) = 0) Then
                 ordPlay = 7
-                If (P5 = 0) Then
+                If (Pos(4) = 0) Then
                     ordToPlay = 5
                 Else
                     ordToPlay = 0
                 End If
                 GoTo 2
-            ElseIf (P4 = Player) And (P1 = 0) Then
+            ElseIf (Pos(3) = Player) And (Pos(0) = 0) Then
                 ordPlay = 1
-                If (P5 = 0) Then
+                If (Pos(4) = 0) Then
                     ordToPlay = 5
                 Else
                     ordToPlay = 0
                 End If
                 GoTo 2
-            ElseIf ((P1 = Player) And (P1 = P9) And (P5 = Computer)) Then
+            ElseIf ((Pos(0) = Player) And (Pos(0) = Pos(8)) And (Pos(4) = Computer)) Then
                 ordPlay = 8
                 GoTo 2
-            ElseIf ((P3 = Player) And (P3 = P7) And (P5 = Computer)) Then
+            ElseIf ((Pos(2) = Player) And (Pos(2) = Pos(6)) And (Pos(4) = Computer)) Then
                 ordPlay = 2
                 GoTo 2
-            ElseIf (P2 = Player) And (P2 = P4) And (P1 = 0) Then
+            ElseIf (Pos(1) = Player) And (Pos(1) = Pos(3)) And (Pos(0) = 0) Then
                 ordPlay = 1
                 GoTo 2
-            ElseIf (P2 = Player) And (P2 = P6) And (P3 = 0) Then
+            ElseIf (Pos(1) = Player) And (Pos(1) = Pos(5)) And (Pos(2) = 0) Then
                 ordPlay = 3
                 GoTo 2
-            ElseIf (P4 = Player) And (P4 = P8) And (P7 = 0) Then
+            ElseIf (Pos(3) = Player) And (Pos(3) = Pos(7)) And (Pos(6) = 0) Then
                 ordPlay = 7
                 GoTo 2
-            ElseIf (P6 = Player) And (P6 = P8) And (P9 = 0) Then
+            ElseIf (Pos(5) = Player) And (Pos(5) = Pos(7)) And (Pos(8) = 0) Then
                 ordPlay = 9
                 GoTo 2
-            ElseIf (P2 = Player) And (P2 = P4) And (P5 = 0) Then
+            ElseIf (Pos(1) = Player) And (Pos(1) = Pos(3)) And (Pos(4) = 0) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P2 = Player) And (P2 = P6) And (P5 = 0) Then
+            ElseIf (Pos(1) = Player) And (Pos(1) = Pos(5)) And (Pos(4) = 0) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P4 = Player) And (P4 = P8) And (P5 = 0) Then
+            ElseIf (Pos(3) = Player) And (Pos(3) = Pos(7)) And (Pos(4) = 0) Then
                 ordPlay = 5
                 GoTo 2
-            ElseIf (P6 = Player) And (P6 = P8) And (P5 = 0) Then
+            ElseIf (Pos(5) = Player) And (Pos(5) = Pos(7)) And (Pos(4) = 0) Then
                 ordPlay = 5
                 GoTo 2
             Else
 3:
                 Dim gen As New Random
                 Pick = gen.Next(1, 6)
-                If (Pick = 1 And P1 = 0) Then
+                If (Pick = 1 And Pos(0) = 0) Then
                     ordPlay = 1
                     GoTo 2
-                ElseIf (Pick = 2 And P3 = 0) Then
+                ElseIf (Pick = 2 And Pos(2) = 0) Then
                     ordPlay = 3
                     GoTo 2
-                ElseIf (Pick = 3 And P5 = 0) Then
+                ElseIf (Pick = 3 And Pos(4) = 0) Then
                     ordPlay = 5
                     GoTo 2
-                ElseIf (Pick = 4 And P7 = 0) Then
+                ElseIf (Pick = 4 And Pos(6) = 0) Then
                     ordPlay = 7
                     GoTo 2
-                ElseIf (Pick = 5 And P9 = 0) Then
+                ElseIf (Pick = 5 And Pos(8) = 0) Then
                     ordPlay = 9
                     GoTo 2
                 ElseIf Pick <> 1 And Pick <> 2 And Pick <> 3 And Pick <> 4 And Pick <> 5 Then
@@ -1126,16 +1126,16 @@ Draw
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
         If ordPlay = 1 Then
-            If P1 = 0 Then
+            If Pos(0) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox5.BackgroundImage = My.Resources.O
-                    P1 = 2
+                    Pos(0) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox5.BackgroundImage = My.Resources.X
-                    P1 = 1
+                    Pos(0) = 1
                     turnCount()
 
                 End If
@@ -1144,16 +1144,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 2 Then
-            If P2 = 0 Then
+            If Pos(1) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox6.BackgroundImage = My.Resources.O
-                    P2 = 2
+                    Pos(1) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox6.BackgroundImage = My.Resources.X
-                    P2 = 1
+                    Pos(1) = 1
                     turnCount()
 
                 End If
@@ -1162,16 +1162,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 3 Then
-            If P3 = 0 Then
+            If Pos(2) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox7.BackgroundImage = My.Resources.O
-                    P3 = 2
+                    Pos(2) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox7.BackgroundImage = My.Resources.X
-                    P3 = 1
+                    Pos(2) = 1
                     turnCount()
 
                 End If
@@ -1180,16 +1180,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 4 Then
-            If P4 = 0 Then
+            If Pos(3) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox8.BackgroundImage = My.Resources.O
-                    P4 = 2
+                    Pos(3) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox8.BackgroundImage = My.Resources.X
-                    P4 = 1
+                    Pos(3) = 1
                     turnCount()
 
                 End If
@@ -1198,16 +1198,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 5 Then
-            If P5 = 0 Then
+            If Pos(4) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox9.BackgroundImage = My.Resources.O
-                    P5 = 2
+                    Pos(4) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox9.BackgroundImage = My.Resources.X
-                    P5 = 1
+                    Pos(4) = 1
                     turnCount()
 
                 End If
@@ -1216,16 +1216,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 6 Then
-            If P6 = 0 Then
+            If Pos(5) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox10.BackgroundImage = My.Resources.O
-                    P6 = 2
+                    Pos(5) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox10.BackgroundImage = My.Resources.X
-                    P6 = 1
+                    Pos(5) = 1
                     turnCount()
 
                 End If
@@ -1234,16 +1234,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 7 Then
-            If P7 = 0 Then
+            If Pos(6) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox11.BackgroundImage = My.Resources.O
-                    P7 = 2
+                    Pos(6) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox11.BackgroundImage = My.Resources.X
-                    P7 = 1
+                    Pos(6) = 1
                     turnCount()
 
                 End If
@@ -1252,16 +1252,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 8 Then
-            If P8 = 0 Then
+            If Pos(7) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox12.BackgroundImage = My.Resources.O
-                    P8 = 2
+                    Pos(7) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox12.BackgroundImage = My.Resources.X
-                    P8 = 1
+                    Pos(7) = 1
                     turnCount()
 
                 End If
@@ -1270,16 +1270,16 @@ Draw
                 GoTo 1
             End If
         ElseIf ordPlay = 9 Then
-            If P9 = 0 Then
+            If Pos(8) = 0 Then
                 checkTurn()
                 If Turn = 1 Then
                     PictureBox13.BackgroundImage = My.Resources.O
-                    P9 = 2
+                    Pos(8) = 2
                     turnCount()
 
                 ElseIf Turn = 0 Then
                     PictureBox13.BackgroundImage = My.Resources.X
-                    P9 = 1
+                    Pos(8) = 1
                     turnCount()
 
                 End If
@@ -1296,20 +1296,34 @@ Draw
         checkWin()
     End Sub 'Comment l'ordinateur choisir où jouer
 
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+        If (RadioButton2.Checked) Then
+            ORD = 1
+        Else
+            ORD = 0
+        End If
+        newGame()
+    End Sub 'Selection de Jouer Contre
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+        newGame()
+    End Sub 'RadioButton vide
+#End Region
+
+#Region "PicBoxes"
     Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P1 = 0 Then
+        If Pos(0) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox5.BackgroundImage = My.Resources.O
-                P1 = 2
+                Pos(0) = 2
                 turnCount()
 
             ElseIf Turn = 0 Then
                 PictureBox5.BackgroundImage = My.Resources.X
-                P1 = 1
+                Pos(0) = 1
                 turnCount()
 
             End If
@@ -1324,16 +1338,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P2 = 0 Then
+        If Pos(1) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox6.BackgroundImage = My.Resources.O
                 turnCount()
-                P2 = 2
+                Pos(1) = 2
             ElseIf Turn = 0 Then
                 PictureBox6.BackgroundImage = My.Resources.X
                 turnCount()
-                P2 = 1
+                Pos(1) = 1
             End If
             log = log & "Player - P2
 "
@@ -1346,16 +1360,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P3 = 0 Then
+        If Pos(2) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox7.BackgroundImage = My.Resources.O
                 turnCount()
-                P3 = 2
+                Pos(2) = 2
             ElseIf Turn = 0 Then
                 PictureBox7.BackgroundImage = My.Resources.X
                 turnCount()
-                P3 = 1
+                Pos(2) = 1
             End If
             log = log & "Player - P3
 "
@@ -1368,16 +1382,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P4 = 0 Then
+        If Pos(3) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox8.BackgroundImage = My.Resources.O
                 turnCount()
-                P4 = 2
+                Pos(3) = 2
             ElseIf Turn = 0 Then
                 PictureBox8.BackgroundImage = My.Resources.X
                 turnCount()
-                P4 = 1
+                Pos(3) = 1
             End If
             log = log & "Player - P4
 "
@@ -1391,16 +1405,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P5 = 0 Then
+        If Pos(4) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox9.BackgroundImage = My.Resources.O
                 turnCount()
-                P5 = 2
+                Pos(4) = 2
             ElseIf Turn = 0 Then
                 PictureBox9.BackgroundImage = My.Resources.X
                 turnCount()
-                P5 = 1
+                Pos(4) = 1
             End If
             log = log & "Player - P5
 "
@@ -1413,16 +1427,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P6 = 0 Then
+        If Pos(5) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox10.BackgroundImage = My.Resources.O
                 turnCount()
-                P6 = 2
+                Pos(5) = 2
             ElseIf Turn = 0 Then
                 PictureBox10.BackgroundImage = My.Resources.X
                 turnCount()
-                P6 = 1
+                Pos(5) = 1
             End If
             log = log & "Player - P6
 "
@@ -1435,16 +1449,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P7 = 0 Then
+        If Pos(6) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox11.BackgroundImage = My.Resources.O
                 turnCount()
-                P7 = 2
+                Pos(6) = 2
             ElseIf Turn = 0 Then
                 PictureBox11.BackgroundImage = My.Resources.X
                 turnCount()
-                P7 = 1
+                Pos(6) = 1
             End If
             log = log & "Player - P7
 "
@@ -1457,16 +1471,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P8 = 0 Then
+        If Pos(7) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox12.BackgroundImage = My.Resources.O
                 turnCount()
-                P8 = 2
+                Pos(7) = 2
             ElseIf Turn = 0 Then
                 PictureBox12.BackgroundImage = My.Resources.X
                 turnCount()
-                P8 = 1
+                Pos(7) = 1
             End If
             log = log & "Player - P8
 "
@@ -1479,16 +1493,16 @@ Draw
         If sfx = True Then
             My.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
         End If
-        If P9 = 0 Then
+        If Pos(8) = 0 Then
             checkTurn()
             If Turn = 1 Then
                 PictureBox13.BackgroundImage = My.Resources.O
                 turnCount()
-                P9 = 2
+                Pos(8) = 2
             ElseIf Turn = 0 Then
                 PictureBox13.BackgroundImage = My.Resources.X
                 turnCount()
-                P9 = 1
+                Pos(8) = 1
             End If
             log = log & "Player - P9
 "
@@ -1497,36 +1511,24 @@ Draw
         End If
         checkWin()
     End Sub 'Quoi arrive quand tu clicke PicBox13
+#End Region
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        newGame()
-    End Sub 'La button pour commencer un nouveau jeu
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        If (RadioButton2.Checked) Then
-            ORD = 1
-        Else
-            ORD = 0
+#Region "Button Panel"
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+        log = log & "                        > Close
+"
+        Close()
+    End Sub 'close
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        restr = MsgB(restrMsg, 2, Yes, No, "", restrMsgHead)
+        If restr = 6 Then
+            Application.Restart()
         End If
-        newGame()
-    End Sub 'Selection de Jouer Contre
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        newGame()
-    End Sub 'RadioButton vide
+        log = log & "                        > Restart
+"
+        logger()
+    End Sub 'Restart Button
 
-    Private Sub percentWin()
-        If gamesC = Nothing Then
-            GoTo 1
-        End If
-        XwP = (Xw / gamesC) * 100
-        OwP = (Ow / gamesC) * 100
-        DrawP = (Draw / gamesC) * 100
-
-        XwP = Math.Round(XwP, 2, MidpointRounding.AwayFromZero)
-        OwP = Math.Round(OwP, 2, MidpointRounding.AwayFromZero)
-        DrawP = Math.Round(DrawP, 2, MidpointRounding.AwayFromZero)
-1:
-    End Sub 'calcul la pourcentage des victoires
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If OptPage = 0 Then
             If gb2S = False Then
@@ -1556,18 +1558,62 @@ Draw
         log = log & "                        > Option
 "
     End Sub 'la button d'option
+#Region "Page Buttons"
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        GroupBox2.Hide()
+        GroupBox3.Show()
+        OptPage = 1
+        log = log & "                        > Option: Page 1 to Page 2
+"
+    End Sub 'à page 2 de les options
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        GroupBox2.Show()
+        GroupBox3.Hide()
+        OptPage = 0
+        log = log & "                        > Option: Page 2 to Page 1
+"
+    End Sub 'à page 1 de les options
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        GroupBox4.Show()
+        GroupBox3.Hide()
+        OptPage = 2
+        log = log & "                        > Option: Page 2 to Page 3
+"
+    End Sub 'à page 3 de les options
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        GroupBox3.Show()
+        GroupBox4.Hide()
+        OptPage = 1
+        log = log & "                        > Option: Page 3 to Page 2
+"
+    End Sub 'à page 2 de les options
+#End Region
+#Region "Options"
+    Private Sub percentWin()
+        If gamesC = Nothing Then
+            GoTo 1
+        End If
+        Percent(0) = (Points(0) / gamesC) * 100
+        Percent(1) = (Points(1) / gamesC) * 100
+        Percent(2) = (Points(2) / gamesC) * 100
+
+        Percent(0) = Math.Round(Percent(0), 2, MidpointRounding.AwayFromZero)
+        Percent(1) = Math.Round(Percent(1), 2, MidpointRounding.AwayFromZero)
+        Percent(2) = Math.Round(Percent(2), 2, MidpointRounding.AwayFromZero)
+1:
+    End Sub 'calcul la pourcentage des victoires
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
         Pointage = False
         percentWin()
         If Pointage = True Then
-            Label4.Text = XwP & "%"
-            Label5.Text = OwP & "%"
-            Label6.Text = DrawP & "%"
+            Label4.Text = Percent(0) & "%"
+            Label5.Text = Percent(1) & "%"
+            Label6.Text = Percent(2) & "%"
             config(3) = "Percent"
         Else
-            Label4.Text = Xw
-            Label5.Text = Ow
-            Label6.Text = Draw
+            Label4.Text = Points(0)
+            Label5.Text = Points(1)
+            Label6.Text = Points(2)
             config(3) = "Point"
         End If
         If manglog = True Then
@@ -1580,14 +1626,14 @@ Draw
         Pointage = True
         percentWin()
         If Pointage = True Then
-            Label4.Text = XwP & "%"
-            Label5.Text = OwP & "%"
-            Label6.Text = DrawP & "%"
+            Label4.Text = Percent(0) & "%"
+            Label5.Text = Percent(1) & "%"
+            Label6.Text = Percent(2) & "%"
             config(3) = "Percent"
         Else
-            Label4.Text = Xw
-            Label5.Text = Ow
-            Label6.Text = Draw
+            Label4.Text = Points(0)
+            Label5.Text = Points(1)
+            Label6.Text = Points(2)
             config(3) = "Point"
         End If
         'GroupBox2.Hide()
@@ -1712,7 +1758,7 @@ Draw
 "
             End If
         Else
-                invcol = False
+            invcol = False
             invertColor()
             config(1) = "No"
             If manglog = True Then
@@ -1720,22 +1766,8 @@ Draw
 "
             End If
         End If
-            checkWin()
+        checkWin()
     End Sub 'l'option de renverser les couleurs
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        GroupBox2.Hide()
-        GroupBox3.Show()
-        OptPage = 1
-        log = log & "                        > Option: Page 1 to Page 2
-"
-    End Sub 'à page 2 de les options
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        GroupBox2.Show()
-        GroupBox3.Hide()
-        OptPage = 0
-        log = log & "                        > Option: Page 2 to Page 1
-"
-    End Sub 'à page 1 de les options
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         If CheckBox2.Checked Then
             sfx = False
@@ -1745,7 +1777,7 @@ Draw
 "
             End If
         Else
-                sfx = True
+            sfx = True
             config(2) = "No"
             If manglog = True Then
                 log = log & "                        > Mute OFF
@@ -1754,29 +1786,6 @@ Draw
         End If
     End Sub 'couper le son
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        restr = MsgB(restrMsg, 2, Yes, No, "", restrMsgHead)
-        If restr = 6 Then
-            Application.Restart()
-        End If
-        log = log & "                        > Restart
-"
-        logger()
-    End Sub 'Restart Button
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        GroupBox4.Show()
-        GroupBox3.Hide()
-        OptPage = 2
-        log = log & "                        > Option: Page 2 to Page 3
-"
-    End Sub 'à page 3 de les options
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        GroupBox3.Show()
-        GroupBox4.Hide()
-        OptPage = 1
-        log = log & "                        > Option: Page 3 to Page 2
-"
-    End Sub 'à page 2 de les options
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
         Dim cons As String = "<Lang:> " & config(0) & "
 " & "<Dark colors:> " & config(1) & "
@@ -1802,9 +1811,7 @@ Draw
         log = log & "                        > Delete Config
 "
     End Sub 'delete config
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        log = log & "                        > Close
-"
-        Close()
-    End Sub 'close
+#End Region
+#End Region
+
 End Class
