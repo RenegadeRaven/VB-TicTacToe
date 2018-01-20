@@ -57,48 +57,72 @@
     Dim OFF As String = "Éteint"
 #End Region
 
+#Region "System Menu"
+    Public Const WM_SYSCOMMAND As Int32 = &H112
+    Public Const MF_BYPOSITION As Int32 = &H400
+    Public Const MYMENU1 As Int32 = 1000
+    Public Const MYMENU2 As Int32 = 1001
+
+    Dim hSysMenu As Integer
+
+
+    Private Declare Function GetSystemMenu Lib "user32" (ByVal hwnd As Integer, ByVal bRevert As Integer) As Integer
+    Public Declare Function InsertMenu Lib "user32" Alias "InsertMenuA" _
+       (ByVal hMenu As IntPtr, ByVal nPosition As Integer, ByVal wFlags As Integer, ByVal wIDNewItem As Integer, ByVal lpNewItem As String) As Boolean
+
+    Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
+        MyBase.WndProc(m)
+        If (m.Msg = WM_SYSCOMMAND) Then
+            Select Case m.WParam.ToInt32
+                Case MYMENU1
+                    Dim about As New LangMessageBox("Continue", "Exit")
+                    about.ShowDialog()
+                    LangSet()
+                    Me.Refresh()
+                Case MYMENU2
+                    Dim options As New UpdateCheck
+                    'options.ShowDialog()
+            End Select
+        End If
+    End Sub
+
+
+#End Region
+
 #Region "Form Functions"
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         mang = False
         checkUpdate()
         My.Computer.FileSystem.CreateDirectory(pathexe & "\TicTacToe")
         My.Computer.FileSystem.CreateDirectory(path & "\logs")
-        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-            settings = System.IO.File.ReadAllText(path & "\TicTacToe-config.txt")
-            config = settings.Split("
-")
-            config(0) = config(0).Remove(0, 8)
-            config(1) = config(1).Remove(0, 16)
-            config(2) = config(2).Remove(0, 9)
-            config(3) = config(3).Remove(0, 11)
-            Debug.Print(config(0) & config(1) & config(2) & config(3))
+        If My.Settings.Settings = True Then
             manglog = False
-            If config(1) = "Yes" Then
+            If My.Settings.Color = "Yes" Then
                 CheckBox1.Checked = True
             End If
-            If config(2) = "Yes" Then
+            If My.Settings.Mute = "Yes" Then
                 CheckBox2.Checked = True
             End If
-            If config(3) = "Point" Then
+            If My.Settings.Points = "Point" Then
                 RadioButton4.PerformClick()
-            ElseIf config(3) = "Percent" Then
+            ElseIf My.Settings.Points = "Percent" Then
                 RadioButton3.PerformClick()
             End If
             manglog = True
             Button9.Enabled = False
             GroupBox4.Text = "Configuration = " & ONs
-            log = log & "Start | From Settings | Lang: " & config(0) & ", InvertColors: " & config(1) & ", Mute: " & config(2) & ", Score: " & config(3) & " | "
+            log = log & "Start | From Settings | Lang: " & My.Settings.Lang & ", InvertColors: " & My.Settings.Color & ", Mute: " & My.Settings.Mute & ", Score: " & My.Settings.Points & " | "
             LangSet()
         Else
-            config(2) = "No"
-            config(1) = "No"
+            My.Settings.Color = "No"
+            My.Settings.Mute = "No"
             Button10.Enabled = False
             GroupBox4.Text = "Configuration = " & OFF
             RadioButton4.PerformClick()
             LangSet()
-            log = log & "Start | " & Language.Text & " | "
+            log = log & "Start | " & My.Settings.Lang & " | "
         End If
-        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
+        If My.Settings.Settings = True Then
             GroupBox4.Text = "Configuration = " & ONs
         Else
             GroupBox4.Text = "Configuration = " & OFF
@@ -124,29 +148,17 @@
         GroupBox4.Hide()
         Language.Hide()
         Button1.Text = NG & games
+
+        hSysMenu = GetSystemMenu(Me.Handle, False)
+        InsertMenu(hSysMenu, 6, MF_BYPOSITION, MYMENU1, "Language...")
+        If My.Computer.Network.IsAvailable Then
+            InsertMenu(hSysMenu, 7, MF_BYPOSITION, MYMENU2, "Check for Updates...")
+        End If
     End Sub 'La Selection de soit X ou O
     Private Sub Form1_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
         clos = MsgB(closeMsg, 2, Yes, No, "", restrMsgHead)
         If clos = 6 Then
-            If mang = True Then
-                If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-                    Dim cons As String = "<Lang:> " & config(0) & "
-" & "<Dark colors:> " & config(1) & "
-" & "<Mute:> " & config(2) & "
-" & "<Points:> " & config(3)
-                    System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
-                Else
-                    savClose = MsgB(save, 2, Yes, No, "", head3)
-                    If savClose = 6 Then
-                        Dim cons As String = "<Lang:> " & config(0) & "
-" & "<Dark colors:> " & config(1) & "
-" & "<Mute:> " & config(2) & "
-" & "<Points:> " & config(3)
-                        System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
-                    ElseIf savClose = 7 Then
-                    End If
-                End If
-            End If
+
         ElseIf clos = 7 Then
             e.Cancel = True
         End If
@@ -188,10 +200,10 @@
     End Function 'custom MsgBox
     Public Sub LangSet()
         Dim LangT As String = "?"
-        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-            If config(0) = "English" Then
+        If My.Settings.Settings = True Then
+            If My.Settings.Lang = "English" Then
                 LangT = "English"
-            ElseIf config(0) = "Français" Then
+            ElseIf My.Settings.Lang = "Français" Then
                 LangT = "Français"
             End If
         Else
@@ -205,7 +217,7 @@
                 'user closed the window without clicking a button
                 Close()
             End If
-            LangT = Language.Text
+            LangT = My.Settings.Lang
         End If
 
         If LangT = "Français" Then
@@ -235,8 +247,8 @@ les Couleurs"
             RadioButton3.Text = "En Pourcentage"
             RadioButton4.Text = "En Points"
             Button5.Text = "Redémarrer"
-            Button9.Text = "Enregister"
-            Button10.Text = "Supprimer"
+            Button9.Text = ONs
+            Button10.Text = OFF
             Button11.Text = "Fermer"
             restrMsg = "Est-ce que tu est assuré que tu veux redémarrer le jeu? Tu va perdre tous tes points."
             closeMsg = "Est-ce que tu est assuré que tu veux fermer le jeu? Tu va perdre tous tes points."
@@ -270,8 +282,8 @@ les Couleurs"
             RadioButton3.Text = "In Percentage"
             RadioButton4.Text = "In Points"
             Button5.Text = "Restart"
-            Button9.Text = "Save"
-            Button10.Text = "Delete"
+            Button9.Text = ONs
+            Button10.Text = OFF
             Button11.Text = "Close"
             restrMsg = "Are you sure you want to restart the game? You will lose all your points."
             closeMsg = "Are you sure you want to close the game? You will lose all your points."
@@ -1609,12 +1621,12 @@ Draw
             Label4.Text = Percent(0) & "%"
             Label5.Text = Percent(1) & "%"
             Label6.Text = Percent(2) & "%"
-            config(3) = "Percent"
+            My.Settings.Points = "Percent"
         Else
             Label4.Text = Points(0)
             Label5.Text = Points(1)
             Label6.Text = Points(2)
-            config(3) = "Point"
+            My.Settings.Points = "Point"
         End If
         If manglog = True Then
             log = log & "                        > Point
@@ -1629,12 +1641,12 @@ Draw
             Label4.Text = Percent(0) & "%"
             Label5.Text = Percent(1) & "%"
             Label6.Text = Percent(2) & "%"
-            config(3) = "Percent"
+            My.Settings.Points = "Percent"
         Else
             Label4.Text = Points(0)
             Label5.Text = Points(1)
             Label6.Text = Points(2)
-            config(3) = "Point"
+            My.Settings.Points = "Point"
         End If
         'GroupBox2.Hide()
         If manglog = True Then
@@ -1752,7 +1764,7 @@ Draw
         If CheckBox1.Checked Then
             invcol = True
             invertColor()
-            config(1) = "Yes"
+            My.Settings.Color = "Yes"
             If manglog = True Then
                 log = log & "                        > Invert Colors ON
 "
@@ -1760,7 +1772,7 @@ Draw
         Else
             invcol = False
             invertColor()
-            config(1) = "No"
+            My.Settings.Color = "No"
             If manglog = True Then
                 log = log & "                        > Invert Colors OFF
 "
@@ -1771,14 +1783,14 @@ Draw
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
         If CheckBox2.Checked Then
             sfx = False
-            config(2) = "Yes"
+            My.Settings.Mute = "Yes"
             If manglog = True Then
                 log = log & "                        > Mute ON
 "
             End If
         Else
             sfx = True
-            config(2) = "No"
+            My.Settings.Mute = "No"
             If manglog = True Then
                 log = log & "                        > Mute OFF
 "
@@ -1787,20 +1799,16 @@ Draw
     End Sub 'couper le son
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        Dim cons As String = "<Lang:> " & config(0) & "
-" & "<Dark colors:> " & config(1) & "
-" & "<Mute:> " & config(2) & "
-" & "<Points:> " & config(3)
-        System.IO.File.WriteAllText(path & "\TicTacToe-config.txt", cons)
+        My.Settings.Settings = True
         Button9.Enabled = False
         Button10.Enabled = True
         GroupBox4.Text = "Configuration = " & ONs
-        log = log & "                        > Save Config
+        log = log & "                        > Config ON
 "
     End Sub 'Saves config
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
-        If System.IO.File.Exists(path & "\TicTacToe-config.txt") Then
-            System.IO.File.Delete(path & "\TicTacToe-config.txt")
+        If My.Settings.Settings = True Then
+            My.Settings.Settings = False
             Button9.Enabled = True
             Button10.Enabled = False
             GroupBox4.Text = "Configuration = " & OFF
@@ -1808,7 +1816,7 @@ Draw
             Button10.Enabled = False
             GroupBox4.Text = "Configuration = " & OFF
         End If
-        log = log & "                        > Delete Config
+        log = log & "                        > Config OFF
 "
     End Sub 'delete config
 #End Region

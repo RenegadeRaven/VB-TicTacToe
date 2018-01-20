@@ -380,7 +380,6 @@ Partial Class Form1
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Button5
-        Me.ControlBox = False
         Me.Controls.Add(Me.Button11)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.Button5)
