@@ -55,6 +55,15 @@
   <PropertyGroup>
     <ApplicationIcon>download_BWQ_icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>60BE65DE8B23BD89153A729E77677150B1D8B64C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Regnum.pfx</ManifestKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MSBuild.AutoILMerge.Task, Version=1.0.0.0, Culture=en-US, processorArchitecture=MSIL">
       <HintPath>..\packages\MSBuild.AutoILMerge.Task.1.1.1\lib\net40\MSBuild.AutoILMerge.Task.dll</HintPath>
@@ -165,6 +174,7 @@
     <Content Include="download_BWQ_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
+    <None Include="Regnum.pfx" />
     <None Include="Resources\snap.wav" />
     <None Include="Resources\drop.wav" />
     <None Include="Resources\X.png" />
