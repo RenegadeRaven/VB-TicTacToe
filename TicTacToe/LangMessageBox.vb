@@ -12,7 +12,7 @@
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         DialogResult = Windows.Forms.DialogResult.No
         Close()
-        Form1.Close()
+        Main.Close()
     End Sub
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         If ComboBox1.Text = "Français" Then

@@ -2,7 +2,7 @@
     Public Sub New(ByVal message As String, ByVal numB As Integer, ByVal button1Name As String, ByVal button2name As String, ByVal button3name As String, ByVal header As String)
         InitializeComponent()
         Label1.Text = message
-        If Form1.CheckBox1.Checked = True Then
+        If Main.CheckBox1.Checked = True Then
             Me.BackColor = SystemColors.ControlText
             Me.ForeColor = SystemColors.Control
             Label1.ForeColor = SystemColors.Control

@@ -93,17 +93,25 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.vb" />
+    <Compile Include="Computer.vb" />
     <Compile Include="CustomMessageBox.Designer.vb">
       <DependentUpon>CustomMessageBox.vb</DependentUpon>
     </Compile>
     <Compile Include="CustomMessageBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="Main.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.vb">
+      <DependentUpon>Main.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LangMessageBox.Designer.vb">
@@ -143,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LangMessageBox.resx">
       <DependentUpon>LangMessageBox.vb</DependentUpon>
