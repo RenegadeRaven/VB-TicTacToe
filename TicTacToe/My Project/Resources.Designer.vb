@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -79,6 +79,66 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to {
+        '''	&quot;Yes&quot;: &quot;Yes&quot;,
+        '''	&quot;No&quot;: &quot;No&quot;,
+        '''	&quot;OK&quot;: &quot;OK&quot;,
+        '''	&quot;by&quot;: &quot;by&quot;,
+        '''	&quot;Error&quot;: &quot;Error&quot;,
+        '''	&quot;On&quot;: &quot;On&quot;,
+        '''	&quot;Off&quot;: &quot;Off&quot;,
+        '''	&quot;Close&quot;: &quot;Close&quot;,
+        '''	&quot;Restart&quot;: &quot;Restart&quot;,
+        '''
+        '''	&quot;head1&quot;: &quot;Piece Selection&quot;,
+        '''	&quot;head2&quot;: &quot;Play Against?&quot;,
+        '''	&quot;head3&quot;: &quot;Settings?&quot;,
+        '''	&quot;PlayerPiece&quot;: &quot;Which piece does Player 1 want to play as?&quot;,
+        '''	&quot;PC&quot;: &quot;Who do you want to play against?&quot;,
+        '''	&quot;NewGame&quot;: &quot;New Game: &quot;,
+        '''	&quot;X turn&quot;: &quot;It&apos;s X&apos;s Turn&quot;,
+        '''	&quot;O turn&quot;: &quot;It&apos;s O&apos;s Turn&quot;,
+        '''	&quot;X wins&quot;: &quot;X Wins&quot;,
+        '''	&quot;O wins&quot;: &quot;O Wins&quot;,
+        '''	&quot;Draw Text&quot;: &quot;Draw&quot;,
+        '''	&quot;restartMsg&quot;: [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property english() As String
+            Get
+                Return ResourceManager.GetString("english", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to {
+        '''	&quot;Yes&quot;: &quot;Oui&quot;,
+        '''	&quot;No&quot;: &quot;Non&quot;,
+        '''	&quot;OK&quot;: &quot;OK&quot;,
+        '''	&quot;by&quot;: &quot;par&quot;,
+        '''	&quot;Error&quot;: &quot;Erreur&quot;,
+        '''	&quot;On&quot;: &quot;Activé&quot;,
+        '''	&quot;Off&quot;: &quot;Désactivé&quot;,
+        '''	&quot;Close&quot;: &quot;Fermer&quot;,
+        '''	&quot;Restart&quot;: &quot;Redémarrer&quot;,
+        '''
+        '''	&quot;head1&quot;: &quot;Sélection du Pièce&quot;,
+        '''	&quot;head2&quot;: &quot;Jouer Contre?&quot;,
+        '''	&quot;head3&quot;: &quot;Paramètres?&quot;,
+        '''	&quot;PlayerPiece&quot;: &quot;Quel pièce est-ce que Joueur 1 veut être?&quot;,
+        '''	&quot;PC&quot;: &quot;Qui est-ce que tu veux jouer contre?&quot;,
+        '''	&quot;NewGame&quot;: &quot;Nouveau Jeu: &quot;,
+        '''	&quot;X turn&quot;: &quot;C&apos;est le tour de X&quot;,
+        '''	&quot;O turn&quot;: &quot;C&apos;est le tour de O&quot;,
+        '''	&quot;X wins&quot;: &quot;X Gagne&quot;,
+        '''	&quot;O wins&quot;: &quot;O Gagne&quot; [rest of string was truncated]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property french() As String
+            Get
+                Return ResourceManager.GetString("french", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property O() As System.Drawing.Bitmap
@@ -94,6 +154,26 @@ Namespace My.Resources
         Friend ReadOnly Property point() As System.IO.UnmanagedMemoryStream
             Get
                 Return ResourceManager.GetStream("point", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ppdb() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ppdb", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property ppdbs() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("ppdbs", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

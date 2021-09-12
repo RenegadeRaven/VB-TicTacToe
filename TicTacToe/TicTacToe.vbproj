@@ -68,6 +68,9 @@
     <Reference Include="MSBuild.AutoILMerge.Task, Version=1.0.0.0, Culture=en-US, processorArchitecture=MSIL">
       <HintPath>..\packages\MSBuild.AutoILMerge.Task.1.1.1\lib\net40\MSBuild.AutoILMerge.Task.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -124,6 +127,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -135,6 +139,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SettingsFile.vb" />
     <Compile Include="UpdateCheck.Designer.vb">
       <DependentUpon>UpdateCheck.vb</DependentUpon>
     </Compile>
@@ -185,6 +190,10 @@
     <Content Include="download_BWQ_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
+    <None Include="Resources\Languages\english.json" />
+    <None Include="Resources\Languages\french.json" />
+    <None Include="Resources\ppdbs.png" />
+    <None Include="Resources\ppdb.png" />
     <None Include="Regnum.pfx" />
     <None Include="Resources\snap.wav" />
     <None Include="Resources\drop.wav" />

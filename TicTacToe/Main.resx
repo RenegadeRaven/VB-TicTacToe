@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="bt_NewGame.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12.25pt</value>
@@ -181,7 +181,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;bt_NewGame.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="lb_BoardX.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -214,7 +214,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_BoardX.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="lb_BoardO.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -247,7 +247,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_BoardO.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="lb_ScoreX.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -280,7 +280,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_ScoreX.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="lb_ScoreO.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -313,7 +313,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_ScoreO.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="GroupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -364,7 +364,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="RadioButton2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -457,7 +457,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_ScoreDraw.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="lb_BoardDraw.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -490,7 +490,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lb_BoardDraw.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="Button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -517,7 +517,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Button2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="RadioButton3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -647,7 +647,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="Button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -737,7 +737,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox3.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="Button6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -833,7 +833,7 @@ les Couleurs</value>
     <value>NoControl</value>
   </data>
   <data name="Language.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 247</value>
+    <value>119, 247</value>
   </data>
   <data name="Language.Size" type="System.Drawing.Size, System.Drawing">
     <value>10, 13</value>
@@ -854,7 +854,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Language.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="bt_Restart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -881,7 +881,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;bt_Restart.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="GroupBox4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -956,7 +956,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GroupBox4.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="Button10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1094,7 +1094,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;bt_Close.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="pb_BottomRight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1121,7 +1121,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_BottomRight.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="pb_BottomMiddle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1148,7 +1148,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_BottomMiddle.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="pb_BottomLeft.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1175,7 +1175,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_BottomLeft.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="pb_CenterRight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1202,7 +1202,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_CenterRight.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
   </data>
   <data name="pb_CenterMiddle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1229,7 +1229,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_CenterMiddle.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>23</value>
   </data>
   <data name="pb_CenterLeft.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1256,7 +1256,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_CenterLeft.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>24</value>
   </data>
   <data name="pb_TopRight.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1283,7 +1283,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_TopRight.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>25</value>
   </data>
   <data name="pb_TopMiddle.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1310,7 +1310,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_TopMiddle.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>26</value>
   </data>
   <data name="pb_TopLeft.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Stretch</value>
@@ -1337,7 +1337,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_TopLeft.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>27</value>
   </data>
   <data name="pb_bhBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1361,7 +1361,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_bhBar.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>28</value>
   </data>
   <data name="pb_thBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1385,7 +1385,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_thBar.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>29</value>
   </data>
   <data name="pb_rvBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1409,7 +1409,7 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_rvBar.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>30</value>
   </data>
   <data name="pb_lvBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1433,7 +1433,115 @@ les Couleurs</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pb_lvBar.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>31</value>
+  </data>
+  <data name="lklb_Author.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lklb_Author.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lklb_Author.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 246</value>
+  </data>
+  <data name="lklb_Author.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 13</value>
+  </data>
+  <data name="lklb_Author.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="lklb_Author.Text" xml:space="preserve">
+    <value>Regnum</value>
+  </data>
+  <data name="&gt;&gt;lklb_Author.Name" xml:space="preserve">
+    <value>lklb_Author</value>
+  </data>
+  <data name="&gt;&gt;lklb_Author.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lklb_Author.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lklb_Author.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lb_By.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lb_By.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 246</value>
+  </data>
+  <data name="lb_By.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 13</value>
+  </data>
+  <data name="lb_By.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="lb_By.Text" xml:space="preserve">
+    <value>By</value>
+  </data>
+  <data name="&gt;&gt;lb_By.Name" xml:space="preserve">
+    <value>lb_By</value>
+  </data>
+  <data name="&gt;&gt;lb_By.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lb_By.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lb_By.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="lklb_Update.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lklb_Update.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="lklb_Update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 13</value>
+  </data>
+  <data name="lklb_Update.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lklb_Update.Text" xml:space="preserve">
+    <value>New Update Available!</value>
+  </data>
+  <data name="&gt;&gt;lklb_Update.Name" xml:space="preserve">
+    <value>lklb_Update</value>
+  </data>
+  <data name="&gt;&gt;lklb_Update.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lklb_Update.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lklb_Update.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pb_Donate.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="pb_Donate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>431, 2</value>
+  </data>
+  <data name="pb_Donate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 22</value>
+  </data>
+  <data name="pb_Donate.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;pb_Donate.Name" xml:space="preserve">
+    <value>pb_Donate</value>
+  </data>
+  <data name="&gt;&gt;pb_Donate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pb_Donate.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pb_Donate.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3415,9 +3523,6 @@ les Couleurs</value>
         /wAAAAH////8H///////gf/g////4AAAD/////4////////D/+D////8AAB//////3///////+f/4P//
         ///////////////////////g/////////////////////////+D/////////////////////////4A==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>530, 300</value>

@@ -65,6 +65,10 @@ Partial Class Main
         Me.pb_thBar = New System.Windows.Forms.PictureBox()
         Me.pb_rvBar = New System.Windows.Forms.PictureBox()
         Me.pb_lvBar = New System.Windows.Forms.PictureBox()
+        Me.lklb_Author = New System.Windows.Forms.LinkLabel()
+        Me.lb_By = New System.Windows.Forms.Label()
+        Me.lklb_Update = New System.Windows.Forms.LinkLabel()
+        Me.pb_Donate = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -82,6 +86,7 @@ Partial Class Main
         CType(Me.pb_thBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pb_rvBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pb_lvBar, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pb_Donate, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -374,12 +379,41 @@ Partial Class Main
         Me.pb_lvBar.Name = "pb_lvBar"
         Me.pb_lvBar.TabStop = False
         '
+        'lklb_Author
+        '
+        resources.ApplyResources(Me.lklb_Author, "lklb_Author")
+        Me.lklb_Author.Name = "lklb_Author"
+        Me.lklb_Author.TabStop = True
+        '
+        'lb_By
+        '
+        resources.ApplyResources(Me.lb_By, "lb_By")
+        Me.lb_By.Name = "lb_By"
+        '
+        'lklb_Update
+        '
+        resources.ApplyResources(Me.lklb_Update, "lklb_Update")
+        Me.lklb_Update.Name = "lklb_Update"
+        Me.lklb_Update.TabStop = True
+        '
+        'pb_Donate
+        '
+        Me.pb_Donate.BackColor = System.Drawing.SystemColors.Control
+        Me.pb_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.ppdb
+        resources.ApplyResources(Me.pb_Donate, "pb_Donate")
+        Me.pb_Donate.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.pb_Donate.Name = "pb_Donate"
+        Me.pb_Donate.TabStop = False
+        '
         'Main
         '
         Me.AcceptButton = Me.bt_NewGame
         resources.ApplyResources(Me, "$this")
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.bt_Restart
+        Me.Controls.Add(Me.pb_Donate)
+        Me.Controls.Add(Me.lklb_Update)
+        Me.Controls.Add(Me.lklb_Author)
         Me.Controls.Add(Me.bt_Close)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.bt_Restart)
@@ -409,6 +443,7 @@ Partial Class Main
         Me.Controls.Add(Me.pb_thBar)
         Me.Controls.Add(Me.pb_rvBar)
         Me.Controls.Add(Me.pb_lvBar)
+        Me.Controls.Add(Me.lb_By)
         Me.HelpButton = True
         Me.Name = "Main"
         Me.GroupBox1.ResumeLayout(False)
@@ -431,6 +466,7 @@ Partial Class Main
         CType(Me.pb_thBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pb_rvBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pb_lvBar, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pb_Donate, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -478,4 +514,8 @@ Partial Class Main
     Friend WithEvents Button10 As Button
     Friend WithEvents Button9 As Button
     Friend WithEvents bt_Close As Button
+    Friend WithEvents lklb_Author As LinkLabel
+    Friend WithEvents lb_By As Label
+    Friend WithEvents lklb_Update As LinkLabel
+    Friend WithEvents pb_Donate As PictureBox
 End Class
