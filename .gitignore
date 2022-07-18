@@ -1,6 +1,6 @@
 \.vs
-\Template\obj
-\Template\bin
+\TicTacToe\obj
+\TicTacToe\bin
 \obj
 \bin
 *.pfx
