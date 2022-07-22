@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Un Jeu de TicTacToe en Visual Basic | A Game of TicTacToe in Visual Basic")>
 <Assembly: AssemblyCompany("Regnum")>
 <Assembly: AssemblyProduct("TicTacToe")>
-<Assembly: AssemblyCopyright("Copyright © Regnum 2018")>
+<Assembly: AssemblyCopyright("Copyright © Regnum 2018-2022")>
 <Assembly: AssemblyTrademark("Regnum")>
 
 <Assembly: ComVisible(False)>

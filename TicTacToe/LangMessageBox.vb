@@ -16,20 +16,35 @@
     End Sub
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         If ComboBox1.Text = "Français" Then
-            My.Settings.Lang = "Français"
+            My.Settings.Language = "Français"
             Button2.Text = "Annuler"
             Me.Text = "Sélection du Langage"
             Button1.Enabled = True
         ElseIf ComboBox1.Text = "English" Then
-            My.Settings.Lang = "English"
+            My.Settings.Language = "English"
             Button2.Text = "Cancel"
             Me.Text = "Language Selection"
             Button1.Enabled = True
         ElseIf ComboBox1.Text = "----Language----" Then
-            My.Settings.Lang = "----Language----"
+            My.Settings.Language = Nothing
             Button2.Text = "Cancel"
             Me.Text = "Language Selection"
             Button1.Enabled = False
         End If
     End Sub
 End Class
+Module LangMsgBox
+    'Custom MsgBox
+    Public Sub LangBox(Optional ByVal button1Text As String = "Continue", Optional ByVal button2Text As String = "Cancel")
+        Dim msgL As New LangMessageBox(button1Text, button2Text)
+        Dim resultL = msgL.ShowDialog()
+        If resultL = Windows.Forms.DialogResult.Yes Then
+            'user clicked "Oui"
+        ElseIf resultL = Windows.Forms.DialogResult.No Then
+            'user clicked "Non"
+        Else
+            'user closed the window without clicking a button
+            Main.Close()
+        End If
+    End Sub
+End Module

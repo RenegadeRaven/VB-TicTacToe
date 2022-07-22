@@ -56,22 +56,22 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("english")>  _
-        Public Property Lang() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Language() As String
             Get
-                Return CType(Me("Lang"),String)
+                Return CType(Me("Language"),String)
             End Get
             Set
-                Me("Lang") = value
+                Me("Language") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property Color() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Color() As Boolean
             Get
-                Return CType(Me("Color"),String)
+                Return CType(Me("Color"),Boolean)
             End Get
             Set
                 Me("Color") = value
@@ -80,10 +80,10 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property Mute() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Mute() As Boolean
             Get
-                Return CType(Me("Mute"),String)
+                Return CType(Me("Mute"),Boolean)
             End Get
             Set
                 Me("Mute") = value
@@ -92,7 +92,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Point")>  _
         Public Property Points() As String
             Get
                 Return CType(Me("Points"),String)

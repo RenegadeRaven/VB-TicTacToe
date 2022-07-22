@@ -1,662 +1,479 @@
 ﻿Module Computer
-#Region "Ordinateur"
-    Private Sub rndPick()
+    Public ordPlay As Boolean
+    Dim ordMove As Byte = 0
+    Dim ordNextMove As Byte = 0
+    Public ordTurn As Boolean = True
+
+    Private Function rndNum(maxVal As Byte)
         'Random number generator variable 
         Dim gen As New Random
-        'Use the random number generator 
-        Form1.ordPlay = gen.Next(1, 10)
-    End Sub 'Choisir un nombre au hazard pour l'ordinateur
-    Public Sub comp()
-1:
-        Form1.ErrorCount = Form1.ErrorCount + 1
-        If Form1.ErrorCount > 3 Then
-            GoTo 3
-        End If
-        'horizontal
-        'Top
-        'If ( Form1.Pos(3)  = Form1.Player) And ( Form1.Pos(5)  = Form1.Computer) And ( Form1.Pos(3)  =  Form1.Pos(2)  =  Form1.Pos(8) ) And ( Form1.Pos(5)  =  Form1.Pos(4) ) And ( Form1.Pos(0)  = 0) And ( Form1.Pos(0)  =  Form1.Pos(1)  =  Form1.Pos(6)  =  Form1.Pos(7) ) Then
-        'Form1.ordPlay = 2
-        'GoTo 2
-        'Else
-        If ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(1) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(2) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Computer) And Form1.Pos(1) = Form1.Pos(0) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Computer) And Form1.Pos(1) = Form1.Pos(2) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(0) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(1) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-            'Middle	
-        ElseIf ((Form1.Pos(3) = Form1.Computer) And Form1.Pos(3) = Form1.Pos(4) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Computer) And Form1.Pos(3) = Form1.Pos(5) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(5) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(3) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Computer) And Form1.Pos(5) = Form1.Pos(4) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Computer) And Form1.Pos(5) = Form1.Pos(3) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-            'Bottom
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(7) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(8) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Computer) And Form1.Pos(7) = Form1.Pos(6) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Computer) And Form1.Pos(7) = Form1.Pos(8) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(7) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(6) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-            'Vertical
-            'left
-        ElseIf ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(6) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(3) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Computer) And Form1.Pos(3) = Form1.Pos(6) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Computer) And Form1.Pos(3) = Form1.Pos(0) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(0) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(3) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-            'middle
-        ElseIf ((Form1.Pos(1) = Form1.Computer) And Form1.Pos(1) = Form1.Pos(7) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Computer) And Form1.Pos(1) = Form1.Pos(4) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(7) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(1) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Computer) And Form1.Pos(7) = Form1.Pos(1) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Computer) And Form1.Pos(7) = Form1.Pos(4) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-            'right	
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(8) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(5) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Computer) And Form1.Pos(5) = Form1.Pos(8) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Computer) And Form1.Pos(5) = Form1.Pos(2) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(5) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(2) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-            'diagonal
-            'backslash
-        ElseIf ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(4) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Computer) And Form1.Pos(0) = Form1.Pos(8) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(0) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(8) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(4) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Computer) And Form1.Pos(8) = Form1.Pos(0) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-            'forwardslash
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(6) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Computer) And Form1.Pos(2) = Form1.Pos(4) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(6) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Computer) And Form1.Pos(4) = Form1.Pos(2) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(2) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Computer) And Form1.Pos(6) = Form1.Pos(4) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
+        'Use the random number generator
+        Return gen.Next(1, (maxVal + 1))
+    End Function 'Choisir un nombre au hazard
 
-            'horizontal
+    Public Sub selectPC()
+        ordMove = 0
+#Region "Computer"
+#Region "Horizontal"
+#Region "Top"
+        If ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.TopMiddle And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.TopRight And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.TopMiddle = player2Piece) And Game.TopMiddle = Game.TopLeft And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.TopMiddle = player2Piece) And Game.TopMiddle = Game.TopRight And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.TopLeft And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.TopMiddle And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+#End Region
+#Region "Center"
+        ElseIf ((Game.CenterLeft = player2Piece) And Game.CenterLeft = Game.CenterMiddle And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.CenterLeft = player2Piece) And Game.CenterLeft = Game.CenterRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.CenterRight And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.CenterLeft And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.CenterRight = player2Piece) And Game.CenterRight = Game.CenterMiddle And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.CenterRight = player2Piece) And Game.CenterRight = Game.CenterLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+#End Region
+#Region "Bottom"
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.BottomMiddle And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.BottomRight And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.BottomMiddle = player2Piece) And Game.BottomMiddle = Game.BottomLeft And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomMiddle = player2Piece) And Game.BottomMiddle = Game.BottomRight And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.BottomMiddle And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.BottomLeft And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+#End Region
+#End Region
+#Region "Vertical"
+#Region "Left"
+        ElseIf ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.BottomLeft And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.CenterLeft And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.CenterLeft = player2Piece) And Game.CenterLeft = Game.BottomLeft And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.CenterLeft = player2Piece) And Game.CenterLeft = Game.TopLeft And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.TopLeft And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.CenterLeft And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+#End Region
+#Region "Middle"
+        ElseIf ((Game.TopMiddle = player2Piece) And Game.TopMiddle = Game.BottomMiddle And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.TopMiddle = player2Piece) And Game.TopMiddle = Game.CenterMiddle And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.BottomMiddle And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.TopMiddle And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.BottomMiddle = player2Piece) And Game.BottomMiddle = Game.TopMiddle And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.BottomMiddle = player2Piece) And Game.BottomMiddle = Game.CenterMiddle And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+#End Region
+#Region "Right"
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.BottomRight And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.CenterRight And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.CenterRight = player2Piece) And Game.CenterRight = Game.BottomRight And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.CenterRight = player2Piece) And Game.CenterRight = Game.TopRight And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.CenterRight And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.TopRight And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+#End Region
+#End Region
+#Region "Diagonal"
+#Region "Backslash"
+        ElseIf ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.CenterMiddle And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.TopLeft = player2Piece) And Game.TopLeft = Game.BottomRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.TopLeft And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.BottomRight And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.CenterMiddle And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.BottomRight = player2Piece) And Game.BottomRight = Game.TopLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+#End Region
+#Region "Forwardslash"
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.BottomLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.TopRight = player2Piece) And Game.TopRight = Game.CenterMiddle And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.BottomLeft And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.CenterMiddle = player2Piece) And Game.CenterMiddle = Game.TopRight And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.TopRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.BottomLeft = player2Piece) And Game.BottomLeft = Game.CenterMiddle And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+#End Region
+#End Region
+#End Region
+
+#Region "Player"
+#Region "Horizontal"
             'Top
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(1) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(2) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Player) And Form1.Pos(1) = Form1.Pos(0) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Player) And Form1.Pos(1) = Form1.Pos(2) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(0) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(1) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.TopMiddle And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.TopRight And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.TopMiddle = player1Piece) And Game.TopMiddle = Game.TopLeft And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.TopMiddle = player1Piece) And Game.TopMiddle = Game.TopRight And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.TopLeft And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.TopMiddle And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
             'Middle	
-        ElseIf ((Form1.Pos(3) = Form1.Player) And Form1.Pos(3) = Form1.Pos(4) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Player) And Form1.Pos(3) = Form1.Pos(5) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(5) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(3) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Player) And Form1.Pos(5) = Form1.Pos(4) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Player) And Form1.Pos(5) = Form1.Pos(3) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
+        ElseIf ((Game.CenterLeft = player1Piece) And Game.CenterLeft = Game.CenterMiddle And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.CenterLeft = player1Piece) And Game.CenterLeft = Game.CenterRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.CenterRight And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.CenterLeft And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.CenterRight = player1Piece) And Game.CenterRight = Game.CenterMiddle And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.CenterRight = player1Piece) And Game.CenterRight = Game.CenterLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
             'Bottom
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(7) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(8) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Player) And Form1.Pos(7) = Form1.Pos(6) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Player) And Form1.Pos(7) = Form1.Pos(8) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(7) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(6) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-            'Vertical
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.BottomMiddle And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.BottomRight And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.BottomMiddle = player1Piece) And Game.BottomMiddle = Game.BottomLeft And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomMiddle = player1Piece) And Game.BottomMiddle = Game.BottomRight And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.BottomMiddle And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.BottomLeft And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+#End Region
+#Region "Vertical"
             'left
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(6) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(3) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Player) And Form1.Pos(3) = Form1.Pos(6) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(3) = Form1.Player) And Form1.Pos(3) = Form1.Pos(0) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(0) And Form1.Pos(3) = 0) Then
-            Form1.ordPlay = 4
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(3) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.BottomLeft And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.CenterLeft And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.CenterLeft = player1Piece) And Game.CenterLeft = Game.BottomLeft And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.CenterLeft = player1Piece) And Game.CenterLeft = Game.TopLeft And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.TopLeft And Game.CenterLeft = GameBoard.Playable) Then
+            ordMove = 4
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.CenterLeft And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
             'middle
-        ElseIf ((Form1.Pos(1) = Form1.Player) And Form1.Pos(1) = Form1.Pos(7) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(1) = Form1.Player) And Form1.Pos(1) = Form1.Pos(4) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(7) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(1) And Form1.Pos(7) = 0) Then
-            Form1.ordPlay = 8
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Player) And Form1.Pos(7) = Form1.Pos(1) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(7) = Form1.Player) And Form1.Pos(7) = Form1.Pos(4) And Form1.Pos(1) = 0) Then
-            Form1.ordPlay = 2
-            GoTo 2
+        ElseIf ((Game.TopMiddle = player1Piece) And Game.TopMiddle = Game.BottomMiddle And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.TopMiddle = player1Piece) And Game.TopMiddle = Game.CenterMiddle And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.BottomMiddle And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.TopMiddle And Game.BottomMiddle = GameBoard.Playable) Then
+            ordMove = 8
+        ElseIf ((Game.BottomMiddle = player1Piece) And Game.BottomMiddle = Game.TopMiddle And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.BottomMiddle = player1Piece) And Game.BottomMiddle = Game.CenterMiddle And Game.TopMiddle = GameBoard.Playable) Then
+            ordMove = 2
             'right	
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(8) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(5) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Player) And Form1.Pos(5) = Form1.Pos(8) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(5) = Form1.Player) And Form1.Pos(5) = Form1.Pos(2) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(5) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(2) And Form1.Pos(5) = 0) Then
-            Form1.ordPlay = 6
-            GoTo 2
-            'diagonal
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.BottomRight And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.CenterRight And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.CenterRight = player1Piece) And Game.CenterRight = Game.BottomRight And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.CenterRight = player1Piece) And Game.CenterRight = Game.TopRight And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.CenterRight And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.TopRight And Game.CenterRight = GameBoard.Playable) Then
+            ordMove = 6
+#End Region
+#Region "Diagonal"
             'backslash
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(4) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(0) = Form1.Player) And Form1.Pos(0) = Form1.Pos(8) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(0) And Form1.Pos(8) = 0) Then
-            Form1.ordPlay = 9
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(8) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(4) And Form1.Pos(0) = 0) Then
-            Form1.ordPlay = 1
-            GoTo 2
-        ElseIf ((Form1.Pos(8) = Form1.Player) And Form1.Pos(8) = Form1.Pos(0) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.CenterMiddle And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.TopLeft = player1Piece) And Game.TopLeft = Game.BottomRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.TopLeft And Game.BottomRight = GameBoard.Playable) Then
+            ordMove = 9
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.BottomRight And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.CenterMiddle And Game.TopLeft = GameBoard.Playable) Then
+            ordMove = 1
+        ElseIf ((Game.BottomRight = player1Piece) And Game.BottomRight = Game.TopLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
             'forwardslash
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(6) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(2) = Form1.Player) And Form1.Pos(2) = Form1.Pos(4) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(6) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-        ElseIf ((Form1.Pos(4) = Form1.Player) And Form1.Pos(4) = Form1.Pos(2) And Form1.Pos(6) = 0) Then
-            Form1.ordPlay = 7
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(2) And Form1.Pos(4) = 0) Then
-            Form1.ordPlay = 5
-            GoTo 2
-        ElseIf ((Form1.Pos(6) = Form1.Player) And Form1.Pos(6) = Form1.Pos(4) And Form1.Pos(2) = 0) Then
-            Form1.ordPlay = 3
-            GoTo 2
-
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.BottomLeft And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.TopRight = player1Piece) And Game.TopRight = Game.CenterMiddle And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.BottomLeft And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+        ElseIf ((Game.CenterMiddle = player1Piece) And Game.CenterMiddle = Game.TopRight And Game.BottomLeft = GameBoard.Playable) Then
+            ordMove = 7
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.TopRight And Game.CenterMiddle = GameBoard.Playable) Then
+            ordMove = 5
+        ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.CenterMiddle And Game.TopRight = GameBoard.Playable) Then
+            ordMove = 3
+#End Region
+#End Region
         Else
-            If (Form1.ordToPlay <> 0) Then
-                Form1.ordPlay = Form1.ordToPlay
-                Form1.ordToPlay = 0
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(2)) And (Form1.Pos(8) = 0)) Then
-                Form1.ordPlay = 9
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(2)) And (Form1.Pos(6) = 0)) Then
-                Form1.ordPlay = 7
-                GoTo 2
-            ElseIf ((Form1.Pos(2) = Form1.Computer) And (Form1.Pos(2) = Form1.Pos(8)) And (Form1.Pos(6) = 0)) Then
-                Form1.ordPlay = 7
-                GoTo 2
-            ElseIf ((Form1.Pos(2) = Form1.Computer) And (Form1.Pos(2) = Form1.Pos(8)) And (Form1.Pos(0) = 0)) Then
-                Form1.ordPlay = 1
-                GoTo 2
-            ElseIf ((Form1.Pos(8) = Form1.Computer) And (Form1.Pos(8) = Form1.Pos(6)) And (Form1.Pos(0) = 0)) Then
-                Form1.ordPlay = 1
-                GoTo 2
-            ElseIf ((Form1.Pos(8) = Form1.Computer) And (Form1.Pos(8) = Form1.Pos(6)) And (Form1.Pos(2) = 0)) Then
-                Form1.ordPlay = 3
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(6)) And (Form1.Pos(2) = 0)) Then
-                Form1.ordPlay = 3
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(6)) And (Form1.Pos(8) = 0)) Then
-                Form1.ordPlay = 9
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(8)) And (Form1.Pos(2) = 0)) Then
-                Form1.ordPlay = 3
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Computer) And (Form1.Pos(0) = Form1.Pos(8)) And (Form1.Pos(6) = 0)) Then
-                Form1.ordPlay = 7
-                GoTo 2
-            ElseIf ((Form1.Pos(2) = Form1.Computer) And (Form1.Pos(2) = Form1.Pos(6)) And (Form1.Pos(0) = 0)) Then
-                Form1.ordPlay = 1
-                GoTo 2
-            ElseIf ((Form1.Pos(2) = Form1.Computer) And (Form1.Pos(2) = Form1.Pos(6)) And (Form1.Pos(8) = 0)) Then
-                Form1.ordPlay = 9
-                GoTo 2
-            ElseIf (Form1.Pos(0) = Form1.Player) And (Form1.Pos(1) = 0) And (Form1.Pos(1) = Form1.Pos(2) = Form1.Pos(3) = Form1.Pos(4) = Form1.Pos(5) = Form1.Pos(6) = Form1.Pos(7) = Form1.Pos(8)) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(2) = Form1.Player) And (Form1.Pos(1) = 0) And (Form1.Pos(1) = Form1.Pos(0) = Form1.Pos(3) = Form1.Pos(4) = Form1.Pos(5) = Form1.Pos(6) = Form1.Pos(7) = Form1.Pos(8)) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(6) = Form1.Player) And (Form1.Pos(1) = 0) And (Form1.Pos(1) = Form1.Pos(2) = Form1.Pos(3) = Form1.Pos(4) = Form1.Pos(5) = Form1.Pos(0) = Form1.Pos(7) = Form1.Pos(8)) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(8) = Form1.Player) And (Form1.Pos(1) = 0) And (Form1.Pos(1) = Form1.Pos(2) = Form1.Pos(3) = Form1.Pos(4) = Form1.Pos(5) = Form1.Pos(6) = Form1.Pos(7) = Form1.Pos(0)) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(1) = Form1.Player) And (Form1.Pos(2) = 0) Then
-                Form1.ordPlay = 3
-                If (Form1.Pos(4) = 0) Then
-                    Form1.ordToPlay = 5
-                Else
-                    Form1.ordToPlay = 0
-                End If
-                GoTo 2
-            ElseIf (Form1.Pos(5) = Form1.Player) And (Form1.Pos(8) = 0) Then
-                Form1.ordPlay = 9
-                If (Form1.Pos(4) = 0) Then
-                    Form1.ordToPlay = 5
-                Else
-                    Form1.ordToPlay = 0
-                End If
-                GoTo 2
-            ElseIf (Form1.Pos(7) = Form1.Player) And (Form1.Pos(6) = 0) Then
-                Form1.ordPlay = 7
-                If (Form1.Pos(4) = 0) Then
-                    Form1.ordToPlay = 5
-                Else
-                    Form1.ordToPlay = 0
-                End If
-                GoTo 2
-            ElseIf (Form1.Pos(3) = Form1.Player) And (Form1.Pos(0) = 0) Then
-                Form1.ordPlay = 1
-                If (Form1.Pos(4) = 0) Then
-                    Form1.ordToPlay = 5
-                Else
-                    Form1.ordToPlay = 0
-                End If
-                GoTo 2
-            ElseIf ((Form1.Pos(0) = Form1.Player) And (Form1.Pos(0) = Form1.Pos(8)) And (Form1.Pos(4) = Form1.Computer)) Then
-                Form1.ordPlay = 8
-                GoTo 2
-            ElseIf ((Form1.Pos(2) = Form1.Player) And (Form1.Pos(2) = Form1.Pos(6)) And (Form1.Pos(4) = Form1.Computer)) Then
-                Form1.ordPlay = 2
-                GoTo 2
-            ElseIf (Form1.Pos(1) = Form1.Player) And (Form1.Pos(1) = Form1.Pos(3)) And (Form1.Pos(0) = 0) Then
-                Form1.ordPlay = 1
-                GoTo 2
-            ElseIf (Form1.Pos(1) = Form1.Player) And (Form1.Pos(1) = Form1.Pos(5)) And (Form1.Pos(2) = 0) Then
-                Form1.ordPlay = 3
-                GoTo 2
-            ElseIf (Form1.Pos(3) = Form1.Player) And (Form1.Pos(3) = Form1.Pos(7)) And (Form1.Pos(6) = 0) Then
-                Form1.ordPlay = 7
-                GoTo 2
-            ElseIf (Form1.Pos(5) = Form1.Player) And (Form1.Pos(5) = Form1.Pos(7)) And (Form1.Pos(8) = 0) Then
-                Form1.ordPlay = 9
-                GoTo 2
-            ElseIf (Form1.Pos(1) = Form1.Player) And (Form1.Pos(1) = Form1.Pos(3)) And (Form1.Pos(4) = 0) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(1) = Form1.Player) And (Form1.Pos(1) = Form1.Pos(5)) And (Form1.Pos(4) = 0) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(3) = Form1.Player) And (Form1.Pos(3) = Form1.Pos(7)) And (Form1.Pos(4) = 0) Then
-                Form1.ordPlay = 5
-                GoTo 2
-            ElseIf (Form1.Pos(5) = Form1.Player) And (Form1.Pos(5) = Form1.Pos(7)) And (Form1.Pos(4) = 0) Then
-                Form1.ordPlay = 5
-                GoTo 2
+#Region "Strategies"
+            If (ordNextMove <> 0) Then
+                ordMove = ordNextMove
+                ordNextMove = 0
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.TopRight) And (Game.BottomRight = GameBoard.Playable)) Then
+                ordMove = 9
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.TopRight) And (Game.BottomLeft = GameBoard.Playable)) Then
+                ordMove = 7
+            ElseIf ((Game.TopRight = player2Piece) And (Game.TopRight = Game.BottomRight) And (Game.BottomLeft = GameBoard.Playable)) Then
+                ordMove = 7
+            ElseIf ((Game.TopRight = player2Piece) And (Game.TopRight = Game.BottomRight) And (Game.TopLeft = GameBoard.Playable)) Then
+                ordMove = 1
+            ElseIf ((Game.BottomRight = player2Piece) And (Game.BottomRight = Game.BottomLeft) And (Game.TopLeft = GameBoard.Playable)) Then
+                ordMove = 1
+            ElseIf ((Game.BottomRight = player2Piece) And (Game.BottomRight = Game.BottomLeft) And (Game.TopRight = GameBoard.Playable)) Then
+                ordMove = 3
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.BottomLeft) And (Game.TopRight = GameBoard.Playable)) Then
+                ordMove = 3
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.BottomLeft) And (Game.BottomRight = GameBoard.Playable)) Then
+                ordMove = 9
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.BottomRight) And (Game.TopRight = GameBoard.Playable)) Then
+                ordMove = 3
+            ElseIf ((Game.TopLeft = player2Piece) And (Game.TopLeft = Game.BottomRight) And (Game.BottomLeft = GameBoard.Playable)) Then
+                ordMove = 7
+            ElseIf ((Game.TopRight = player2Piece) And (Game.TopRight = Game.BottomLeft) And (Game.TopLeft = GameBoard.Playable)) Then
+                ordMove = 1
+            ElseIf ((Game.TopRight = player2Piece) And (Game.TopRight = Game.BottomLeft) And (Game.BottomRight = GameBoard.Playable)) Then
+                ordMove = 9
+            ElseIf (Game.TopLeft = player1Piece) And (Game.TopMiddle = GameBoard.Playable) And (Game.TopMiddle = Game.CenterMiddle) Then
+                ordMove = 5
+            ElseIf (Game.TopRight = player1Piece) And (Game.TopMiddle = GameBoard.Playable) And (Game.TopMiddle = Game.CenterMiddle) Then
+                ordMove = 5
+            ElseIf (Game.BottomLeft = player1Piece) And (Game.TopMiddle = GameBoard.Playable) And (Game.TopMiddle = Game.CenterMiddle) Then
+                ordMove = 5
+            ElseIf (Game.BottomRight = player1Piece) And (Game.TopMiddle = GameBoard.Playable) And (Game.TopMiddle = Game.CenterMiddle) Then
+                ordMove = 5
+            ElseIf (Game.TopMiddle = player1Piece) And (Game.TopRight = GameBoard.Playable) Then
+                ordMove = 3
+                ordNextMove = If(Game.CenterMiddle = GameBoard.Playable, 5, 0)
+            ElseIf (Game.CenterRight = player1Piece) And (Game.BottomRight = GameBoard.Playable) Then
+                ordMove = 9
+                ordNextMove = If(Game.CenterMiddle = GameBoard.Playable, 5, 0)
+            ElseIf (Game.BottomMiddle = player1Piece) And (Game.BottomLeft = GameBoard.Playable) Then
+                ordMove = 7
+                ordNextMove = If(Game.CenterMiddle = GameBoard.Playable, 5, 0)
+            ElseIf (Game.CenterLeft = player1Piece) And (Game.TopLeft = GameBoard.Playable) Then
+                ordMove = 1
+                ordNextMove = If(Game.CenterMiddle = GameBoard.Playable, 5, 0)
+            ElseIf ((Game.TopLeft = player1Piece) And (Game.TopLeft = Game.BottomRight) And (Game.CenterMiddle = player2Piece)) Then
+                ordMove = 8
+            ElseIf ((Game.TopRight = player1Piece) And (Game.TopRight = Game.BottomLeft) And (Game.CenterMiddle = player2Piece)) Then
+                ordMove = 2
+            ElseIf (Game.TopMiddle = player1Piece) And (Game.TopMiddle = Game.CenterLeft) And (Game.TopLeft = GameBoard.Playable) Then
+                ordMove = 1
+            ElseIf (Game.TopMiddle = player1Piece) And (Game.TopMiddle = Game.CenterRight) And (Game.TopRight = GameBoard.Playable) Then
+                ordMove = 3
+            ElseIf (Game.CenterLeft = player1Piece) And (Game.CenterLeft = Game.BottomMiddle) And (Game.BottomLeft = GameBoard.Playable) Then
+                ordMove = 7
+            ElseIf (Game.CenterRight = player1Piece) And (Game.CenterRight = Game.BottomMiddle) And (Game.BottomRight = GameBoard.Playable) Then
+                ordMove = 9
+            ElseIf (Game.TopMiddle = player1Piece) And (Game.TopMiddle = Game.CenterLeft) And (Game.CenterMiddle = GameBoard.Playable) Then
+                ordMove = 5
+            ElseIf (Game.TopMiddle = player1Piece) And (Game.TopMiddle = Game.CenterRight) And (Game.CenterMiddle = GameBoard.Playable) Then
+                ordMove = 5
+            ElseIf (Game.CenterLeft = player1Piece) And (Game.CenterLeft = Game.BottomMiddle) And (Game.CenterMiddle = GameBoard.Playable) Then
+                ordMove = 5
+            ElseIf (Game.CenterRight = player1Piece) And (Game.CenterRight = Game.BottomMiddle) And (Game.CenterMiddle = GameBoard.Playable) Then
+                ordMove = 5
+#End Region
             Else
-3:
-                Dim gen As New Random
-                Form1.Pick = gen.Next(1, 6)
-                If (Form1.Pick = 1 And Form1.Pos(0) = 0) Then
-                    Form1.ordPlay = 1
-                    GoTo 2
-                ElseIf (Form1.Pick = 2 And Form1.Pos(2) = 0) Then
-                    Form1.ordPlay = 3
-                    GoTo 2
-                ElseIf (Form1.Pick = 3 And Form1.Pos(4) = 0) Then
-                    Form1.ordPlay = 5
-                    GoTo 2
-                ElseIf (Form1.Pick = 4 And Form1.Pos(6) = 0) Then
-                    Form1.ordPlay = 7
-                    GoTo 2
-                ElseIf (Form1.Pick = 5 And Form1.Pos(8) = 0) Then
-                    Form1.ordPlay = 9
-                    GoTo 2
-                ElseIf Form1.Pick <> 1 And Form1.Pick <> 2 And Form1.Pick <> 3 And Form1.Pick <> 4 And Form1.Pick <> 5 Then
-                    GoTo 3
-                Else
-                    rndPick()
-                End If
+#Region "Random"
+                Select Case rndNum(5)
+                    Case 1
+                        ordMove = 1
+                    Case 2
+                        ordMove = 3
+                    Case 3
+                        ordMove = 5
+                    Case 4
+                        ordMove = 7
+                    Case 5
+                        ordMove = 9
+                    Case Else
+                        ordMove = rndNum(9)
+                End Select
+#End Region
             End If
         End If
-2:
-        'Debug.Print(Form1.ordPlay)
-        '        Form1.Refresh()
-        '        Threading.Thread.Sleep(675)
-        '        If sfx = True Then
-        '            My.Form1.Computer.Audio.Play(My.Resources.drop, AudioPlayMode.Background)
-        '        End If
-        '        If Form1.ordPlay = 1 Then
-        '            If Form1.Pos(0) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox5.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(0) = 2
-        '                    turnCount()
+        If ordMove <> 0 Then playPC()
+    End Sub
+    Private Sub playPC()
+        Main.Refresh()
+        Threading.Thread.Sleep(675)
 
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox5.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(0) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 2 Then
-        '            If Form1.Pos(1) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox6.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(1) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox6.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(1) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 3 Then
-        '            If Form1.Pos(2) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox7.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(2) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox7.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(2) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 4 Then
-        '            If Form1.Pos(3) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox8.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(3) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox8.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(3) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 5 Then
-        '            If Form1.Pos(4) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox9.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(4) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox9.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(4) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 6 Then
-        '            If Form1.Pos(5) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox10.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(5) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox10.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(5) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 7 Then
-        '            If Form1.Pos(6) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox11.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(6) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox11.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(6) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 8 Then
-        '            If Form1.Pos(7) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox12.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(7) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox12.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(7) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        ElseIf Form1.ordPlay = 9 Then
-        '            If Form1.Pos(8) = 0 Then
-        '                checkTurn()
-        '                If Turn = 1 Then
-        '                    PictureBox13.BackgroundImage = My.Resources.O
-        '                    Form1.Pos(8) = 2
-        '                    turnCount()
-
-        '                ElseIf Turn = 0 Then
-        '                    PictureBox13.BackgroundImage = My.Resources.X
-        '                    Form1.Pos(8) = 1
-        '                    turnCount()
-
-        '                End If
-        '                ordTurn = 1
-        '            Else
-        '                GoTo 1
-        '            End If
-        '        Else
-        '            GoTo 1
-        '        End If
-        '        Form1.ErrorCount = 0
-        '        Log = Log & "Form1.Computer - P" & Form1.ordPlay & "
-        '"
-        '        checkWin()
-    End Sub 'Comment l'ordinateur choisir où jouer
-
-    '    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-    '        If (RadioButton2.Checked) Then
-    '            Form1.ORD = 1
-    '        Else
-    '            Form1.ORD = 0
-    '        End If
-    '        newGame()
-    '    End Sub 'Selection de Jouer Contre
-    '    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-    '        newGame()
-    '    End Sub 'RadioButton vide
-#End Region
+        Select Case ordMove
+            Case 1
+                If Game.TopLeft = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_TopLeft.BackgroundImage = My.Resources.O
+                            Game.TopLeft = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_TopLeft.BackgroundImage = My.Resources.X
+                            Game.TopLeft = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 2
+                If Game.TopMiddle = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_TopMiddle.BackgroundImage = My.Resources.O
+                            Game.TopMiddle = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_TopMiddle.BackgroundImage = My.Resources.X
+                            Game.TopMiddle = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 3
+                If Game.TopRight = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_TopRight.BackgroundImage = My.Resources.O
+                            Game.TopRight = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_TopRight.BackgroundImage = My.Resources.X
+                            Game.TopRight = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 4
+                If Game.CenterLeft = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_CenterLeft.BackgroundImage = My.Resources.O
+                            Game.CenterLeft = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_CenterLeft.BackgroundImage = My.Resources.X
+                            Game.CenterLeft = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 5
+                If Game.CenterMiddle = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_CenterMiddle.BackgroundImage = My.Resources.O
+                            Game.CenterMiddle = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_CenterMiddle.BackgroundImage = My.Resources.X
+                            Game.CenterMiddle = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 6
+                If Game.CenterRight = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_CenterRight.BackgroundImage = My.Resources.O
+                            Game.CenterRight = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_CenterRight.BackgroundImage = My.Resources.X
+                            Game.CenterRight = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 7
+                If Game.BottomLeft = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_BottomLeft.BackgroundImage = My.Resources.O
+                            Game.BottomLeft = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_BottomLeft.BackgroundImage = My.Resources.X
+                            Game.BottomLeft = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 8
+                If Game.BottomMiddle = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_BottomMiddle.BackgroundImage = My.Resources.O
+                            Game.BottomMiddle = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_BottomMiddle.BackgroundImage = My.Resources.X
+                            Game.BottomMiddle = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+            Case 9
+                If Game.BottomRight = GameBoard.Playable Then
+                    Select Case checkTurn()
+                        Case 1
+                            Main.pb_BottomRight.BackgroundImage = My.Resources.O
+                            Game.BottomRight = GameBoard.PlayedO
+                        Case 0
+                            Main.pb_BottomRight.BackgroundImage = My.Resources.X
+                            Game.BottomRight = GameBoard.PlayedX
+                    End Select
+                    placePC()
+                Else
+                    selectPC()
+                End If
+        End Select
+    End Sub
+    Private Sub placePC()
+        Main.playSFX(My.Resources.drop)
+        ordTurn = False
+        checkWin()
+        turnIncrement()
+    End Sub
 End Module

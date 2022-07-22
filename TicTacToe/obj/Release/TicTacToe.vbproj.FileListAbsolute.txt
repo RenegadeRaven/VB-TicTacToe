@@ -45,3 +45,13 @@ C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe
 C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
 C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.xml
 C:\Users\Kochen Family\Source\Repos\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.AssemblyReference.cache
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.CustomMessageBox.resources
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Main.resources
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.LangMessageBox.resources
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.Resources.resources
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.GenerateResource.cache
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.vbproj.CoreCompileInputs.cache
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.xml
+C:\Users\Nick\source\repos\PlasticJustice\VB-TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb

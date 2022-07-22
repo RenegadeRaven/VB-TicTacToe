@@ -1,4 +1,5 @@
 {
+	"Version": "2.3.4.1",
 	"Yes": "Yes",
 	"No": "No",
 	"OK": "OK",
@@ -8,6 +9,8 @@
 	"Off": "Off",
 	"Close": "Close",
 	"Restart": "Restart",
+	"Save": "Save",
+	"Delete": "Delete",
 
 	"head1": "Piece Selection",
 	"head2": "Play Against?",
@@ -33,6 +36,8 @@
 	"Others": "Others",
 	"Another Player": "Another Player",
 	"The Computer": "The Computer",
-	"In Percentage": "In Percentage",
-	"In Points": "In Points",
+	"Percentage": "Percentage",
+	"Points": "Points",
+	"Language": "Langage",
+	"Score In...": "Score In..."
 }

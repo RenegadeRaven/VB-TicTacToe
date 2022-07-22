@@ -9,7 +9,7 @@ Module SettingsFile
         Dim lang As String = File.ReadAllText(Main.Local & "\settings.json")
         If lang IsNot Nothing Then Settings = JObject.Parse(lang)
         'LangData("New Update Available! ").ToString()
-        'My.Settings.BoxLocation = Settings("BoxLocation")
+        My.Settings.Language = Settings("Language")
         'My.Settings.AR_Activation = Convert.ToUInt16(Settings("ActivationButtons"), 16)
         'My.Settings.Default_Game = Settings("DefaultGame")
         'My.Settings.Default_Lead = Settings("DefaultLead")
@@ -19,7 +19,7 @@ Module SettingsFile
         If Not File.Exists(Main.Local & "\settings.json") Then CreateSettings()
         Dim lang As String = File.ReadAllText(Main.Local & "\settings.json")
         If lang IsNot Nothing Then Settings = JObject.Parse(lang)
-        'Settings("BoxLocation") = My.Settings.BoxLocation
+        Settings("Language") = My.Settings.Language
         'Settings("ActivationButtons") = Hex(My.Settings.AR_Activation)
         'Settings("DefaultGame") = My.Settings.Default_Game
         'Settings("DefaultLead") = My.Settings.Default_Lead
@@ -28,7 +28,7 @@ Module SettingsFile
     End Sub
     Public Sub CreateSettings()
         Dim dSettings As Object = New JObject()
-        'dSettings.BoxLocation = My.Settings.BoxLocation
+        dSettings.Language = My.Settings.Language
         'dSettings.ActivationButtons = Hex(My.Settings.AR_Activation)
         'dSettings.DefaultGame = My.Settings.Default_Game
         'dSettings.DefaultLead = My.Settings.Default_Lead

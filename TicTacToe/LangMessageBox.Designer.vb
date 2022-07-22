@@ -31,13 +31,13 @@ Partial Class LangMessageBox
         '
         'ComboBox1
         '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Items.AddRange(New Object() {"Français", "English"})
         Me.ComboBox1.Location = New System.Drawing.Point(80, 23)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(120, 21)
         Me.ComboBox1.TabIndex = 3
-        Me.ComboBox1.Text = "----Language----"
         '
         'Button2
         '

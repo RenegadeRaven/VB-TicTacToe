@@ -98,18 +98,13 @@
   <ItemGroup>
     <Compile Include="Board.vb" />
     <Compile Include="Computer.vb" />
-    <Compile Include="CustomMessageBox.Designer.vb">
+    <Compile Include="Essentials\CustomMessageBox.designer.vb">
       <DependentUpon>CustomMessageBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="CustomMessageBox.vb">
+    <Compile Include="Essentials\CustomMessageBox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="GameLogic.vb" />
     <Compile Include="Main.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -139,23 +134,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingsFile.vb" />
-    <Compile Include="UpdateCheck.Designer.vb">
-      <DependentUpon>UpdateCheck.vb</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateCheck.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Essentials\SettingsFile.vb" />
     <None Include="ILMerge.props" />
     <None Include="My Project\app.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CustomMessageBox.resx">
+    <EmbeddedResource Include="Essentials\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
@@ -168,9 +154,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UpdateCheck.resx">
-      <DependentUpon>UpdateCheck.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -190,17 +173,18 @@
     <Content Include="download_BWQ_icon.ico" />
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
-    <None Include="Resources\Languages\english.json" />
-    <None Include="Resources\Languages\french.json" />
+    <None Include="Resources\date.txt" />
+    <None Include="Resources\Languages\English.json" />
+    <None Include="Resources\Languages\Français.json" />
     <None Include="Resources\ppdbs.png" />
     <None Include="Resources\ppdb.png" />
     <None Include="Regnum.pfx" />
-    <None Include="Resources\snap.wav" />
-    <None Include="Resources\drop.wav" />
+    <None Include="Resources\Sounds\snap.wav" />
+    <None Include="Resources\Sounds\drop.wav" />
     <None Include="Resources\X.png" />
     <None Include="Resources\O.png" />
-    <None Include="Resources\point.wav" />
-    <None Include="Resources\click.wav" />
+    <None Include="Resources\Sounds\point.wav" />
+    <None Include="Resources\Sounds\click.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

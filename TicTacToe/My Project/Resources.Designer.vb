@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to 2020/7/25.
+        '''</summary>
+        Friend ReadOnly Property _date() As String
+            Get
+                Return ResourceManager.GetString("_date", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         '''</summary>
         Friend ReadOnly Property click() As System.IO.UnmanagedMemoryStream
@@ -89,6 +98,8 @@ Namespace My.Resources
         '''	&quot;Off&quot;: &quot;Off&quot;,
         '''	&quot;Close&quot;: &quot;Close&quot;,
         '''	&quot;Restart&quot;: &quot;Restart&quot;,
+        '''	&quot;Save&quot;: &quot;Save&quot;,
+        '''	&quot;Delete&quot;: &quot;Delete&quot;,
         '''
         '''	&quot;head1&quot;: &quot;Piece Selection&quot;,
         '''	&quot;head2&quot;: &quot;Play Against?&quot;,
@@ -99,13 +110,11 @@ Namespace My.Resources
         '''	&quot;X turn&quot;: &quot;It&apos;s X&apos;s Turn&quot;,
         '''	&quot;O turn&quot;: &quot;It&apos;s O&apos;s Turn&quot;,
         '''	&quot;X wins&quot;: &quot;X Wins&quot;,
-        '''	&quot;O wins&quot;: &quot;O Wins&quot;,
-        '''	&quot;Draw Text&quot;: &quot;Draw&quot;,
-        '''	&quot;restartMsg&quot;: [rest of string was truncated]&quot;;.
+        '''	&quot;O wins&quot;: &quot;O Wins&quot; [rest of string was truncated]&quot;;.
         '''</summary>
-        Friend ReadOnly Property english() As String
+        Friend ReadOnly Property English() As String
             Get
-                Return ResourceManager.GetString("english", resourceCulture)
+                Return ResourceManager.GetString("English", resourceCulture)
             End Get
         End Property
         
@@ -120,6 +129,8 @@ Namespace My.Resources
         '''	&quot;Off&quot;: &quot;Désactivé&quot;,
         '''	&quot;Close&quot;: &quot;Fermer&quot;,
         '''	&quot;Restart&quot;: &quot;Redémarrer&quot;,
+        '''	&quot;Save&quot;: &quot;Enregister&quot;,
+        '''	&quot;Delete&quot;: &quot;Supprimer&quot;,
         '''
         '''	&quot;head1&quot;: &quot;Sélection du Pièce&quot;,
         '''	&quot;head2&quot;: &quot;Jouer Contre?&quot;,
@@ -128,13 +139,11 @@ Namespace My.Resources
         '''	&quot;PC&quot;: &quot;Qui est-ce que tu veux jouer contre?&quot;,
         '''	&quot;NewGame&quot;: &quot;Nouveau Jeu: &quot;,
         '''	&quot;X turn&quot;: &quot;C&apos;est le tour de X&quot;,
-        '''	&quot;O turn&quot;: &quot;C&apos;est le tour de O&quot;,
-        '''	&quot;X wins&quot;: &quot;X Gagne&quot;,
-        '''	&quot;O wins&quot;: &quot;O Gagne&quot; [rest of string was truncated]&quot;;.
+        '''	&quot;O turn&quot;: &quot;C&apos;est le tour de [rest of string was truncated]&quot;;.
         '''</summary>
-        Friend ReadOnly Property french() As String
+        Friend ReadOnly Property Français() As String
             Get
-                Return ResourceManager.GetString("french", resourceCulture)
+                Return ResourceManager.GetString("Français", resourceCulture)
             End Get
         End Property
         
