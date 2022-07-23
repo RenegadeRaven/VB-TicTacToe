@@ -5,10 +5,7 @@
     Public ordTurn As Boolean = True
 
     Private Function rndNum(maxVal As Byte)
-        'Random number generator variable 
-        Dim gen As New Random
-        'Use the random number generator
-        Return gen.Next(1, (maxVal + 1))
+        Return New Random().Next(1, (maxVal + 1)) 'random number generator
     End Function 'Choisir un nombre au hazard
 
     Public Sub selectPC()
@@ -132,7 +129,7 @@
             ordMove = 3
 #End Region
 #End Region
-#End Region
+#End Region 'Verifie si l'ordis peut gagner
 
 #Region "Player"
 #Region "Horizontal"
@@ -245,7 +242,7 @@
         ElseIf ((Game.BottomLeft = player1Piece) And Game.BottomLeft = Game.CenterMiddle And Game.TopRight = GameBoard.Playable) Then
             ordMove = 3
 #End Region
-#End Region
+#End Region 'Empêcher le joueur
         Else
 #Region "Strategies"
             If (ordNextMove <> 0) Then

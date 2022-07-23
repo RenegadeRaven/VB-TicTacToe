@@ -62,7 +62,7 @@ Partial Class Main
         Me.tsmi_Points = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmi_Percentage = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi_Donate = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.pb_BottomRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pb_BottomMiddle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pb_BottomLeft, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -279,7 +279,7 @@ Partial Class Main
         'tsmi_Options
         '
         Me.tsmi_Options.BackColor = System.Drawing.Color.Transparent
-        Me.tsmi_Options.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi_Language, Me.ToolStripSeparator1, Me.tsmi_InvertColours, Me.tsmi_Mute, Me.tsmi_Score, Me.ToolStripSeparator2, Me.ToolStripMenuItem2})
+        Me.tsmi_Options.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi_Language, Me.ToolStripSeparator1, Me.tsmi_InvertColours, Me.tsmi_Mute, Me.tsmi_Score, Me.ToolStripSeparator2, Me.tsmi_Donate})
         Me.tsmi_Options.Name = "tsmi_Options"
         resources.ApplyResources(Me.tsmi_Options, "tsmi_Options")
         '
@@ -336,11 +336,12 @@ Partial Class Main
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         resources.ApplyResources(Me.ToolStripSeparator2, "ToolStripSeparator2")
         '
-        'ToolStripMenuItem2
+        'tsmi_Donate
         '
-        resources.ApplyResources(Me.ToolStripMenuItem2, "ToolStripMenuItem2")
-        Me.ToolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.tsmi_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.ppdb
+        resources.ApplyResources(Me.tsmi_Donate, "tsmi_Donate")
+        Me.tsmi_Donate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.tsmi_Donate.Name = "tsmi_Donate"
         '
         'Main
         '
@@ -432,7 +433,7 @@ Partial Class Main
     Friend WithEvents tsmi_Options As ToolStripMenuItem
     Friend WithEvents tsmi_InvertColours As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents tsmi_Donate As ToolStripMenuItem
     Friend WithEvents tsmi_Mute As ToolStripMenuItem
     Friend WithEvents tsmi_Score As ToolStripMenuItem
     Friend WithEvents tsmi_Points As ToolStripMenuItem

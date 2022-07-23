@@ -69,12 +69,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property Color() As Boolean
+        Public Property DarkMode() As Boolean
             Get
-                Return CType(Me("Color"),Boolean)
+                Return CType(Me("DarkMode"),Boolean)
             End Get
             Set
-                Me("Color") = value
+                Me("DarkMode") = value
             End Set
         End Property
         
@@ -93,24 +93,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Point")>  _
-        Public Property Points() As String
+        Public Property Score() As String
             Get
-                Return CType(Me("Points"),String)
+                Return CType(Me("Score"),String)
             End Get
             Set
-                Me("Points") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property Settings() As Boolean
-            Get
-                Return CType(Me("Settings"),Boolean)
-            End Get
-            Set
-                Me("Settings") = value
+                Me("Score") = value
             End Set
         End Property
     End Class

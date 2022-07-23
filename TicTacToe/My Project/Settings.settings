@@ -5,17 +5,14 @@
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Color" Type="System.Boolean" Scope="User">
+    <Setting Name="DarkMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Mute" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Points" Type="System.String" Scope="User">
+    <Setting Name="Score" Type="System.String" Scope="User">
       <Value Profile="(Default)">Point</Value>
-    </Setting>
-    <Setting Name="Settings" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

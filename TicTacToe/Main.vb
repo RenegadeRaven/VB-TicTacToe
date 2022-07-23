@@ -1,6 +1,5 @@
 ﻿Imports System.IO
 Imports System.Threading
-Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Public Class Main
     Public Shared ReadOnly apppath As String = My.Application.Info.DirectoryPath 'Path to .exe directory
@@ -14,15 +13,16 @@ Public Class Main
         tscb_Languages.Text = My.Settings.Language
         CheckLang()
         'UpdateCheck()
+        updateLang()
         selPlayer()
         selOpponent()
     End Sub
     Private Sub Main_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        If My.Settings.Color = True Then tsmi_InvertColours.Checked = True
+        If My.Settings.DarkMode = True Then tsmi_InvertColours.Checked = True
         If My.Settings.Mute = True Then tsmi_Mute.Checked = True
-        If My.Settings.Points = "Point" Then
+        If My.Settings.Score = "Point" Then
             tsmi_Points.Checked = True
-        ElseIf My.Settings.Points = "Percent" Then
+        ElseIf My.Settings.Score = "Percent" Then
             tsmi_Percentage.Checked = True
         End If
         turnText()
@@ -47,7 +47,7 @@ Public Class Main
             Dim v As String = Reader.ReadToEnd
             Reader.Close()
             File.Delete(TempPath & "\vsn.txt")
-            If Application.ProductVersion <> v Then File.WriteAllText(Res & "/date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
+            If Application.ProductVersion <> v Then File.WriteAllText(res & "/date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
         End If
         lklb_Update.Hide()
 #Else
@@ -98,7 +98,7 @@ You can look me up later.", vbOKOnly, "Error 404")
     End Sub
 
     'PayPal Donate Button
-    Private Sub Pb_Donate_Click(sender As Object, e As EventArgs) Handles pb_Donate.Click
+    Private Sub Pb_Donate_Click(sender As Object, e As EventArgs) Handles pb_Donate.Click, tsmi_Donate.Click
         Thread.Sleep(200)
         If My.Computer.Network.IsAvailable Then
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UGSCC5VGSGN3E")
@@ -158,7 +158,7 @@ You can look me up later.", vbOKOnly, "Error 404")
 
     'Checks Local Folders
     Private Sub CheckLocal()
-        Dim locals As String() = {Local, Local & "\Logs", Local & "\Languages"}
+        Dim locals As String() = {Local, Local & "\Languages"}
         CreateFolders(locals)
         CreateFiles({{Local & "\Languages\English.json", My.Resources.English}, {Local & "\Languages\Français.json", My.Resources.Français}})
 
@@ -171,6 +171,14 @@ You can look me up later.", vbOKOnly, "Error 404")
 
 #End Region
 
+#Region "Language"
+    Private Sub updateLang()
+        If My.Application.Info.Version.ToString() <> LangData("Version").ToString() Then
+            File.Delete(Local & "/Languages/English.json")
+            File.Delete(Local & "/Languages/Français.json")
+            Application.Restart()
+        End If
+    End Sub
     Private Sub CheckLang()
         If (My.Settings.Language <> tscb_Languages.Items.Item(0).ToString()) And (My.Settings.Language <> tscb_Languages.Items.Item(1).ToString()) Then LangBox()
         Dim lang As String = File.ReadAllText(Local & "/Languages/" & My.Settings.Language & ".json")
@@ -178,6 +186,12 @@ You can look me up later.", vbOKOnly, "Error 404")
 
         lklb_Update.Text = LangData("New Update Available! ").ToString()
         lb_By.Text = LangData("by").ToString()
+        Select Case My.Settings.Language
+            Case "English"
+                lklb_Author.Location = New Point(14, 246)
+            Case "Français"
+                lklb_Author.Location = New Point(18, 246)
+        End Select
         lb_BoardDraw.Text = LangData("Draw Text").ToString()
         bt_NewGame.Text = LangData("NewGame").ToString() & (Score.totalGames + 1)
         bt_Restart.Text = LangData("Restart").ToString()
@@ -195,8 +209,7 @@ You can look me up later.", vbOKOnly, "Error 404")
         My.Settings.Language = tscb_Languages.Text
         CheckLang()
     End Sub
-
-
+#End Region
 
 #Region "PicBoxes"
     Private Sub pb_TopLeft_Click(sender As Object, e As EventArgs) Handles pb_TopLeft.Click
@@ -367,13 +380,13 @@ You can look me up later.", vbOKOnly, "Error 404")
 
     Private Sub tsmi_Points_Click(sender As Object, e As EventArgs) Handles tsmi_Points.Click
         tsmi_Percentage.Checked = False
-        My.Settings.Points = "Point"
+        My.Settings.Score = "Point"
         updateScore()
     End Sub
 
     Private Sub tsmi_Percentage_Click(sender As Object, e As EventArgs) Handles tsmi_Percentage.Click
         tsmi_Points.Checked = False
-        My.Settings.Points = "Percent"
+        My.Settings.Score = "Percent"
         updateScore()
     End Sub
     Public Sub updateScore()
@@ -396,7 +409,7 @@ You can look me up later.", vbOKOnly, "Error 404")
     End Sub
 
     Private Sub tsmi_InvertColours_Click(sender As Object, e As EventArgs) Handles tsmi_InvertColours.Click
-        My.Settings.Color = tsmi_InvertColours.Checked
+        My.Settings.DarkMode = tsmi_InvertColours.Checked
         invertColor()
     End Sub
     Public Sub invertColor()

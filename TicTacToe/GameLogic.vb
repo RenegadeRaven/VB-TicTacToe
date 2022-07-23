@@ -1,26 +1,47 @@
 ﻿Module GameLogic
     Public player1Piece As Byte = 1
     Public player2Piece As Byte = 1 + (player1Piece Mod 2)
-    Public turnCount As Byte = 0
+    Public turnCount As Byte = 0 'la compte du tour
     Public Game As New GameBoard
     Public Score As New ScoreBoard
     Public highlightColor As Color = Color.PaleGreen
 
+    Public Sub selPlayer()
+        Select Case MsgBox(Main.LangData("PlayerPiece").ToString(), 2, "X", "O",, Main.LangData("head1").ToString())
+            Case 6 'Si joueur 1 soit X
+                player1Piece = GameBoard.PlayedX
+                player2Piece = GameBoard.PlayedO
+            Case 7 'Si joueur 1 soit O
+                turnIncrement()
+                player1Piece = GameBoard.PlayedO
+                player2Piece = GameBoard.PlayedX
+        End Select
+    End Sub 'La Selection de soit X ou O
+    Public Sub selOpponent()
+        Select Case MsgBox(Main.LangData("PC").ToString(), 2, Main.LangData("The Computer").ToString(), Main.LangData("Another Player").ToString(),, Main.LangData("head2").ToString())
+            Case 6 'Si jouer contre l'ordis
+                ordPlay = True
+            Case 7 'Si jouer contre un autre joueur
+                ordPlay = False
+        End Select
+    End Sub 'La selection de qui jouer contre
+
     Public Sub turnText()
         Select Case checkTurn()
-            Case 0
+            Case 0 'Si c'est le tour de X
                 Main.Label1.Text = Main.LangData("X turn")
-            Case 1
+            Case 1 'Si c'est le tour de O
                 Main.Label1.Text = Main.LangData("O turn")
         End Select
-    End Sub 'Verifie le tour
+    End Sub 'Change la text de tour
     Public Function checkTurn()
         Return turnCount Mod 2
-    End Function
+    End Function 'Verifie la tour
     Public Sub turnIncrement()
         turnCount += 1
         turnText()
     End Sub 'Count le tour
+
     Private Function checkBoard(boardRow As Byte())
         Dim allSame As Boolean = True
         For Each i As Byte In boardRow
@@ -40,7 +61,7 @@
         Main.playSFX(My.Resources.point)
         Score.totalGames += 1
         Main.updateScore()
-    End Sub
+    End Sub 'determine qui gagne
     Public Sub checkWin()
         If checkBoard(Game.TopRow) Then
             Main.pb_TopLeft.BackColor = highlightColor
@@ -112,6 +133,7 @@
         Next
         ordTurn = False
     End Sub 'Arrete le jeu quand quelqu'un gagne
+
     Public Sub newGame()
         turnCount = 1 - (player1Piece Mod 2)
         Game = New GameBoard
@@ -130,23 +152,4 @@
         Main.bt_NewGame.Text = Main.LangData("NewGame").ToString() & (Score.totalGames + 1)
         turnText()
     End Sub 'Nouveau jeu
-    Public Sub selPlayer()
-        Select Case MsgBox(Main.LangData("PlayerPiece").ToString(), 2, "X", "O",, Main.LangData("head1").ToString())
-            Case 6
-                player1Piece = GameBoard.PlayedX
-                player2Piece = GameBoard.PlayedO
-            Case 7
-                turnIncrement()
-                player1Piece = GameBoard.PlayedO
-                player2Piece = GameBoard.PlayedX
-        End Select
-    End Sub 'La Selection de soit X ou O
-    Public Sub selOpponent()
-        Select Case MsgBox(Main.LangData("PC").ToString(), 2, Main.LangData("The Computer").ToString(), Main.LangData("Another Player").ToString(),, Main.LangData("head2").ToString())
-            Case 6
-                ordPlay = True
-            Case 7
-                ordPlay = False
-        End Select
-    End Sub
 End Module
