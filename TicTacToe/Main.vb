@@ -12,7 +12,7 @@ Public Class Main
         CheckLocal()
         tscb_Languages.Text = My.Settings.Language
         CheckLang()
-        'UpdateCheck()
+        UpdateCheck()
         updateLang()
         selPlayer()
         selOpponent()
@@ -42,7 +42,7 @@ Public Class Main
 " & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
 }")
         If My.Computer.Network.IsAvailable Then
-            My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/VB-TicTacToe/version.txt", TempPath & "\vsn.txt")
+            My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/TicTacToe/version.txt", TempPath & "\vsn.txt")
             Dim Reader As New IO.StreamReader(TempPath & "\vsn.txt")
             Dim v As String = Reader.ReadToEnd
             Reader.Close()
@@ -56,7 +56,7 @@ Public Class Main
         Me.Text = "TicTacToe (" & dat & ")"
         If My.Computer.Network.IsAvailable Then
             Try
-                My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/VB-TicTacToe/Resources/date.txt", TempPath & "\dt.txt")
+                My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/TicTacToe/Resources/date.txt", TempPath & "\dt.txt")
             Catch
                 File.WriteAllText(TempPath & "\dt.txt", " ")
             End Try
