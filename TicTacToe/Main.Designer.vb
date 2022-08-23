@@ -292,9 +292,9 @@ Partial Class Main
         'tscb_Languages
         '
         Me.tscb_Languages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        resources.ApplyResources(Me.tscb_Languages, "tscb_Languages")
         Me.tscb_Languages.Items.AddRange(New Object() {resources.GetString("tscb_Languages.Items"), resources.GetString("tscb_Languages.Items1")})
         Me.tscb_Languages.Name = "tscb_Languages"
-        resources.ApplyResources(Me.tscb_Languages, "tscb_Languages")
         '
         'ToolStripSeparator1
         '

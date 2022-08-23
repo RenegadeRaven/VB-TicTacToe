@@ -68,9 +68,6 @@
     <Reference Include="MSBuild.AutoILMerge.Task, Version=1.0.0.0, Culture=en-US, processorArchitecture=MSIL">
       <HintPath>..\packages\MSBuild.AutoILMerge.Task.1.1.1\lib\net40\MSBuild.AutoILMerge.Task.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -143,6 +140,12 @@
     <EmbeddedResource Include="Essentials\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Languages\English.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Français.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
@@ -174,8 +177,6 @@
     <Content Include="ILMergeInternalizeExcludeList.txt" />
     <Content Include="ILMergeOrder.txt" />
     <None Include="Resources\date.txt" />
-    <None Include="Resources\Languages\English.json" />
-    <None Include="Resources\Languages\Français.json" />
     <None Include="Resources\ppdbs.png" />
     <None Include="Resources\ppdb.png" />
     <None Include="Regnum.pfx" />

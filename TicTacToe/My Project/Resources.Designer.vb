@@ -61,7 +61,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 2020/7/25.
+        '''  Looks up a localized string similar to 2022/7/23.
         '''</summary>
         Friend ReadOnly Property _date() As String
             Get
@@ -84,66 +84,6 @@ Namespace My.Resources
         Friend ReadOnly Property drop() As System.IO.UnmanagedMemoryStream
             Get
                 Return ResourceManager.GetStream("drop", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to {
-        '''	&quot;Yes&quot;: &quot;Yes&quot;,
-        '''	&quot;No&quot;: &quot;No&quot;,
-        '''	&quot;OK&quot;: &quot;OK&quot;,
-        '''	&quot;by&quot;: &quot;by&quot;,
-        '''	&quot;Error&quot;: &quot;Error&quot;,
-        '''	&quot;On&quot;: &quot;On&quot;,
-        '''	&quot;Off&quot;: &quot;Off&quot;,
-        '''	&quot;Close&quot;: &quot;Close&quot;,
-        '''	&quot;Restart&quot;: &quot;Restart&quot;,
-        '''	&quot;Save&quot;: &quot;Save&quot;,
-        '''	&quot;Delete&quot;: &quot;Delete&quot;,
-        '''
-        '''	&quot;head1&quot;: &quot;Piece Selection&quot;,
-        '''	&quot;head2&quot;: &quot;Play Against?&quot;,
-        '''	&quot;head3&quot;: &quot;Settings?&quot;,
-        '''	&quot;PlayerPiece&quot;: &quot;Which piece does Player 1 want to play as?&quot;,
-        '''	&quot;PC&quot;: &quot;Who do you want to play against?&quot;,
-        '''	&quot;NewGame&quot;: &quot;New Game: &quot;,
-        '''	&quot;X turn&quot;: &quot;It&apos;s X&apos;s Turn&quot;,
-        '''	&quot;O turn&quot;: &quot;It&apos;s O&apos;s Turn&quot;,
-        '''	&quot;X wins&quot;: &quot;X Wins&quot;,
-        '''	&quot;O wins&quot;: &quot;O Wins&quot; [rest of string was truncated]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property English() As String
-            Get
-                Return ResourceManager.GetString("English", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to {
-        '''	&quot;Yes&quot;: &quot;Oui&quot;,
-        '''	&quot;No&quot;: &quot;Non&quot;,
-        '''	&quot;OK&quot;: &quot;OK&quot;,
-        '''	&quot;by&quot;: &quot;par&quot;,
-        '''	&quot;Error&quot;: &quot;Erreur&quot;,
-        '''	&quot;On&quot;: &quot;Activé&quot;,
-        '''	&quot;Off&quot;: &quot;Désactivé&quot;,
-        '''	&quot;Close&quot;: &quot;Fermer&quot;,
-        '''	&quot;Restart&quot;: &quot;Redémarrer&quot;,
-        '''	&quot;Save&quot;: &quot;Enregister&quot;,
-        '''	&quot;Delete&quot;: &quot;Supprimer&quot;,
-        '''
-        '''	&quot;head1&quot;: &quot;Sélection du Pièce&quot;,
-        '''	&quot;head2&quot;: &quot;Jouer Contre?&quot;,
-        '''	&quot;head3&quot;: &quot;Paramètres?&quot;,
-        '''	&quot;PlayerPiece&quot;: &quot;Quel pièce est-ce que Joueur 1 veut être?&quot;,
-        '''	&quot;PC&quot;: &quot;Qui est-ce que tu veux jouer contre?&quot;,
-        '''	&quot;NewGame&quot;: &quot;Nouveau Jeu: &quot;,
-        '''	&quot;X turn&quot;: &quot;C&apos;est le tour de X&quot;,
-        '''	&quot;O turn&quot;: &quot;C&apos;est le tour de [rest of string was truncated]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property Français() As String
-            Get
-                Return ResourceManager.GetString("Français", resourceCulture)
             End Get
         End Property
         

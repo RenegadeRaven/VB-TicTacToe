@@ -1,32 +1,48 @@
-﻿Imports System.IO
-Imports Newtonsoft.Json.Linq
+﻿Imports System.Xml
 Module SettingsFile
-    Dim Settings As JObject
+    Dim Settings As XmlDocument
 
     Public Sub ReadSettings()
-        Dim lang As String = File.ReadAllText(Main.Local & "\settings.json")
-        If lang IsNot Nothing Then Settings = JObject.Parse(lang)
-        My.Settings.Language = Settings("Language")
-        My.Settings.Score = Settings("Score")
-        My.Settings.DarkMode = Settings("Dark_Mode")
-        My.Settings.Mute = Settings("Mute")
+        Settings = New XmlDocument
+        Settings.Load(Main.Local & "\settings.xml")
+        My.Settings.Language = GetValue("Language")
+        My.Settings.DarkMode = GetValue("DarkMode")
+        My.Settings.Mute = GetValue("Mute")
+        My.Settings.Score = GetValue("Score")
     End Sub
+    Private Function GetValue(SettingName) As String
+        Return Settings.SelectSingleNode("Settings/" & SettingName).InnerText
+    End Function
     Public Sub WriteSettings()
-        If Not File.Exists(Main.Local & "\settings.json") Then CreateSettings()
-        Dim lang As String = File.ReadAllText(Main.Local & "\settings.json")
-        If lang IsNot Nothing Then Settings = JObject.Parse(lang)
-        Settings("Language") = My.Settings.Language
-        Settings("Score") = My.Settings.Score
-        Settings("Dark_Mode") = My.Settings.DarkMode
-        Settings("Mute") = My.Settings.Mute
-        File.WriteAllText(Main.Local & "\settings.json", Settings.ToString)
+        If Not IO.File.Exists(Main.Local & "\settings.xml") Then CreateSettings()
+        SetValue("Language", My.Settings.Language)
+        SetValue("DarkMode", My.Settings.DarkMode)
+        SetValue("Mute", My.Settings.Mute)
+        SetValue("Score", My.Settings.Score)
+        Settings.Save(Main.Local & "\settings.xml")
     End Sub
-    Public Sub CreateSettings()
-        Dim dSettings As Object = New JObject()
-        dSettings.Language = My.Settings.Language
-        dSettings.Score = My.Settings.Score
-        dSettings.Dark_Mode = My.Settings.DarkMode
-        dSettings.Mute = My.Settings.Mute
-        File.WriteAllText(Main.Local & "\settings.json", dSettings.ToString)
+    Private Sub SetValue(SettingName As String, SettingValue As String)
+        Dim SettingNode As XmlElement
+        Try
+            SettingNode = DirectCast(Settings.SelectSingleNode("Settings/" & SettingName), XmlElement)
+        Catch
+            SettingNode = Nothing
+        End Try
+        If SettingNode IsNot Nothing Then
+            SettingNode.InnerText = SettingValue
+        Else
+            SettingNode = Settings.CreateElement(SettingName)
+            SettingNode.InnerText = SettingValue
+            Settings.SelectSingleNode("Settings").AppendChild(SettingNode)
+        End If
+    End Sub
+    Private Sub CreateSettings()
+        Settings = New XmlDocument
+        Dim dec As XmlDeclaration = Settings.CreateXmlDeclaration("1.0", "utf-8", String.Empty)
+        Settings.AppendChild(dec)
+
+        Dim nodeRoot As XmlNode
+        nodeRoot = Settings.CreateNode(XmlNodeType.Element, "Settings", "")
+        Settings.AppendChild(nodeRoot)
     End Sub
 End Module

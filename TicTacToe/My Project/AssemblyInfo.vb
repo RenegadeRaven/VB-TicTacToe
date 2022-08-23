@@ -11,10 +11,10 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("TicTacToe")>
 <Assembly: AssemblyDescription("Un Jeu de TicTacToe en Visual Basic | A Game of TicTacToe in Visual Basic")>
-<Assembly: AssemblyCompany("Regnum")>
+<Assembly: AssemblyCompany("RenegadeRaven")>
 <Assembly: AssemblyProduct("TicTacToe")>
-<Assembly: AssemblyCopyright("Copyright © Regnum 2018-2022")>
-<Assembly: AssemblyTrademark("Regnum")>
+<Assembly: AssemblyCopyright("Copyright © RenegadeRaven 2018-2022")>
+<Assembly: AssemblyTrademark("RenegadeRaven")>
 
 <Assembly: ComVisible(False)>
 
@@ -32,6 +32,6 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("3.0.0.0")>
-<Assembly: AssemblyFileVersion("3.0.0.0")>
+<Assembly: AssemblyVersion("3.0.0.1")>
+<Assembly: AssemblyFileVersion("3.0.0.1")>
 <Assembly: NeutralResourcesLanguage("fr-CA")>

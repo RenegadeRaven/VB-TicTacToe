@@ -817,13 +817,13 @@
     <value>15, 246</value>
   </data>
   <data name="lklb_Author.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
+    <value>89, 13</value>
   </data>
   <data name="lklb_Author.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
   <data name="lklb_Author.Text" xml:space="preserve">
-    <value>Regnum</value>
+    <value>RenegadeRaven</value>
   </data>
   <data name="&gt;&gt;lklb_Author.Name" xml:space="preserve">
     <value>lklb_Author</value>
@@ -924,6 +924,18 @@
   <data name="MenuStrip1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="tscb_Languages.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Standard</value>
+  </data>
+  <data name="tscb_Languages.Items" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="tscb_Languages.Items1" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="tscb_Languages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
   <data name="tsmi_Language.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -944,6 +956,18 @@
   </data>
   <data name="tsmi_Mute.Text" xml:space="preserve">
     <value>Mute</value>
+  </data>
+  <data name="tsmi_Points.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="tsmi_Points.Text" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="tsmi_Percentage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 22</value>
+  </data>
+  <data name="tsmi_Percentage.Text" xml:space="preserve">
+    <value>Percentage</value>
   </data>
   <data name="tsmi_Score.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -998,27 +1022,6 @@
   </data>
   <data name="&gt;&gt;MenuStrip1.ZOrder" xml:space="preserve">
     <value>28</value>
-  </data>
-  <data name="tscb_Languages.Items" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="tscb_Languages.Items1" xml:space="preserve">
-    <value>Français</value>
-  </data>
-  <data name="tscb_Languages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
-  </data>
-  <data name="tsmi_Points.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="tsmi_Points.Text" xml:space="preserve">
-    <value>Points</value>
-  </data>
-  <data name="tsmi_Percentage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 22</value>
-  </data>
-  <data name="tsmi_Percentage.Text" xml:space="preserve">
-    <value>Percentage</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

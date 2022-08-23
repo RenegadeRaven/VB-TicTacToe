@@ -1,19 +1,18 @@
 ﻿Imports System.IO
 Imports System.Threading
-Imports Newtonsoft.Json.Linq
 Public Class Main
     Public Shared ReadOnly apppath As String = My.Application.Info.DirectoryPath 'Path to .exe directory
     Public Shared ReadOnly res As String = Path.GetFullPath(Application.StartupPath & "\..\..\Resources\") 'Path to Project Resources
     Public Shared ReadOnly TempPath As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\Temp" 'Path to Temp
-    Public Shared ReadOnly Local As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\Regnum\TicTacToe"
-    Public LangData As JObject
+    Public Shared ReadOnly Local As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\RenegadeRaven\TicTacToe"
+    Public Shared LangRes As Resources.ResourceManager
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckLocal()
+        LocalMove()
         tscb_Languages.Text = My.Settings.Language
         CheckLang()
         UpdateCheck()
-        updateLang()
         selPlayer()
         selOpponent()
     End Sub
@@ -31,6 +30,14 @@ Public Class Main
         WriteSettings()
     End Sub
 
+    'Move old Local to new Local
+    Private Sub LocalMove() 'Moves to the new Local folder
+        Dim oldLocal As String = Local.Replace("\RenegadeRaven", "\Regnum")
+        If Not Directory.Exists(oldLocal) Then Exit Sub
+        Directory.Delete(oldLocal, True)
+        If Not Directory.EnumerateFileSystemEntries(oldLocal.Replace("\TicTacToe", "")).Any Then Directory.Delete(oldLocal.Replace("\TicTacToe", ""), True)
+    End Sub
+
 #Region "Essentials"
     'Checks For Update
     Private Sub UpdateCheck()
@@ -41,8 +48,8 @@ Public Class Main
         File.WriteAllText(apppath & "..\..\..\version.json", "{
 " & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
 }")
-        If My.Computer.Network.IsAvailable Then
-            My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/TicTacToe/version.txt", TempPath & "\vsn.txt")
+        If My.Computer.Network.IsAvailable And Pinger() Then
+            My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/RenegadeRaven/VB-TicTacToe/master/TicTacToe/version.txt", TempPath & "\vsn.txt")
             Dim Reader As New IO.StreamReader(TempPath & "\vsn.txt")
             Dim v As String = Reader.ReadToEnd
             Reader.Close()
@@ -51,12 +58,10 @@ Public Class Main
         End If
         lklb_Update.Hide()
 #Else
-        File.WriteAllText(TempPath & "\date.txt", My.Resources._date)
-        Dim dat As String = File.ReadAllText(TempPath & "\date.txt")
-        Me.Text = "TicTacToe (" & dat & ")"
-        If My.Computer.Network.IsAvailable Then
+        Me.Text = "TicTacToe (" & My.Resources._date & ")"
+        If My.Computer.Network.IsAvailable And Pinger() Then
             Try
-                My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/PlasticJustice/VB-TicTacToe/master/TicTacToe/Resources/date.txt", TempPath & "\dt.txt")
+                My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/RenegadeRaven/VB-TicTacToe/master/TicTacToe/Resources/date.txt", TempPath & "\dt.txt")
             Catch
                 File.WriteAllText(TempPath & "\dt.txt", " ")
             End Try
@@ -64,7 +69,7 @@ Public Class Main
             Dim dtt As String = Reader.ReadToEnd
             Reader.Close()
             File.Delete(TempPath & "\dt.txt")
-            If dat <> dtt Then
+            If My.Resources._date <> dtt Then
                 lklb_Update.Text = "New Update Available! " & dtt
                 lklb_Update.Show()
             Else
@@ -79,32 +84,32 @@ Public Class Main
 
     'Link to Update version
     Private Sub Lklb_Update_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Update.LinkClicked
-        If My.Computer.Network.IsAvailable Then
-            Process.Start("https://github.com/PlasticJustice/VB-TicTacToe/releases/latest")
+        If My.Computer.Network.IsAvailable And Pinger() Then
+            Process.Start("https://github.com/RenegadeRaven/VB-TicTacToe/releases/latest")
         Else
-            MsgBox("No Internet connection!
-You can not update at the moment.", vbOKOnly, "Error 404")
+            MsgBox(LangRes.GetString("No Internet connection") & "
+" & LangRes.GetString("NoUpdate"), 1,,,, LangRes.GetString("Error") & " 404")
         End If
     End Sub
 
     'Link the Author's, yours truly, Github Page
     Private Sub Lklb_Author_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Author.LinkClicked
-        If My.Computer.Network.IsAvailable Then
-            Process.Start("https://github.com/PlasticJustice")
+        If My.Computer.Network.IsAvailable And Pinger() Then
+            Process.Start("https://github.com/RenegadeRaven")
         Else
-            MsgBox("No Internet connection!
-You can look me up later.", vbOKOnly, "Error 404")
+            MsgBox(LangRes.GetString("No Internet connection") & "
+" & LangRes.GetString("LookMeUp"), 1,,,, LangRes.GetString("Error") & " 404")
         End If
     End Sub
 
     'PayPal Donate Button
     Private Sub Pb_Donate_Click(sender As Object, e As EventArgs) Handles pb_Donate.Click, tsmi_Donate.Click
         Thread.Sleep(200)
-        If My.Computer.Network.IsAvailable Then
+        If My.Computer.Network.IsAvailable And Pinger() Then
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UGSCC5VGSGN3E")
         Else
-            MsgBox("No Internet connection!
-        I appreciate the gesture.", vbOKOnly, "Error 404")
+            MsgBox(LangRes.GetString("No Internet connection") & "
+" & LangRes.GetString("Gesture"), 1,,,, LangRes.GetString("Error") & " 404")
         End If
     End Sub
     Private Sub Pb_Donate_MouseDown(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseDown
@@ -113,6 +118,13 @@ You can look me up later.", vbOKOnly, "Error 404")
     Private Sub Pb_Donate_MouseUp(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseUp
         pb_Donate.Image = Nothing
     End Sub
+    Private Function Pinger()
+        Try
+            Return My.Computer.Network.Ping("2607:f8b0:400b:802::200e")
+        Catch
+            Return False
+        End Try
+    End Function
 #End Region
 #Region "Startup"
     'Creates Local Files and Folders
@@ -158,50 +170,42 @@ You can look me up later.", vbOKOnly, "Error 404")
 
     'Checks Local Folders
     Private Sub CheckLocal()
-        Dim locals As String() = {Local, Local & "\Languages"}
+        Dim locals As String() = {Local}
         CreateFolders(locals)
-        CreateFiles({{Local & "\Languages\English.json", My.Resources.English}, {Local & "\Languages\Français.json", My.Resources.Français}})
+        'CreateFiles({{Local & "\Languages\English.json", My.Resources.English}, {Local & "\Languages\Français.json", My.Resources.Français}})
 
-        If Not File.Exists(Local & "\settings.json") Then
-            'File.WriteAllText(Local & "\settings.json", "")
-            WriteSettings()
-        End If
+        If Not File.Exists(Local & "\settings.xml") Then WriteSettings()
         ReadSettings()
     End Sub
 
 #End Region
 
 #Region "Language"
-    Private Sub updateLang()
-        If My.Application.Info.Version.ToString() <> LangData("Version").ToString() Then
-            File.Delete(Local & "/Languages/English.json")
-            File.Delete(Local & "/Languages/Français.json")
-            Application.Restart()
-        End If
-    End Sub
     Private Sub CheckLang()
         If (My.Settings.Language <> tscb_Languages.Items.Item(0).ToString()) And (My.Settings.Language <> tscb_Languages.Items.Item(1).ToString()) Then LangBox()
-        Dim lang As String = File.ReadAllText(Local & "/Languages/" & My.Settings.Language & ".json")
-        LangData = JObject.Parse(lang)
-
-        lklb_Update.Text = LangData("New Update Available! ").ToString()
-        lb_By.Text = LangData("by").ToString()
-        Select Case My.Settings.Language
+        My.Settings.Language = tscb_Languages.Text
+        Select Case tscb_Languages.Text
             Case "English"
+                LangRes = New Resources.ResourceManager("TicTacToe.English", Reflection.Assembly.GetExecutingAssembly())
                 lklb_Author.Location = New Point(14, 246)
             Case "Français"
+                LangRes = New Resources.ResourceManager("TicTacToe.Français", Reflection.Assembly.GetExecutingAssembly())
                 lklb_Author.Location = New Point(18, 246)
         End Select
-        lb_BoardDraw.Text = LangData("Draw Text").ToString()
-        bt_NewGame.Text = LangData("NewGame").ToString() & (Score.totalGames + 1)
-        bt_Restart.Text = LangData("Restart").ToString()
-        bt_Close.Text = LangData("Close").ToString()
-        tsmi_InvertColours.Text = LangData("Invert Colors").ToString()
-        tsmi_Mute.Text = LangData("Mute").ToString()
-        tsmi_Language.Text = LangData("Language").ToString()
-        tsmi_Score.Text = LangData("Score In...").ToString()
-        tsmi_Percentage.Text = LangData("Percentage").ToString()
-        tsmi_Points.Text = LangData("Points").ToString()
+
+        lklb_Update.Text = LangRes.GetString("Update")
+        lb_By.Text = LangRes.GetString("By")
+
+        lb_BoardDraw.Text = LangRes.GetString("Draw Text")
+        bt_NewGame.Text = LangRes.GetString("NewGame") & ": " & (Score.totalGames + 1)
+        bt_Restart.Text = LangRes.GetString("Restart")
+        bt_Close.Text = LangRes.GetString("Close")
+        tsmi_InvertColours.Text = LangRes.GetString("InvertColors")
+        tsmi_Mute.Text = LangRes.GetString("Mute")
+        tsmi_Language.Text = LangRes.GetString("Language")
+        tsmi_Score.Text = LangRes.GetString("Score")
+        tsmi_Percentage.Text = LangRes.GetString("Percent")
+        tsmi_Points.Text = LangRes.GetString("Points")
         turnText()
         Me.Refresh()
     End Sub

@@ -17,16 +17,19 @@
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         If ComboBox1.Text = "Français" Then
             My.Settings.Language = "Français"
+            Main.tscb_Languages.Text = My.Settings.Language
             Button2.Text = "Annuler"
             Me.Text = "Sélection du Langage"
             Button1.Enabled = True
         ElseIf ComboBox1.Text = "English" Then
             My.Settings.Language = "English"
+            Main.tscb_Languages.Text = My.Settings.Language
             Button2.Text = "Cancel"
             Me.Text = "Language Selection"
             Button1.Enabled = True
         ElseIf ComboBox1.Text = "----Language----" Then
             My.Settings.Language = Nothing
+            Main.tscb_Languages.Text = My.Settings.Language
             Button2.Text = "Cancel"
             Me.Text = "Language Selection"
             Button1.Enabled = False
