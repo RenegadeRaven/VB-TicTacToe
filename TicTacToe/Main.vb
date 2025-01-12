@@ -1,130 +1,155 @@
 ﻿Imports System.IO
 Imports System.Threading
 Public Class Main
-    Public Shared ReadOnly apppath As String = My.Application.Info.DirectoryPath 'Path to .exe directory
-    Public Shared ReadOnly res As String = Path.GetFullPath(Application.StartupPath & "\..\..\Resources\") 'Path to Project Resources
-    Public Shared ReadOnly TempPath As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\Temp" 'Path to Temp
-    Public Shared ReadOnly Local As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\RenegadeRaven\TicTacToe"
-    Public Shared LangRes As Resources.ResourceManager
+    Public Shared ReadOnly exeDirectory As String = My.Application.Info.DirectoryPath 'Path to .exe directory
+    Public Shared ReadOnly projResources As String = Path.GetFullPath(Application.StartupPath & "\..\..\Resources\") 'Path to Project Resources
+    Public Shared ReadOnly sysTemp As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\Temp" 'Path to Temp
+    Public Shared ReadOnly userLocal As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) & "\RenegadeRaven\TicTacToe" 'Path to App folder in user Local
+    Public Shared ReadOnly repoUpdateURL As String = "https://raw.githubusercontent.com/RenegadeRaven/VB-TicTacToe/master/TicTacToe/"
+    Public Shared localizationLanguage As Resources.ResourceManager
 
+    'Application Startup Sequence
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CheckLocal()
-        LocalMove()
+        'Generate and Verify Local App Folder
+        checkLocal()
+
+        'Pull desired language from settings and apply it
         tscb_Languages.Text = My.Settings.Language
-        CheckLang()
-        UpdateCheck()
+        checkLang()
+
+        'Check for Updates
+        updateCheck()
+
+        'Let user pick their piece and opponent
         selPlayer()
         selOpponent()
     End Sub
+
+    'Form Startup
     Private Sub Main_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        'Apply cosmetic settings
+        'Dark Mode
         If My.Settings.DarkMode = True Then tsmi_InvertColours.Checked = True
+
+        'Mute
         If My.Settings.Mute = True Then tsmi_Mute.Checked = True
+
+        'Score Format
         If My.Settings.Score = "Point" Then
             tsmi_Points.Checked = True
         ElseIf My.Settings.Score = "Percent" Then
             tsmi_Percentage.Checked = True
         End If
+
+        'Sets Turn text
         turnText()
     End Sub
+
+    'Application Close Sequence
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        WriteSettings()
+        'Write Settings File
+        writeSettings()
     End Sub
 
-    'Move old Local to new Local
-    Private Sub LocalMove() 'Moves to the new Local folder
-        Dim oldLocal As String = Local.Replace("\RenegadeRaven", "\Regnum")
-        If Not Directory.Exists(oldLocal) Then Exit Sub
-        Directory.Delete(oldLocal, True)
-        If Not Directory.EnumerateFileSystemEntries(oldLocal.Replace("\TicTacToe", "")).Any Then Directory.Delete(oldLocal.Replace("\TicTacToe", ""), True)
-    End Sub
-
-#Region "Essentials"
-    'Checks For Update
-    Private Sub UpdateCheck()
-        If File.Exists(TempPath & "\vsn.txt") Then File.Delete(TempPath & "\vsn.txt")
-        If File.Exists(TempPath & "\dt.txt") Then File.Delete(TempPath & "\dt.txt")
-#If DEBUG Then
-        File.WriteAllText(apppath & "..\..\..\version.txt", My.Application.Info.Version.ToString)
-        File.WriteAllText(apppath & "..\..\..\version.json", "{
-" & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
-}")
-        If My.Computer.Network.IsAvailable And Pinger() Then
-            My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/RenegadeRaven/VB-TicTacToe/master/TicTacToe/version.txt", TempPath & "\vsn.txt")
-            Dim Reader As New IO.StreamReader(TempPath & "\vsn.txt")
-            Dim v As String = Reader.ReadToEnd
-            Reader.Close()
-            File.Delete(TempPath & "\vsn.txt")
-            If Application.ProductVersion <> v Then File.WriteAllText(res & "/date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
-        End If
-        lklb_Update.Hide()
-#Else
-        Me.Text = "TicTacToe (" & My.Resources._date & ")"
-        If My.Computer.Network.IsAvailable And Pinger() Then
-            Try
-                My.Computer.Network.DownloadFile("https://raw.githubusercontent.com/RenegadeRaven/VB-TicTacToe/master/TicTacToe/Resources/date.txt", TempPath & "\dt.txt")
-            Catch
-                File.WriteAllText(TempPath & "\dt.txt", " ")
-            End Try
-            Dim Reader As New IO.StreamReader(TempPath & "\dt.txt")
-            Dim dtt As String = Reader.ReadToEnd
-            Reader.Close()
-            File.Delete(TempPath & "\dt.txt")
-            If My.Resources._date <> dtt Then
-                lklb_Update.Text = "New Update Available! " & dtt
-                lklb_Update.Show()
-            Else
-                lklb_Update.Hide()
-            End If
-        Else
-            lklb_Update.Hide()
-        End If
-        File.Delete(TempPath & "\date.txt")
-#End If
-    End Sub
-
-    'Link to Update version
-    Private Sub Lklb_Update_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Update.LinkClicked
-        If My.Computer.Network.IsAvailable And Pinger() Then
-            Process.Start("https://github.com/RenegadeRaven/VB-TicTacToe/releases/latest")
-        Else
-            MsgBox(LangRes.GetString("No Internet connection") & "
-" & LangRes.GetString("NoUpdate"), 1,,,, LangRes.GetString("Error") & " 404")
-        End If
-    End Sub
-
-    'Link the Author's, yours truly, Github Page
-    Private Sub Lklb_Author_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Author.LinkClicked
-        If My.Computer.Network.IsAvailable And Pinger() Then
-            Process.Start("https://github.com/RenegadeRaven")
-        Else
-            MsgBox(LangRes.GetString("No Internet connection") & "
-" & LangRes.GetString("LookMeUp"), 1,,,, LangRes.GetString("Error") & " 404")
-        End If
-    End Sub
-
-    'PayPal Donate Button
-    Private Sub Pb_Donate_Click(sender As Object, e As EventArgs) Handles pb_Donate.Click, tsmi_Donate.Click
-        Thread.Sleep(200)
-        If My.Computer.Network.IsAvailable And Pinger() Then
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UGSCC5VGSGN3E")
-        Else
-            MsgBox(LangRes.GetString("No Internet connection") & "
-" & LangRes.GetString("Gesture"), 1,,,, LangRes.GetString("Error") & " 404")
-        End If
-    End Sub
-    Private Sub Pb_Donate_MouseDown(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseDown
-        pb_Donate.Image = My.Resources.ppdbs
-    End Sub
-    Private Sub Pb_Donate_MouseUp(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseUp
-        pb_Donate.Image = Nothing
-    End Sub
-    Private Function Pinger()
+#Region "Internet"
+    'Check for Internet connection by ping
+    Private Function PingCheck()
         Try
-            Return My.Computer.Network.Ping("2607:f8b0:400b:802::200e")
+            Return My.Computer.Network.Ping("8.8.8.8")
         Catch
             Return False
         End Try
     End Function
+
+    'Check For Update
+    Private Sub UpdateCheck()
+        Dim versionFile As String = "\TicTacToe-Version.txt"
+        Dim versionDateFile As String = "\TicTacToe-VersionDate.txt"
+
+        If File.Exists(sysTemp & versionFile) Then File.Delete(sysTemp & versionFile)
+        If File.Exists(sysTemp & versionDateFile) Then File.Delete(sysTemp & versionFile)
+#If DEBUG Then
+        File.WriteAllText(exeDirectory & "..\..\..\version.txt", My.Application.Info.Version.ToString)
+        '        File.WriteAllText(exeDirectory & "..\..\..\version.json", "{
+        '" & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
+        '}")
+        If My.Computer.Network.IsAvailable And PingCheck() Then
+            My.Computer.Network.DownloadFile(repoUpdateURL & "version.txt", sysTemp & versionFile)
+            If File.Exists(sysTemp & versionFile) Then
+                Dim fileReader As New IO.StreamReader(sysTemp & versionFile)
+                Dim version As String = fileReader.ReadToEnd
+                fileReader.Close()
+                File.Delete(sysTemp & versionFile)
+                If Application.ProductVersion <> version Then
+                    File.WriteAllText(projResources & "/date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
+                End If
+            End If
+        End If
+        lklb_Update.Hide()
+#Else
+        Me.Text = "TicTacToe (" & My.Resources._date & ")"
+        If My.Computer.Network.IsAvailable And PingCheck() Then
+            Try
+                My.Computer.Network.DownloadFile(repoUpdateURL & "Resources/date.txt", sysTemp & versionDateFile)
+                If File.Exists(sysTemp & versionDateFile) Then
+                    Dim fileReader As New IO.StreamReader(sysTemp & versionDateFile)
+                    Dim versionDate As String = fileReader.ReadToEnd
+                    fileReader.Close()
+                    File.Delete(sysTemp & versionDateFile)
+                    If My.Resources._date <> versionDate Then
+                        lklb_Update.Text = "New Update Available! " & versionDate
+                        lklb_Update.Show()
+                    Else
+                        lklb_Update.Hide()
+                    End If
+                End If
+            Catch
+                File.WriteAllText(sysTemp & versionDateFile, " ")
+            End Try
+        Else
+            lklb_Update.Hide()
+        End If
+        File.Delete(sysTemp & "\date.txt")
+#End If
+    End Sub
+
+    'Link to Update version
+    Private Sub lklb_Update_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Update.LinkClicked
+        If My.Computer.Network.IsAvailable And PingCheck() Then
+            Process.Start("https://github.com/RenegadeRaven/VB-TicTacToe/releases/latest")
+        Else
+            MsgBox(localizationLanguage.GetString("No Internet connection") & "
+" & localizationLanguage.GetString("NoUpdate"), 1,,,, localizationLanguage.GetString("Error") & " 404")
+        End If
+    End Sub
+
+    'Link the Author's, yours truly, Github Page
+    Private Sub lklb_Author_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lklb_Author.LinkClicked
+        If My.Computer.Network.IsAvailable And PingCheck() Then
+            Process.Start("https://github.com/RenegadeRaven")
+        Else
+            MsgBox(localizationLanguage.GetString("No Internet connection") & "
+" & localizationLanguage.GetString("LookMeUp"), 1,,,, localizationLanguage.GetString("Error") & " 404")
+        End If
+    End Sub
+
+    'PayPal Donate Button
+    Private Sub pb_Donate_Click(sender As Object, e As EventArgs) Handles pb_Donate.Click, tsmi_Donate.Click
+        'Thread.Sleep(200)
+        If My.Computer.Network.IsAvailable And PingCheck() Then
+            Process.Start("https://www.paypal.com/donate/?hosted_button_id=V3U6Q93MJ9MZC")
+        Else
+            MsgBox(localizationLanguage.GetString("No Internet connection") & "
+" & localizationLanguage.GetString("Gesture"), 1,,,, localizationLanguage.GetString("Error") & " 404")
+        End If
+    End Sub
+    Private Sub pb_Donate_MouseDown(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseDown
+        pb_Donate.Image = My.Resources.ppdbs
+    End Sub
+    Private Sub pb_Donate_MouseUp(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseUp
+        pb_Donate.Image = Nothing
+    End Sub
+
 #End Region
 #Region "Startup"
     'Creates Local Files and Folders
@@ -133,7 +158,7 @@ Public Class Main
             For i = 0 To UBound(dirs) Step 1
                 If dirs(i).Contains(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) Then
                 Else
-                    dirs(i) = Local & dirs(i)
+                    dirs(i) = userLocal & dirs(i)
                 End If
                 Do While Not Directory.Exists(dirs(i))
                     If Not Directory.Exists(dirs(i)) Then Directory.CreateDirectory(dirs(i))
@@ -148,7 +173,7 @@ Public Class Main
             For i = 0 To UBound(files) Step 1
                 If files(i, 0).Contains(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) Then
                 Else
-                    files(i, 0) = Local & files(i, 0)
+                    files(i, 0) = userLocal & files(i, 0)
                 End If
                 If File.Exists(files(i, 0)) And (File.ReadAllText(files(i, 0)) <> files(i, 1)) Then
                     File.Delete(files(i, 0))
@@ -170,12 +195,11 @@ Public Class Main
 
     'Checks Local Folders
     Private Sub CheckLocal()
-        Dim locals As String() = {Local}
+        Dim locals As String() = {userLocal}
         CreateFolders(locals)
-        'CreateFiles({{Local & "\Languages\English.json", My.Resources.English}, {Local & "\Languages\Français.json", My.Resources.Français}})
 
-        If Not File.Exists(Local & "\settings.xml") Then WriteSettings()
-        ReadSettings()
+        If Not File.Exists(userLocal & "\settings.xml") Then writeSettings()
+        readSettings()
     End Sub
 
 #End Region
@@ -186,26 +210,26 @@ Public Class Main
         My.Settings.Language = tscb_Languages.Text
         Select Case tscb_Languages.Text
             Case "English"
-                LangRes = New Resources.ResourceManager("TicTacToe.English", Reflection.Assembly.GetExecutingAssembly())
+                localizationLanguage = New Resources.ResourceManager("TicTacToe.English", Reflection.Assembly.GetExecutingAssembly())
                 lklb_Author.Location = New Point(14, 246)
             Case "Français"
-                LangRes = New Resources.ResourceManager("TicTacToe.Français", Reflection.Assembly.GetExecutingAssembly())
+                localizationLanguage = New Resources.ResourceManager("TicTacToe.Français", Reflection.Assembly.GetExecutingAssembly())
                 lklb_Author.Location = New Point(18, 246)
         End Select
 
-        lklb_Update.Text = LangRes.GetString("Update")
-        lb_By.Text = LangRes.GetString("By")
+        lklb_Update.Text = localizationLanguage.GetString("Update")
+        lb_By.Text = localizationLanguage.GetString("By")
 
-        lb_BoardDraw.Text = LangRes.GetString("Draw Text")
-        bt_NewGame.Text = LangRes.GetString("NewGame") & ": " & (Score.totalGames + 1)
-        bt_Restart.Text = LangRes.GetString("Restart")
-        bt_Close.Text = LangRes.GetString("Close")
-        tsmi_InvertColours.Text = LangRes.GetString("InvertColors")
-        tsmi_Mute.Text = LangRes.GetString("Mute")
-        tsmi_Language.Text = LangRes.GetString("Language")
-        tsmi_Score.Text = LangRes.GetString("Score")
-        tsmi_Percentage.Text = LangRes.GetString("Percent")
-        tsmi_Points.Text = LangRes.GetString("Points")
+        lb_BoardDraw.Text = localizationLanguage.GetString("Draw Text")
+        bt_NewGame.Text = localizationLanguage.GetString("NewGame") & ": " & (Score.totalGames + 1)
+        bt_Restart.Text = localizationLanguage.GetString("Restart")
+        bt_Close.Text = localizationLanguage.GetString("Close")
+        tsmi_InvertColours.Text = localizationLanguage.GetString("InvertColors")
+        tsmi_Mute.Text = localizationLanguage.GetString("Mute")
+        tsmi_Language.Text = localizationLanguage.GetString("Language")
+        tsmi_Score.Text = localizationLanguage.GetString("Score")
+        tsmi_Percentage.Text = localizationLanguage.GetString("Percent")
+        tsmi_Points.Text = localizationLanguage.GetString("Points")
         turnText()
         Me.Refresh()
     End Sub
@@ -393,7 +417,7 @@ Public Class Main
         My.Settings.Score = "Percent"
         updateScore()
     End Sub
-    Public Sub updateScore()
+    Public Sub UpdateScore()
         If tsmi_Points.Checked = True Then
             lb_ScoreX.Text = Score.pointsX
             lb_ScoreO.Text = Score.pointsO
@@ -408,7 +432,7 @@ Public Class Main
     Private Sub tsmi_Mute_Click(sender As Object, e As EventArgs) Handles tsmi_Mute.Click
         My.Settings.Mute = tsmi_Mute.Checked
     End Sub
-    Public Sub playSFX(sfx)
+    Public Sub PlaySFX(sfx)
         If tsmi_Mute.Checked <> True Then My.Computer.Audio.Play(sfx, AudioPlayMode.Background)
     End Sub
 
@@ -416,7 +440,7 @@ Public Class Main
         My.Settings.DarkMode = tsmi_InvertColours.Checked
         invertColor()
     End Sub
-    Public Sub invertColor()
+    Public Sub InvertColor()
         Select Case tsmi_InvertColours.Checked
             Case True
                 Me.BackColor = SystemColors.ControlText

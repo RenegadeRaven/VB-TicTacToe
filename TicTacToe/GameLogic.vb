@@ -7,7 +7,7 @@
     Public highlightColor As Color = Color.PaleGreen
 
     Public Sub selPlayer()
-        Select Case MsgBox(Main.LangRes.GetString("PlayerPiece"), 2, "X", "O",, Main.LangRes.GetString("PieceSelection"))
+        Select Case MsgBox(Main.localizationLanguage.GetString("PlayerPiece"), 2, "X", "O",, Main.localizationLanguage.GetString("PieceSelection"))
             Case 6 'Si joueur 1 soit X
                 player1Piece = GameBoard.PlayedX
                 player2Piece = GameBoard.PlayedO
@@ -18,7 +18,7 @@
         End Select
     End Sub 'La Selection de soit X ou O
     Public Sub selOpponent()
-        Select Case MsgBox(Main.LangRes.GetString("PlayerSelect"), 2, Main.LangRes.GetString("PC"), Main.LangRes.GetString("AnotherPlayer"),, Main.LangRes.GetString("PlayerSelection"))
+        Select Case MsgBox(Main.localizationLanguage.GetString("PlayerSelect"), 2, Main.localizationLanguage.GetString("PC"), Main.localizationLanguage.GetString("AnotherPlayer"),, Main.localizationLanguage.GetString("PlayerSelection"))
             Case 6 'Si jouer contre l'ordis
                 ordPlay = True
             Case 7 'Si jouer contre un autre joueur
@@ -29,9 +29,9 @@
     Public Sub turnText()
         Select Case checkTurn()
             Case 0 'Si c'est le tour de X
-                Main.Label1.Text = Main.LangRes.GetString("X Turn")
+                Main.Label1.Text = Main.localizationLanguage.GetString("X Turn")
             Case 1 'Si c'est le tour de O
-                Main.Label1.Text = Main.LangRes.GetString("O Turn")
+                Main.Label1.Text = Main.localizationLanguage.GetString("O Turn")
         End Select
     End Sub 'Change la text de tour
     Public Function checkTurn()
@@ -52,10 +52,10 @@
     Private Sub whoWon(Spot As Byte)
         Select Case Spot
             Case GameBoard.PlayedX
-                Main.Label1.Text = Main.LangRes.GetString("X wins")
+                Main.Label1.Text = Main.localizationLanguage.GetString("X wins")
                 Score.pointsX += 1
             Case GameBoard.PlayedO
-                Main.Label1.Text = Main.LangRes.GetString("O wins")
+                Main.Label1.Text = Main.localizationLanguage.GetString("O wins")
                 Score.pointsO += 1
         End Select
         Main.playSFX(My.Resources.point)
@@ -112,7 +112,7 @@
             freezeGame()
             whoWon(Game.CenterMiddle)
         ElseIf checkDraw() Then
-            Main.Label1.Text = Main.LangRes.GetString("Draw Text")
+            Main.Label1.Text = Main.localizationLanguage.GetString("Draw Text")
             Score.pointsDraw += 1
             Score.totalGames += 1
             freezeGame()
@@ -149,7 +149,7 @@
         Main.pb_BottomRight.BackgroundImage = Nothing
 
         Main.invertColor()
-        Main.bt_NewGame.Text = Main.LangRes.GetString("NewGame").ToString() & ": " & (Score.totalGames + 1)
+        Main.bt_NewGame.Text = Main.localizationLanguage.GetString("NewGame").ToString() & ": " & (Score.totalGames + 1)
         turnText()
     End Sub 'Nouveau jeu
 End Module

@@ -1,7 +1,20 @@
+# Ignore everything. This is to ignore compiled C programs that have no extension
+*
+
+# Whitelist files with extensions, directories, and makefiles
+!*.*
+!*/
+!makefile
+
+# Blacklist
 \.vs
-\TicTacToe\obj
-\TicTacToe\bin
-\obj
-\bin
+*\obj
+*\bin
+*.class
+*.zip
+*.o
+*.docx
+*.pdf
+*.html
 *.pfx
 *.exe

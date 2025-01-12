@@ -315,7 +315,7 @@
 #End Region
             Else
 #Region "Random"
-                Select Case rndNum(5)
+                Select Case rndNum(6)
                     Case 1
                         ordMove = 1
                     Case 2

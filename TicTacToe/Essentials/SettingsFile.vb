@@ -4,22 +4,22 @@ Module SettingsFile
 
     Public Sub ReadSettings()
         Settings = New XmlDocument
-        Settings.Load(Main.Local & "\settings.xml")
-        My.Settings.Language = GetValue("Language")
-        My.Settings.DarkMode = GetValue("DarkMode")
-        My.Settings.Mute = GetValue("Mute")
-        My.Settings.Score = GetValue("Score")
+        Settings.Load(Main.userLocal & "\settings.xml")
+        My.Settings.Language = getValue("Language")
+        My.Settings.DarkMode = getValue("DarkMode")
+        My.Settings.Mute = getValue("Mute")
+        My.Settings.Score = getValue("Score")
     End Sub
     Private Function GetValue(SettingName) As String
         Return Settings.SelectSingleNode("Settings/" & SettingName).InnerText
     End Function
     Public Sub WriteSettings()
-        If Not IO.File.Exists(Main.Local & "\settings.xml") Then CreateSettings()
-        SetValue("Language", My.Settings.Language)
-        SetValue("DarkMode", My.Settings.DarkMode)
-        SetValue("Mute", My.Settings.Mute)
-        SetValue("Score", My.Settings.Score)
-        Settings.Save(Main.Local & "\settings.xml")
+        If Not IO.File.Exists(Main.userLocal & "\settings.xml") Then createSettings()
+        setValue("Language", My.Settings.Language)
+        setValue("DarkMode", My.Settings.DarkMode)
+        setValue("Mute", My.Settings.Mute)
+        setValue("Score", My.Settings.Score)
+        Settings.Save(Main.userLocal & "\settings.xml")
     End Sub
     Private Sub SetValue(SettingName As String, SettingValue As String)
         Dim SettingNode As XmlElement
