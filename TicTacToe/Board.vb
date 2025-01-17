@@ -13,6 +13,13 @@
             Game(i) = Playable
         Next
     End Sub
+    Public Function GameToString()
+        Dim msg As String = ""
+        For Each i As Byte In Game
+            msg += i & ", "
+        Next
+        Return msg
+    End Function
 
     Public ReadOnly Property TopRow As Byte()
         Get

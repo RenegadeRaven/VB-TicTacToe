@@ -262,7 +262,7 @@ Partial Class Main
         'pb_Donate
         '
         Me.pb_Donate.BackColor = System.Drawing.SystemColors.Control
-        Me.pb_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.ppdb
+        Me.pb_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.paypalDonateButton
         resources.ApplyResources(Me.pb_Donate, "pb_Donate")
         Me.pb_Donate.Cursor = System.Windows.Forms.Cursors.Hand
         Me.pb_Donate.Name = "pb_Donate"
@@ -338,7 +338,7 @@ Partial Class Main
         '
         'tsmi_Donate
         '
-        Me.tsmi_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.ppdb
+        Me.tsmi_Donate.BackgroundImage = Global.TicTacToe.My.Resources.Resources.paypalDonateButton
         resources.ApplyResources(Me.tsmi_Donate, "tsmi_Donate")
         Me.tsmi_Donate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.tsmi_Donate.Name = "tsmi_Donate"

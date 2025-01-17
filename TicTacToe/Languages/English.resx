@@ -229,6 +229,10 @@
     <value>New Update Available!</value>
     <comment>Control lklb</comment>
   </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update Check Failed</value>
+    <comment>updateCheck</comment>
+  </data>
   <data name="X Turn" xml:space="preserve">
     <value>It's X's Turn</value>
     <comment>Control lb</comment>

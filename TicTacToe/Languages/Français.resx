@@ -229,6 +229,10 @@
     <value>Nouvelle mise à jour disponible!</value>
     <comment>Control lklb</comment>
   </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Vérification de la mise à jour a échoué</value>
+    <comment>updateCheck</comment>
+  </data>
   <data name="X Turn" xml:space="preserve">
     <value>C'est le tour de X</value>
     <comment>Control lb</comment>

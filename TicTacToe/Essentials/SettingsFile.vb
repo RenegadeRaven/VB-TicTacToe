@@ -1,4 +1,5 @@
 ﻿Imports System.Xml
+
 Module SettingsFile
     Dim Settings As XmlDocument
 

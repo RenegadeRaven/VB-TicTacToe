@@ -11,14 +11,14 @@ Public Class Main
     'Application Startup Sequence
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Generate and Verify Local App Folder
-        checkLocal()
+        CheckLocal()
 
         'Pull desired language from settings and apply it
         tscb_Languages.Text = My.Settings.Language
-        checkLang()
+        CheckLanguage()
 
         'Check for Updates
-        updateCheck()
+        UpdateCheck()
 
         'Let user pick their piece and opponent
         selPlayer()
@@ -48,7 +48,7 @@ Public Class Main
     'Application Close Sequence
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         'Write Settings File
-        writeSettings()
+        WriteSettings()
     End Sub
 
 #Region "Internet"
@@ -63,53 +63,75 @@ Public Class Main
 
     'Check For Update
     Private Sub UpdateCheck()
+        'File Names
         Dim versionFile As String = "\TicTacToe-Version.txt"
         Dim versionDateFile As String = "\TicTacToe-VersionDate.txt"
 
+        'Check if files from a previous check exist
         If File.Exists(sysTemp & versionFile) Then File.Delete(sysTemp & versionFile)
         If File.Exists(sysTemp & versionDateFile) Then File.Delete(sysTemp & versionFile)
-#If DEBUG Then
-        File.WriteAllText(exeDirectory & "..\..\..\version.txt", My.Application.Info.Version.ToString)
-        '        File.WriteAllText(exeDirectory & "..\..\..\version.json", "{
-        '" & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
-        '}")
+
+#If DEBUG Then 'In DEBUG create the update files
+        'Check for Internet
         If My.Computer.Network.IsAvailable And PingCheck() Then
+            'Download latest release version number
             My.Computer.Network.DownloadFile(repoUpdateURL & "version.txt", sysTemp & versionFile)
+
+            'Check for successful download
             If File.Exists(sysTemp & versionFile) Then
+                'Read file
                 Dim fileReader As New IO.StreamReader(sysTemp & versionFile)
                 Dim version As String = fileReader.ReadToEnd
                 fileReader.Close()
                 File.Delete(sysTemp & versionFile)
+
+                'Compare version
                 If Application.ProductVersion <> version Then
-                    File.WriteAllText(projResources & "/date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
+                    'Write new version and date text files
+                    File.WriteAllText(exeDirectory & "..\..\..\version.txt", My.Application.Info.Version.ToString)
+                    '        File.WriteAllText(exeDirectory & "..\..\..\version.json", "{
+                    '" & ControlChars.Quote & "version" & ControlChars.Quote & ": " & ControlChars.Quote & My.Application.Info.Version.ToString & ControlChars.Quote & "
+                    '}")
+                    File.WriteAllText(projResources & "\date.txt", (System.DateTime.Today.Year & "/" & System.DateTime.Today.Month & "/" & System.DateTime.Today.Day))
                 End If
             End If
         End If
+
+        'Hide update link
         lklb_Update.Hide()
-#Else
+
+#Else 'Otherwise check for update
         Me.Text = "TicTacToe (" & My.Resources._date & ")"
+        'Check for Internet
         If My.Computer.Network.IsAvailable And PingCheck() Then
+            'Attempt a Download of the latest release version date
             Try
                 My.Computer.Network.DownloadFile(repoUpdateURL & "Resources/date.txt", sysTemp & versionDateFile)
-                If File.Exists(sysTemp & versionDateFile) Then
-                    Dim fileReader As New IO.StreamReader(sysTemp & versionDateFile)
-                    Dim versionDate As String = fileReader.ReadToEnd
-                    fileReader.Close()
-                    File.Delete(sysTemp & versionDateFile)
-                    If My.Resources._date <> versionDate Then
-                        lklb_Update.Text = "New Update Available! " & versionDate
-                        lklb_Update.Show()
-                    Else
-                        lklb_Update.Hide()
-                    End If
-                End If
             Catch
-                File.WriteAllText(sysTemp & versionDateFile, " ")
+                MsgBox(localizationLanguage.GetString("UpdateFailed") & "
+" & localizationLanguage.GetString("NoUpdate"), 1,,,, localizationLanguage.GetString("Error") & " 418")
             End Try
+
+            'Check for successful download
+            If File.Exists(sysTemp & versionDateFile) Then
+                'Read file
+                Dim fileReader As New IO.StreamReader(sysTemp & versionDateFile)
+                Dim versionDate As String = fileReader.ReadToEnd
+                fileReader.Close()
+                File.Delete(sysTemp & versionDateFile)
+
+                'Compare version
+                If My.Resources._date <> versionDate Then
+                    lklb_Update.Text = "New Update Available! " & versionDate
+                    lklb_Update.Show()
+                Else
+                    lklb_Update.Hide()
+                End If
+            End If
         Else
+            'Hide update link
             lklb_Update.Hide()
         End If
-        File.Delete(sysTemp & "\date.txt")
 #End If
     End Sub
 
@@ -143,71 +165,26 @@ Public Class Main
 " & localizationLanguage.GetString("Gesture"), 1,,,, localizationLanguage.GetString("Error") & " 404")
         End If
     End Sub
+
+    'PayPal Donate Button Effect
     Private Sub pb_Donate_MouseDown(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseDown
-        pb_Donate.Image = My.Resources.ppdbs
+        pb_Donate.Image = My.Resources.paypalDonateButtonShadow
     End Sub
     Private Sub pb_Donate_MouseUp(sender As Object, e As MouseEventArgs) Handles pb_Donate.MouseUp
         pb_Donate.Image = Nothing
     End Sub
-
-#End Region
-#Region "Startup"
-    'Creates Local Files and Folders
-    Private Sub CreateFolders(ByVal dirs As String())
-        Try
-            For i = 0 To UBound(dirs) Step 1
-                If dirs(i).Contains(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) Then
-                Else
-                    dirs(i) = userLocal & dirs(i)
-                End If
-                Do While Not Directory.Exists(dirs(i))
-                    If Not Directory.Exists(dirs(i)) Then Directory.CreateDirectory(dirs(i))
-                Loop
-            Next i
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-    Private Sub CreateFiles(ByVal files(,))
-        Try
-            For i = 0 To UBound(files) Step 1
-                If files(i, 0).Contains(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)) Then
-                Else
-                    files(i, 0) = userLocal & files(i, 0)
-                End If
-                If File.Exists(files(i, 0)) And (File.ReadAllText(files(i, 0)) <> files(i, 1)) Then
-                    File.Delete(files(i, 0))
-                End If
-                Do While Not File.Exists(files(i, 0))
-                    If Not File.Exists(files(i, 0)) Then
-                        If TypeOf files(i, 1) Is String Then
-                            File.WriteAllText(files(i, 0), files(i, 1))
-                        Else
-                            File.WriteAllBytes(files(i, 0), files(i, 1))
-                        End If
-                    End If
-                Loop
-            Next i
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    'Checks Local Folders
-    Private Sub CheckLocal()
-        Dim locals As String() = {userLocal}
-        CreateFolders(locals)
-
-        If Not File.Exists(userLocal & "\settings.xml") Then writeSettings()
-        readSettings()
-    End Sub
-
 #End Region
 
 #Region "Language"
-    Private Sub CheckLang()
-        If (My.Settings.Language <> tscb_Languages.Items.Item(0).ToString()) And (My.Settings.Language <> tscb_Languages.Items.Item(1).ToString()) Then LangBox()
+    'Verify and Update language on forms
+    Private Sub CheckLanguage()
+        'Check if language is not valid
+        If Not tscb_Languages.Items.Contains(My.Settings.Language) Then LangBox()
+
+        'Reflect setting in ComboBox
         My.Settings.Language = tscb_Languages.Text
+
+        'Get language resource and correct language specific differences
         Select Case tscb_Languages.Text
             Case "English"
                 localizationLanguage = New Resources.ResourceManager("TicTacToe.English", Reflection.Assembly.GetExecutingAssembly())
@@ -217,9 +194,9 @@ Public Class Main
                 lklb_Author.Location = New Point(18, 246)
         End Select
 
+        'Update text on Controls
         lklb_Update.Text = localizationLanguage.GetString("Update")
         lb_By.Text = localizationLanguage.GetString("By")
-
         lb_BoardDraw.Text = localizationLanguage.GetString("Draw Text")
         bt_NewGame.Text = localizationLanguage.GetString("NewGame") & ": " & (Score.totalGames + 1)
         bt_Restart.Text = localizationLanguage.GetString("Restart")
@@ -230,167 +207,98 @@ Public Class Main
         tsmi_Score.Text = localizationLanguage.GetString("Score")
         tsmi_Percentage.Text = localizationLanguage.GetString("Percent")
         tsmi_Points.Text = localizationLanguage.GetString("Points")
+
+        'Update Turn Text
         turnText()
+
+        'Refresh form
         Me.Refresh()
     End Sub
-    Private Sub ChangeLang() Handles tscb_Languages.TextChanged, tscb_Languages.SelectedIndexChanged, tscb_Languages.TextUpdate
+
+    'Save and process change in langauge
+    Private Sub ChangeLanguage() Handles tscb_Languages.TextChanged, tscb_Languages.SelectedIndexChanged, tscb_Languages.TextUpdate
         My.Settings.Language = tscb_Languages.Text
-        CheckLang()
+        CheckLanguage()
     End Sub
 #End Region
 
 #Region "PicBoxes"
-    Private Sub pb_TopLeft_Click(sender As Object, e As EventArgs) Handles pb_TopLeft.Click
-        If Game.TopLeft = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
+    Private Sub PictureBoxClicked(ByRef pictureBox As PictureBox, ByRef GameSquare As Byte)
+        If GameSquare = GameBoard.Playable Then
+            PlaySFX(My.Resources.drop)
             Select Case checkTurn()
                 Case 1
-                    pb_TopLeft.BackgroundImage = My.Resources.O
-                    Game.TopLeft = GameBoard.PlayedO
+                    pictureBox.BackgroundImage = My.Resources.O
+                    GameSquare = GameBoard.PlayedO
                 Case 0
-                    pb_TopLeft.BackgroundImage = My.Resources.X
-                    Game.TopLeft = GameBoard.PlayedX
+                    pictureBox.BackgroundImage = My.Resources.X
+                    GameSquare = GameBoard.PlayedX
             End Select
             turnIncrement()
             ordTurn = True
-            checkWin()
         End If
+    End Sub
+    Private Sub pb_TopLeft_Click(sender As Object, e As EventArgs) Handles pb_TopLeft.Click
+        Dim SquareState As Byte = Game.TopLeft
+        PictureBoxClicked(pb_TopLeft, SquareState)
+        Game.TopLeft = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_TopMiddle_Click(sender As Object, e As EventArgs) Handles pb_TopMiddle.Click
-        If Game.TopMiddle = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_TopMiddle.BackgroundImage = My.Resources.O
-                    Game.TopMiddle = GameBoard.PlayedO
-                Case 0
-                    pb_TopMiddle.BackgroundImage = My.Resources.X
-                    Game.TopMiddle = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.TopMiddle
+        PictureBoxClicked(pb_TopMiddle, SquareState)
+        Game.TopMiddle = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_TopRight_Click(sender As Object, e As EventArgs) Handles pb_TopRight.Click
-        If Game.TopRight = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_TopRight.BackgroundImage = My.Resources.O
-                    Game.TopRight = GameBoard.PlayedO
-                Case 0
-                    pb_TopRight.BackgroundImage = My.Resources.X
-                    Game.TopRight = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.TopRight
+        PictureBoxClicked(pb_TopRight, SquareState)
+        Game.TopRight = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_CenterLeft_Click(sender As Object, e As EventArgs) Handles pb_CenterLeft.Click
-        If Game.CenterLeft = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_CenterLeft.BackgroundImage = My.Resources.O
-                    Game.CenterLeft = GameBoard.PlayedO
-                Case 0
-                    pb_CenterLeft.BackgroundImage = My.Resources.X
-                    Game.CenterLeft = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.CenterLeft
+        PictureBoxClicked(pb_CenterLeft, SquareState)
+        Game.CenterLeft = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_CenterMiddle_Click(sender As Object, e As EventArgs) Handles pb_CenterMiddle.Click
-        If Game.CenterMiddle = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_CenterMiddle.BackgroundImage = My.Resources.O
-                    Game.CenterMiddle = GameBoard.PlayedO
-                Case 0
-                    pb_CenterMiddle.BackgroundImage = My.Resources.X
-                    Game.CenterMiddle = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.CenterMiddle
+        PictureBoxClicked(pb_CenterMiddle, SquareState)
+        Game.CenterMiddle = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_CenterRight_Click(sender As Object, e As EventArgs) Handles pb_CenterRight.Click
-        If Game.CenterRight = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_CenterRight.BackgroundImage = My.Resources.O
-                    Game.CenterRight = GameBoard.PlayedO
-                Case 0
-                    pb_CenterRight.BackgroundImage = My.Resources.X
-                    Game.CenterRight = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.CenterRight
+        PictureBoxClicked(pb_CenterRight, SquareState)
+        Game.CenterRight = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_BottomLeft_Click(sender As Object, e As EventArgs) Handles pb_BottomLeft.Click
-        If Game.BottomLeft = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_BottomLeft.BackgroundImage = My.Resources.O
-                    Game.BottomLeft = GameBoard.PlayedO
-                Case 0
-                    pb_BottomLeft.BackgroundImage = My.Resources.X
-                    Game.BottomLeft = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.BottomLeft
+        PictureBoxClicked(pb_BottomLeft, SquareState)
+        Game.BottomLeft = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_BottomMiddle_Click(sender As Object, e As EventArgs) Handles pb_BottomMiddle.Click
-        If Game.BottomMiddle = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_BottomMiddle.BackgroundImage = My.Resources.O
-                    Game.BottomMiddle = GameBoard.PlayedO
-                Case 0
-                    pb_BottomMiddle.BackgroundImage = My.Resources.X
-                    Game.BottomMiddle = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.BottomMiddle
+        PictureBoxClicked(pb_BottomMiddle, SquareState)
+        Game.BottomMiddle = SquareState
+        checkWin()
     End Sub
 
     Private Sub pb_BottomRight_Click(sender As Object, e As EventArgs) Handles pb_BottomRight.Click
-        If Game.BottomRight = GameBoard.Playable Then
-            playSFX(My.Resources.drop)
-            Select Case checkTurn()
-                Case 1
-                    pb_BottomRight.BackgroundImage = My.Resources.O
-                    Game.BottomRight = GameBoard.PlayedO
-                Case 0
-                    pb_BottomRight.BackgroundImage = My.Resources.X
-                    Game.BottomRight = GameBoard.PlayedX
-            End Select
-            turnIncrement()
-            ordTurn = True
-            checkWin()
-        End If
+        Dim SquareState As Byte = Game.BottomRight
+        PictureBoxClicked(pb_BottomRight, SquareState)
+        Game.BottomRight = SquareState
+        checkWin()
     End Sub
 #End Region
 
@@ -399,7 +307,7 @@ Public Class Main
     End Sub
 
     Private Sub bt_Close_Click(sender As Object, e As EventArgs) Handles bt_Close.Click
-        Me.Close()
+        Application.Exit()
     End Sub
 
     Private Sub bt_Restart_Click(sender As Object, e As EventArgs) Handles bt_Restart.Click

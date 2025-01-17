@@ -594,7 +594,7 @@
   <data name="O" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEIAAABCCAYAAADjVADoAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAiMSURBVHhe1Ztb
+        wQAADsEBuJFr7QAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAiMSURBVHhe1Ztb
         T5RHGMc9pvGwiaSxV5rGNlHAZeW4KOLCqrCwIoi6B8AIEgSplUMIuGjXgudkG29qvGyTXvJB+AJ+AvsV
         vGtsns5/hlneXZ5dZ9498PbiF2WY5/g+M/PMu8seIqo86+sxSiSIOjqIzp0jqqsjOnOGB79rbia6dImk
         DGQ5nWWGHSyJWOyICKaGJieJLlwg8vtVcA0NRI2NKsi2tuJgDuZqWfyLxNy/T1RfX0PJ5BHWdgmwg9Zk
@@ -1026,7 +1026,7 @@
   <data name="X" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEIAAABCCAYAAADjVADoAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAl6SURBVHhe1ZxZ
+        wQAADsEBuJFr7QAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMzQDW3oAAAl6SURBVHhe1ZxZ
         bFVFGMdt2UoXlgQSlcQHWRQoorK4IKAIxZa6UNwlbGKqCRAoCBETA7GSGDSxpWUtLV0opYC0YinyYBAi
         RoWYQKKPGh8gCtXQB3mg5PP/P3bKuaffvefcObf0+vCjvdMz33zzn29mvjnnXO4QEV8er8C/Snmys7pV
         fh9fjt+Uv3lRCw0wkpZdLn9M2C7y6B65/HS1DNCuSza2fiv915yQ6gd3iDy8U2TKbvnzkT2Spl1rUAvJ
@@ -1359,10 +1359,10 @@
 </value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ppdb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="paypalDonateButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ppdb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ppdbs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="paypalDonateButtonShadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ppdbs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="date" type="System.Resources.ResXFileRef, System.Windows.Forms">
